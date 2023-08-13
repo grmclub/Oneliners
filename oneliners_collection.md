@@ -1,17 +1,17 @@
 
--- Bash
-https://www.bashoneliners.com/
-https://www.thegeekstuff.com/2010/09/linux-one-liners/
-https://github.com/onceupon/Bash-Oneliner
--------------------------------------------------------------
--- awk
-https://softpanorama.org/Tools/Awk/awk_regular_expressions.shtml
+-- bash <br />
+https://www.bashoneliners.com/  <br />
+https://www.thegeekstuff.com/2010/09/linux-one-liners/  <br />
+https://github.com/onceupon/Bash-Oneliner  <br />
 
 -------------------------------------------------------------
+-- awk<br />
+https://softpanorama.org/Tools/Awk/awk_regular_expressions.shtml  <br />
 
--- perl
-https://softpanorama.org/Scripting/Perlbook/Ch05/index.shtml
-https://gist.github.com/joyrexus/7328094#file-readme-md
-https://learnbyexample.github.io/learn_perl_oneliners/one-liner-introduction.html
+-------------------------------------------------------------
+-- perl<br />
+https://softpanorama.org/Scripting/Perlbook/Ch05/index.shtml  <br />
+https://gist.github.com/joyrexus/7328094#file-readme-md  <br />
+https://learnbyexample.github.io/learn_perl_oneliners/one-liner-introduction.html  <br />
 
 -------------------------------------------------------------
