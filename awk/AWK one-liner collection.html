@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AWK one-liner collection</title>
+<style type="text/css">
+div.pb  { 
+	background-color:#eeff99; 
+	color:#000000; 
+	padding:.05em .5em; 
+	margin:.5em; 
+	border:1px solid #99cc44; 
+	border-left:10px solid #99cc44; 
+	font-size: 100%; 
+	white-space:pre; 
+	font-family: Consolas, monospace; 
+	width: 80%; overflow: auto; 
+}
+</style>
+</head>
+<body>
+<h1>AWK one-liner collection</h1>
+I love perl and I use it for most scripts but nothing beats awk on the commandline. 
+AWK is a pattern matching and string processing language named after the surnames of the original authors: Alfred Aho, Peter Weinberger and Brian Kernighan.
+<h3>Print selected fields (at a fixed position)</h3>
+Split up the lines of the file file.txt with ":" (colon) separated fields
+and print the second field ($2) of each line:
+<div class="pb"> awk  -F":" '{print $2}' file.txt
+</div>
+<br>
+Same as above but print only output if the second field ($2) exists
+and is not empty:
+<div class="pb"> awk  -F":" '{if ($2)print $2}' file.txt
+</div>
+<br>
+Print selected fields from each line separated by a dash:
+<div class="pb"> awk -F: '{ print $1 "-" $4 "-" $6 }' file.txt
+</div>
+<br>
+Print the last field in each line:
+<div class="pb"> awk -F: '{ print $NF }' file.txt
+</div>
+<br>
+Print every line and  delete the second field:
+<div class="pb"> awk '{ $2 = ""; print }' file.txt
+</div>
+<br>
+Good to know:
+<ul>
+<li>The commandline option -F sets the field separator. The default is space.
+<li>$0 the entire line without the newline at the end
+<li>$1 to $9, $10 to ..., the fields
+<li>NF number of fields
+<li>NR currant line number (counting across all files for multiple files)
+<li>FNR line number (just for that file)
+</ul>
+<h3>Print selected fields (at a variable position)</h3>
+Sometimes you have delimiter separated fields but the number of fields changes. You want to print a certain field based on the content of a previous field. The linux command "ip route get DstIP" can be used to show the computers own source IP that it uses to go to a certain destination. This printout may take different forms but we are looking for the IP address after the word "src":
+<div class="pb"># ip route get 1.1.1.1
+1.1.1.1 via 10.8.0.2 dev wls1  src 10.8.0.3 
+    cache 
+
+The printout could also look like this:
+
+# ip route get 1.1.1.1
+1.1.1.1 dev wls1  src 10.8.0.3
+    cache
+</div>
+Print the content of a field <b>after</b> the field that contains the string "src":
+<div class="pb"> ip route get 1.1.1.1 | awk '{for(i=1;i&lt;=NF;i++){if($i=="src") print $(i+1)}}'
+</div>
+This will always print the computers "own IP" used for the communication with the public IP 1.1.1.1 (it will return 10.8.0.3 for the above examples).
+<h3>Print matching lines</h3>
+Print field number two ($2) only on lines matching "some regexp" (fiel separator is ":"):
+<div class="pb"> awk  -F":" '/some regexp/{print $2}' file.txt
+</div>
+<br>
+Print lines matching "regexp a" and lines matching "regexp b" but the later ones are printed without newline (note the printf):
+<div class="pb"> awk  '/regexp a/{print};/regexp b/{printf $0}' file.txt
+</div>
+<br>
+Print field number two ($2) only on lines <b>not</b> matching "some regexp" (fiel separator is ":"):
+<div class="pb"> awk  -F":" '!/some regexp/{print $2}' file.txt
+or
+ awk  -F":" '/some regexp/{next;}{print $2}' file.txt 
+</div>
+<br>
+Print field number two ($2) only on lines matching "some regexp" otherwise print field number three ($3) (fiel separator is ":"):
+<div class="pb"> awk  -F":" '/some regexp/{print $2;next}{print $3}' file.txt
+</div>
+The "next" command causes awk to continue with the next line and execute
+"{print $3}" only for non matching lines. This is like <br>
+/regexp/{...if..regexp..matches...;next}{...else...}
+<br>
+<br>
+Print lines where field number two matches regexp (apply regexp only to field 2, not the whole line):
+<div class="pb"> awk '$2 ~ /regexp/{print;}' file.txt
+</div>
+Here is an example parsing the linux "ps aux" command. It has in the eighth column the process state.
+To print all processes that are in running or runnable state you would look for the letter "R" in
+that 8-th column. You want as well to print line 1 of the ps command printout since it contains the
+column header:
+<div class="pb"> ps aux | awk '$8 ~ /R/{print;}NR==1{print}'
+</div>
+<br>
+Print the next two (i=2) lines after the line matching regexp:
+<div class="pb"> awk '/regexp/{i=2;next;}{if(i){i--; print;}}' file.txt
+</div>
+<br>
+Print the line and the next two (i=2) lines after the line matching regexp (this command is the same as: grep -A 2 regexp):
+<div class="pb"> awk '/regexp/{i=2+1;}{if(i){i--; print;}}' file.txt
+</div>
+<br>
+Print the line matching regexp and 12 following lines. Print also any line matching regexp2:
+<div class="pb"> awk '/regexp/{i=12+1}{if(i){i--; print;}}/regexp2/{print}' file.txt
+</div>
+<br>
+AWK ranges: Print the lines from a file starting at the line matching "start" until the line matching "stop":
+<div class="pb"> awk '/start/,/stop/' file.txt
+</div>
+Note: make sure that the stop pattern does not match the start line otherwise only that line will be printed.
+<br>
+<br>
+AWK ranges: Print the lines starting at the line matching "start" until the end of the file:
+<div class="pb"> awk '/start/,0' file.txt
+</div>
+Note: make sure that the stop pattern does not match the start line otherwise only that line will be printed.
+<br>
+<br>
+Sometimes you have a terminal log and it contains "prompt# command" with printouts of "command" in-between.
+You can't use: awk '/command/,/prompt/' log.txt <br>
+to print everything from command to the next prompt because the line where the command is has also a prompt.
+To solve this we can use a state variable and the "next" statement to skip the processing of other statements
+once we found "command". This will print everything from "prompt.*ls" and stop printing at the next prompt:
+<div class="pb"> awk '/prompt.*ls/{s=1;print;next};/prompt/{s=0};s==1{print}' log.txt
+</div>
+Change "prompt" to whatever string appears in your terminal prompt, e.g the hostname.
+<br>
+<br>
+If you want to include the last prompt where to stop printing then try this:
+<br>
+<div class="pb"> awk '/prompt.*ls/{s=1;print;next};s==0{next};{print};/prompt/{s=0};' log.txt
+</div>
+Change "prompt" to whatever string appears in your terminal prompt, e.g the hostname.
+<br>
+<br>
+Print fields 1 and 2 from all lines not matching regexp:
+<div class="pb"> awk '!/regexp/{print $1 " " $2 }' file.txt
+</div>
+<br>
+Print fields 1 and 2 from lines matching regexp1 and not matching regexp2:
+<div class="pb"> awk '/regexp1/&amp;&amp;!/regexp2/{print $1 " " $2 }' file.txt
+</div>
+<br>
+<br>
+Regexp syntax:
+<ul>
+<li> c matches the non-metacharacter c.
+<li> \c matches the literal character c.
+<li> . matches any character including newline.
+<li> ^ matches the beginning of a string (example: ^1 , only lines starting with a one)
+<li> $ matches the end of a string (example: end$ , only lines ending in "end")
+<li> [abc...] character list, matches any of the characters abc....
+<li> [0-9a-zA-Z] range of characters 0-9 and a-z,A-Z
+<li> [^abc...] negated character list, matches any character except abc....
+<li> r1|r2 alternation: matches either r1 or r2.
+<li> r1r2 concatenation: matches r1, and then r2.
+<li> r+ matches one or more r's.
+<li> r* matches zero or more r's.
+<li> r? matches zero or one r's.
+<li> (r) grouping: matches r.
+</ul>
+<br>
+In languages like Perl you can use the grouping feature to extract a substring from the matching
+string. Normal AWK can not use a grouping to chapture a string. However gawk has the
+match function which can be used for that. The string matched by the first bracket will be in arr[1].
+<br>
+Print the content of the part of the matching regexp that is enclosed by the round brackets:
+<div class="pb">  gawk 'match($0, /length:([0-9]+) cm/,arr){ print arr[1]}' file.txt
+</div>
+<br>
+If file.txt looks as shown below then the above command would print 12:
+<br>
+<pre>width:3 cm
+length:12 cm
+height:14 cm
+</pre>
+<br>
+<h3>Insert a string after the matching line</h3>
+This inserts a new line after the matching line:
+<div class="pb">awk '/regexp/{print $0; print "text inserted after matching line";next}{print}' file.txt
+</div>
+$0 is the line where the search pattern "regexp" matches without the newline at the end. The awk print command prints the string and appends a new line.
+<br>
+<br>
+This appends a string to the matching line:
+<div class="pb">awk '/regexp/{print $0 "text appended at end of the matching line";next}{print}' file.txt
+</div>
+<h3>If matching "do A" else "do B" (if .. then .. else in awk)</h3>
+<div class="pb">awk '/regexp/{A-here;next}{B-here}' file.txt
+Example:
+awk '/regexp/{gsub(/string/,"replacement");print $1;next}{print;}' file.txt
+</div>
+The example would print lines that do not match unchanged (action B is just "print;") while
+on lines that match /regexp/ it would replace /string/ by replacement and print the first element ($1).
+<br>
+<h3>If matching "A do..." OR if matching "B do.."  (if .. then, if .. then, ....,  in awk)</h3>
+<div class="pb">awk '/regexpA/{A-do-here;}/regexpB/{B-do-here}' file.txt
+Example:
+awk '/house/{print $1;}/cat/{print;}' file.txt
+</div>
+<br>
+
+<h3>Replacement for some common unix commands (useful in a non unix environment)</h3>
+ Count lines (wc -l):
+<div class="pb"> awk 'END{print NR}'
+</div>
+<br>
+
+Search for matching lines (egrep regexp):
+<div class="pb"> awk '/regexp/'
+</div>
+<br>
+
+Print non matching lines (egrep -v regexp):
+<div class="pb"> awk '!/regexp/'
+</div>
+<br>
+
+Print matching lines with numbers (egrep -n regexp):
+<div class="pb"> awk '/regexp/{print FNR,$0}'
+</div>
+<br>
+
+Print matching lines and ignore case (egrep -i regexp):
+<div class="pb"> awk 'BEGIN {IGNORECASE=1};/regexp/'
+</div>
+<br>
+
+Number lines (cat -n):
+<div class="pb"> awk '{print FNR "\t" $0}'
+</div>
+<br>
+
+Remove duplicate consecutive lines (uniq):
+<div class="pb"> awk 'a !~ $0{print}; {a=$0}'
+</div>
+<br>
+
+Print first 5 lines of file (head -5):
+<div class="pb"> awk 'NR &lt; 6'
+</div>
+
+Print everything after the first 2 lines (do not print first 2 lines):
+<div class="pb"> awk 'NR &gt; 2'
+</div>
+
+
+<h3>Number non empty lines</h3>
+This prints all lines and adds a line number to non empty lines:
+<div class="pb"> awk '/^..*$/{ print FNR ":" $0 ;next}{print}' file.txt
+</div>
+<h3>Remove empty lines</h3>
+This prints all lines except empty ones and lines with only space and tab:
+<div class="pb"> awk '/^[ \t]*$/{next}{print}' file.txt
+</div>
+<h3>Number lines longer than 80 char and show them</h3>
+This is useful to find all the lines longer than 80 characters (or any other length):
+<div class="pb"> awk 'length($0)&gt;80{print FNR,$0}'  file.txt
+</div>
+<h3>Substitute foo for bar on lines matching regexp</h3>
+<div class="pb"> awk '/regexp/{gsub(/foo/, "bar")};{print}' file.txt
+</div>
+<h3>Delete trailing white space (spaces, tabs)</h3>
+<div class="pb"> awk '{sub(/[ \t]*$/, "");print}' file.txt
+</div>
+<h3>Delete leading white space</h3>
+<div class="pb"> awk '{sub(/^[ \t]+/, ""); print}' file.txt
+</div>
+<h3>Add some characters at the beginning of matching lines</h3>
+Add ++++ at lines matching regexp.
+<div class="pb"> awk '/regexp/{sub(/^/, "++++"); print;next;}{print}' file.txt
+</div>
+<h3>Color gcc warnings in red </h3>
+<div class="pb"> gcc -Wall main.c |&amp; awk '/: warning:/{print "\x1B[01;31m" $0 "\x1B[m";next;}{print}'
+</div>
+The "\x1B" means the ascii character with hex number 1B (ESC).
+<h3>Print only lines of less than 80 characters</h3>
+<div class="pb"> awk 'length &lt; 80' file.txt
+</div>
+<h3>Renaming files with AWK</h3>
+You can use awk to generate shell commands such as e.g mv commands to rename files according to a given recipe.
+I suggest to always print the commands before piping them to sh in order to execute them. A small typo can have
+very significant side effect so double check what would happen by printing the commands first.
+
+<br>
+<br>
+Rename all .MP3 file to be lower case:
+<div class="pb">ls *.MP3 | awk '{ printf("mv \"%s\" \"%s\"\n", $0, tolower($0)) }'
+The above will just print what would happen. To actually execute it you run:
+ls *.MP3 | awk '{ printf("mv \"%s\" \"%s\"\n", $0, tolower($0)) }' | sh
+</div>
+<br>
+Substitute a regexp pattern with a given replacement string. We can e.g replace " " (spaces in the file names) by "-":
+<div class="pb">ls | awk '{ printf("mv \"%s\" \"%s\"\n", $0, gensub(/ +/,"-","g")) }'
+The above will just print what would happen. To actually execute it you run:
+ls | awk '{ printf("mv \"%s\" \"%s\"\n", $0, gensub(/ +/,"-","g")) }' | sh
+</div>
+The gensub function reads the strings from $0 (=current line) and returns the modified string. The third argument, the "g", means to find and replace everywhere (globally) on the current line. 
+<h3>AWK as a command-line calculator</h3>
+This prints 5.1:
+<div class="pb">awk 'BEGIN{print 3.1+4/2}'
+</div>
+<br>
+This prints 1.41421:
+<div class="pb">awk 'BEGIN{print sqrt(2)}'
+</div>
+<br>
+This prints 1.41421:
+<div class="pb">awk 'BEGIN{print 2^(1/2)}'
+</div>
+<br>
+This prints 3.141592653589793 (PI with a 15 digits behind the decimal point):
+<div class="pb">awk 'BEGIN{printf "%.15f\n",4*atan2(1,1)}'
+</div>
+<br>
+Print decimal number as hex (this prints 0x20):
+<div class="pb">awk 'BEGIN{printf "0x%x\n", 32}'
+</div>
+<br>
+Convert hex string to decimal (this prints 32):
+<div class="pb">awk 'BEGIN{print strtonum(0x20)}'
+</div>
+<br>
+Math operators in gnu awk: <br>
+<ul>
+<li>+ - * / 
+<li>^ or ** Exponentiation
+<li>% Modulo
+<li>exp(), log() Exponential function and natural logarithm
+<li>atan2(y, x), sin(), cos() work all in radians (fraction of PI)
+<li>sqrt() same as **(1/2) Square root
+<li>strtonum() Convert hex (start with 0x) and octal (start with 0) to decimal
+</ul>
+If you want to use this frequently then you could put this into your .bashrc file:
+<div class="pb"># add the awc function to .basrc
+# use awc like this: awc "3.4+2+8+99.2" (do not forget the quotes)
+awc(){ awk "BEGIN{ print $* }" ;}
+</div>
+On the shell you can then type awc "3.4+2+8+99.2" and it will print 112.6.
+<h3>AWK minimal web server</h3>
+You can't write a web server as a reasonable one-liner in AWK, you can do that with netcat but there are some cases where you don't have a real web server and you don't have netcat but you have a very basic shell environment and that does usally include gawk (note: you need gawk, gnu version of awk). Here is a web server that allows you to serve files at port 8080 (or any port, just change the number):
+<br>
+<div class="pb"><pre>#!/usr/bin/gawk -f
+BEGIN {
+if (ARGC &lt; 2) { print "Usage: wwwawk  file.html"; exit 0 }
+	Concnt = 1;
+        while (1) {
+        RS = ORS = "\r\n";
+        HttpService = "/inet/tcp/8080/0/0";
+        getline Dat &lt; ARGV[1];
+        Datlen = length(Dat) + length(ORS);
+        while (HttpService |&amp; getline ){
+		if (ERRNO) { print "Connection error: " ERRNO; exit 1}
+                print "client: " $0;
+                if ( length($0) &lt; 1 ) break;
+        }
+        print "HTTP/1.1 200 OK"             |&amp; HttpService;
+        print "Content-Type: text/html"     |&amp; HttpService;
+        print "Server: wwwawk/1.0"          |&amp; HttpService;
+        print "Connection: close"           |&amp; HttpService;
+        print "Content-Length: " Datlen ORS |&amp; HttpService;
+        print Dat                           |&amp; HttpService;
+        close(HttpService);
+        print "OK: served file " ARGV[1] ", count " Concnt;
+        Concnt++;
+      }
+} 
+</pre></div>
+Copy this code and save it into a file called wwwawk and then make it executable with "chmod 755 wwwawk". Now take some file (e.g somefile.html) and you can serve it via that little web server:
+<br>
+<div class="pb">chmod 755 wwwawk
+./wwwawk somefile.html
+
+from another shell:
+curl http://localhost:8080
+ or
+lynx http://localhost:8080
+ or
+firefox -new-tab http://localhost:8080
+</div>
+This is e.g. a great way to serve kickstart files for automated Linux installations.
+Note that this awk web server requires gawk. Most linux distributions use gawk by default except for raspberry pi which uses mawk and mawk does not support network connections.
+<br>
+<h3>Perl minimal web server, a bit easier to use</h3>
+While it's cool to use AWK as a web server it can get get quickly complicated if
+you try to improve and enhance the above web server. We are reaching the limits
+of this language. Perl is in many areas pretty similar to AWK but more suitable for
+advanced uses. Try this little perl based web server if you are looking for
+a simple single page web server that is easy to change and enhance:
+<ul>
+<li><a href="wwwperl.txt">wwwperl.txt</a>
+</ul>
+<br>
+<h3>References, other nice pages about AWK</h3>
+<ul>
+<li>The GAWK manual: <a href="http://www.gnu.org/software/gawk/manual/gawk.html">http://www.gnu.org/software/gawk/manual/gawk.html</a>
+<li>AWK wikibooks: <a href="http://en.wikibooks.org/wiki/AWK">http://en.wikibooks.org/wiki/AWK</a>
+<li>Examples with awk, a short introduction: <a href="http://www.linuxfocus.org/English/September1999/article103.html">http://www.linuxfocus.org/English/September1999/article103.html</a>
+<li>AWK 1 liners: <a href="http://www.pement.org/awk/awk1line.txt">http://www.pement.org/awk/awk1line.txt </a>, see as well <a href="http://www.pement.org/awk.htm">http://www.pement.org/awk.htm</a>
+</ul>
+<br>
+<br>
+<hr>
+<font color="#575757">
+&copy; Guido Socher,  
+<span id="jemail">Please enable Javascript to see email address</span>
+<script type="text/javascript">
+// spammers have a hard time to fetch the address from here
+var jsontag=document.getElementById("jemail");
+jsontag.firstChild.nodeValue =" guidosocher";
+jsontag.firstChild.nodeValue +="@";
+jsontag.firstChild.nodeValue +="fastmail.fm ";
+</script>
+<br>License: CC BY 4.0, http://creativecommons.org/licenses/by/4.0/
+</font>
+</body>
+</html>
+

@@ -1,0 +1,45 @@
+
+-------------------------------------------------------------
+--conditionals
+
+*Basic conditionals
+awk '$3 == "x" { print $3 } $3 != "x" { print "no value" }' file.in | mail ...
+or
+awk '{ print ($3 == "x" ? $3 : "no value") }' file.in | mail ...
+or
+awk '$3 != "x" { $3 = "no value" } { print $3 }' file.in | mail ...
+Given the file
+1 2 3
+2 3 x
+4 5 x
+
+*print lines where column equals values based on conditions
+command | awk -F, '(tolower($6)~"rhel" || tolower($6)~"linux"){print $0}'
+
+-------------------------------------------------------------
+--substitutions
+
+*replace multiple spaces with single space
+command | awk '{ gsub(/[ ]+/," "); print }'
+
+*replace first occurrence of string
+command | awk '{sub(/,/,"1,")}1'
+
+
+-------------------------------------------------------------
+*Print section of a file between two regular expressions (inclusive).
+awk '/Iowa/,/Montana/'
+*Delete all blank lines from a file.
+awk NF
+*Print lines that match any of "AAA" or "BBB", or "CCC".
+awk '/AAA|BBB|CCC/'
+*Print lines 8 to 12 (inclusive).
+awk 'NR==8,NR==12'
+*Print line number 52.
+awk 'NR==52'
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------------------------------------------------

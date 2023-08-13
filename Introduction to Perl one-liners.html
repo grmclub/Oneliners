@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Introduction to Perl one-liners</title>
+
+    <link href="https://catonmat.net/introduction-to-perl-one-liners" rel="canonical">
+    <link rel="alternate" type="application/rss+xml" href="https://catonmat.net/feed">
+
+    <meta property="og:title" content="Introduction to Perl one-liners">
+    <meta property="og:description" content="perl book This is the introduction to perl one-liners. Originally I wrote this introduction for my third e-book, however later I decided to make it a part of the free e-book preview and republish it here as this article. Introduction to Perl one-liners Perl one-liners are small and awesome Perl programs that fit in a...">
+    <meta property="og:url" content="https://catonmat.net/introduction-to-perl-one-liners">
+        <meta property="og:image" content="https://catonmat.net/images/catonmat-preview-image.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@catonmat">
+    <meta name="twitter:title" content="Introduction to Perl one-liners">
+    <meta name="twitter:description" content="perl book This is the introduction to perl one-liners. Originally I wrote this introduction for my third e-book, however later I decided to make it a part of the free e-book preview and republish it here as this article. Introduction to Perl one-liners Perl one-liners are small and awesome Perl programs that fit in a...">
+    <meta name="twitter:creator" content="@pkrumins">
+
+        <meta name="twitter:image:src" content="https://catonmat.net/images/catonmat-preview-image.png">
+    
+    <link rel="apple-touch-icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.png">
+
+    <script src="/js/catonmat.js?v=3e7a9a"></script>
+    
+
+    <link rel="stylesheet" href="/css/normalize.css?v=3e7a9a">
+    <link rel="stylesheet" href="/css/stylesheet.css?v=3e7a9a">
+    
+</head>
+<body>
+    <div class="site-page">
+        <header class="site-header">
+            <div class="logo">
+                <a href="/"><img src="/images/catonmat-logo-clean.png"></a>
+            </div>
+            <div class="navigation">
+                
+
+                    
+    <nav>
+        <ul>
+            
+        <li ><a href="/archive">archive</a></li>
+    
+            
+        <li ><a href="/books">books</a></li>
+    
+            
+        <li ><a href="/tools">tools</a></li>
+    
+            
+        <li ><a href="/projects">projects</a></li>
+    
+                        
+        <li ><a href="/about">about</a></li>
+    
+        </ul>
+    </nav>
+
+            </div>
+        </header>
+        
+        
+    <section class="site-articles">
+        <article>
+            
+                <h1>
+    <a href="/introduction-to-perl-one-liners">Introduction to Perl one-liners</a>
+</h1>
+            
+            
+                <div class="last-updated">Last updated 
+    2 weeks ago
+</div>
+            
+            <div class="article-body">
+                
+    <div class="c" style="float: right; margin-left: 5px; padding-bottom: 0">
+<a href="https://catonmat.net/perl-book" class="nohover" title="Perl One-Liners Explained"><img src="https://catonmat.net/images/perl-book/cover.png"></a>
+<small><a href="https://catonmat.net/perl-book">perl book</a></small>
+</div>
+<p>This is <strong>the introduction to perl one-liners</strong>. Originally I wrote this introduction for my <a href="https://catonmat.net/perl-book">third e-book</a>, however later I decided to make it a part of the <a href="https://catonmat.net/ftp/perlbook-preview.pdf">free e-book preview</a> and republish it here as this article.</p>
+<h2>Introduction to Perl one-liners</h2>
+<p>Perl one-liners are small and awesome Perl programs that fit in a single line of code and they do one thing really well. These things include changing line spacing, numbering lines, doing calculations, converting and substituting text, deleting and printing certain lines, parsing logs, editing files in-place, doing statistics, carrying out system administration tasks, updating a bunch of files at once, and many more. Perl one-liners will make you the shell warrior. Anything that took you minutes to solve, will now take you seconds!</p>
+<p>Let's look at several examples to get more familiar with one-liners. Here is one:</p>
+<pre>
+perl -pi -e 's/you/me/g' file
+</pre>
+<p>This one-liner replaces all occurrences of the text <code>you</code> with <code>me</code> in the file <code>file</code>. Very useful if you ask me. Imagine you are on a remote server and have this file and you need to do the replacement. You can either open it in text editor and execute find-replace or just do it through command line and, bam, be done with it.</p>
+<p>The <code>-e</code> argument is the best argument. It allows you to specify the Perl code to be executed right on the command line. In this one-liner the code says, do the substitution (<code>s/find/replace/flags</code> command) and replace <code>you</code> with <code>me</code> globally (<code>g</code> flag). The <code>-p</code> argument makes sure the code gets executed on every line, and that the line gets printed out after that. The <code>-i</code> argument makes sure that <code>file</code> gets edited in-place, meaning Perl opens the file, executes the substitution for each line, prints the output to a temporary file, and then replaces the original file.</p>
+<p>How about doing the same replacement in multiple files? Just specify them on the command line!</p>
+<pre>
+perl -pi -e 's/you/me/g' file1 file2 file3
+</pre>
+<p>Now let's do the same replacement only on lines that match <code>we</code>. It's as simple as this:</p>
+<pre>
+perl -pi -e 's/you/me/g if /we/' file
+</pre>
+<p>Here we use the conditional <code>if /we/</code>. This makes sure that <code>s/you/me/g</code> gets executed only on lines that match the regular expression <code>/we/</code>. The regular expression here can be anything. Let's say you want to execute the substitution only on lines that have digits in them. You can then use the <code>/\d/</code> regular expression that matches numbers:</p>
+<pre>
+perl -pi -e 's/you/me/g if /\d/' file
+</pre>
+<p>Now how about finding all repeated lines in a file?</p>
+<pre>
+perl -ne 'print if $a{$_}++' file
+</pre>
+<p>This one-liner records the lines seen so far in the <code>%a</code> hash and keeps the counter of how many times it has seen the same line. The <code>$a{$<em>}++</code> creates elements in the <code>%a</code> hash automagically. When it sees a repeated line, the value of that hash element is defined and greater than zero, so <code>if $a{$</em>}</code> is true, and it prints the line. This one-liner also uses the <code>-n</code> command line argument that loops over the input but unlike <code>-p</code> doesn't print the lines automatically, so you have to use <code>print</code> explicitly.</p>
+<p>How about numbering lines? Super simple! Perl has the <code>$.</code> special variable that automatically maintains the current line number. You can just print it out together with the line:</p>
+<pre>
+perl -ne 'print &quot;$. $_&quot;'
+</pre>
+<p>You can also achieve the same by using <code>-p</code> argument and modifying the <code>$_</code> variable, which contains the entire line:</p>
+<pre>
+perl -pe '$_ = &quot;$. $_&quot;'
+</pre>
+<p>Here each line gets replaced by the string <code>&quot;$. $_&quot;</code>, which is the current line number followed by the line itself.</p>
+<p>How about we combine the previous two one-liners and create one that numbers repeated lines? Here we go:</p>
+<pre>
+perl -ne 'print &quot;$. $_&quot; if $a{$_}++'
+</pre>
+<p>Now let's do something different. Let's sum up all the numbers on each line. We'll use the <code>sum</code> function from the <code>List::Util</code> CPAN module. You can install it as easily as running <code>perl -MCPAN -e'install List::Util'</code>.</p>
+<pre>
+perl -MList::Util=sum -alne 'print sum @F'
+</pre>
+<p>The <code>-MList::Util</code> command line argument imports the <code>List::Util</code> module, and the <code>=sum</code> part of it imports the <code>sum</code> function from it. Next <code>-a</code> enables automatic splitting of fields into the <a href="mailto:code&gt;@F&lt;/code">code&gt;@F&lt;/code</a> array. The <code>-l</code> argument makes sure that <code>print</code> outputs a newline at the end of each line. Finally the <code>sum @F</code> sums up all the elements in the <a href="mailto:code&gt;@F&lt;/code">code&gt;@F&lt;/code</a> list and <code>print</code> prints it out, followed by a newline (that was added by the <code>-l</code> argument).</p>
+<p>How about finding the date 1299 days ago? That's also solvable by a simple one-liner:</p>
+<pre>
+perl -MPOSIX -le '
+  @now = localtime;
+  $now[3] -= 1299;
+  print scalar localtime mktime @now
+'
+</pre>
+<p>This one-liner didn't quite fit in one line, but that's just because my blog has narrow space for content. What happens here is we modify the 4th element of the structure returned by <code>localtime</code>, which happens to be days. So we just subtract 1299 days from the current day. Then we reassembles it into a new time through <code>localtime mktime @now</code> and print it in scalar context that prints human readable time.</p>
+<p>How about generating an 8 letter password? Again, solvable elegantly with a one-liner:</p>
+<pre>
+perl -le 'print map { (a..z)[rand 26] } 1..8'
+</pre>
+<p>The <code>a..z</code> generates a list of letters from a to z (total 26). Then we randomly choose one of the characters through generating a random number in range 0-25, and then we repeat this whole process 8 times!</p>
+<p>Here is another one. Suppose you want to quickly find the decimal number that corresponds to an IP address. You can use the <code>unpack</code> function and find it really quickly:</p>
+<pre>
+perl -le 'print unpack(&quot;N&quot;, 127.0.0.1)'
+</pre>
+<p>This one-liner uses a vstring, which is a version literal. The IP address <code>127.0.0.1</code> is treated as a vstring, which is basically the numbers <code>127</code>, <code>0</code>, <code>0</code>, <code>1</code> concatenated together. Next the <code>unpack</code> function unpacks them to a single decimal number.</p>
+<p>Btw, I once created a cheat sheet with all the <code>pack/unpack</code> format strings. Get it here: <a href="https://catonmat.net/perl-pack-unpack-printf-cheat-sheet">perl pack, unpack cheat sheet</a>.</p>
+<p>Now how about calculations? Let's find the sum of the numbers in the first column:</p>
+<pre>
+perl -lane '$sum += $F[0]; END { print $sum }'
+</pre>
+<p>Here the lines automatically get split up into fields through the <code>-a</code> argument. The fields can be now accessed through the <a href="mailto:code&gt;@F&lt;/code">code&gt;@F&lt;/code</a> array. The first element of the array, <code>$F[0]</code>, is the first column. So all we have to do is sum all the columns up through <code>$sum += $F[0]</code>. When the Perl program ends its job, it executes any code in the special <code>END</code> block. In this case we print out the total sum there. Really easy!</p>
+<p>Now let's find out how many packets have gone through all the <code>iptables</code> rules. It's this simple:</p>
+<pre>
+iptables -L -nvx | perl -lane '
+  $_ = $F[0]; $pkts += $_ if /^\d/; END { print $pkts }
+'
+</pre>
+<p>The iptables program outputs the packets as the first field. All we do is check if the first field is numeric (because it also outputs labels header), and if so, sum the packets up on the first column, just like in the previous one-liner.</p>
+<p>How about getting a list of the names of all users on the system?</p>
+<pre>
+perl -a -F: -lne 'print $F[4]' /etc/passwd
+</pre>
+<p>Combining <code>-a</code> with <code>-F</code> argument allows you to specify the character that lines should be split on. In this case it's the colon, which is the record separator of <code>/etc/passwd</code>. Next we just print the 5th field <code>$F[4]</code>, which is the real name of the user. Really quick and easy.</p>
+<p>As you can see, knowing Perl one-liners lets you accomplish many tasks quickly. If you want to learn more and become really fast in the shell, then get a copy of my <a href="https://catonmat.net/perl-book">Perl One-Liners Explained</a> e-book. This book contains 130 unique one-liners and many of them are presented in several different ways, so the total number of one-liners in this book is over 200.</p>
+<div class="c">
+<a href="https://catonmat.net/perl-book" class="nohover" title="Perl One-Liners Explained"><img src="https://catonmat.net/images/perl-book/cover.png"></a>
+<small><a href="https://catonmat.net/perl-book">perl book</a></small>
+</div>
+<p>I hope you learned something new and until next time.</p>
+
+            </div>
+        </article>
+    </section>
+    
+        <div class="more">
+            
+    <a href="/archive">Read more articles →</a>
+
+        </div>
+    
+    <div class="catonmat-news-box">
+        <div class="catonmat-news-text">
+            
+    Thanks for reading my post. If you enjoyed it and would like to receive my posts automatically, you can subscribe to new posts via <a href="/feed">rss feed</a> or email.
+
+        </div>
+        <div class="catonmat-news-email">
+            <input type="text" name="email" placeholder="Your email">
+            <button>Subscribe</button>
+        </div>
+        <div class="catonmat-news-email-error" hidden></div>
+        <div class="catonmat-news-email-success" hidden></div>
+    </div>
+            <div class="article-navigation">
+            <div class="go back">
+                                    <a href="/quine-in-node">A quine in node.js</a>
+                            </div>
+            <div class="go forward">
+                                    <a href="/announcing-real-internet-explorers-for-browserling">Announcing real IEs for Browserling</a>
+                            </div>
+        </div>
+    
+
+        <footer class="site-footer">
+            <div class="jelly-stains">
+                <img src="/images/this-space-reserved-for-jelly-stains.png" alt="">
+            </div>
+                        <div class="secret-message">
+                Secret message: Use coupon code <span class="jellyling">JELLYLING</span> to get a discount at my company Browserling!
+            </div>
+                    </footer>
+    </div>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-273333-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'UA-273333-1');
+</script>
+<!-- End of Google Analytics -->
+
+
+
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript">
+var sc_project=3189873;
+var sc_invisible=1;
+var sc_security="dc7255a7";
+</script>
+<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
+
+<!-- End of StatCounter Code -->
+</body>
+</html>
