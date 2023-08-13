@@ -53,10 +53,6 @@ echo "All done"
 ------------------
 variant_4
 
-https://server1.cyberciti.biz/20170406_21.jpg
-https://server1.cyberciti.biz/20170420_15.jpg
-https://server1.cyberciti.biz/20170406_24.jpg
-
 To download all files in parallel using wget:
 
 #!/bin/bash
