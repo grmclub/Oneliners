@@ -14,10 +14,133 @@ do
 done
 wait
 echo "Script execution completed"
+----------
+* variant_2
+
+# Add the full path processes to run to the array
+PROCESSES_TO_RUN=("/home/joao/Code/test/prog_1/prog1" \
+                  "/home/joao/Code/test/prog_2/prog2")
+# You can keep adding processes to the array...
+
+for i in ${PROCESSES_TO_RUN[@]}; do
+    ${i%/*}/./${i##*/} > ${i}.log 2>&1 &
+    # ${i%/*} -> Get folder name until the /
+    # ${i##*/} -> Get the filename after the /
+done
+
+# Wait for the processes to finish
+wait
+----------------
+variant_3
+
+#!/bin/bash
+# Our custom function
+cust_func(){
+  echo "Do something $1 times..."
+  sleep 1
+}
+# For loop 5 times
+for i in {1..5}
+do
+	cust_func $i & # Put a function in the background
+done
+ 
+## Put all cust_func in the background and bash 
+## would wait until those are completed 
+## before displaying all done message
+wait 
+echo "All done"
+------------------
+variant_4
+
+https://server1.cyberciti.biz/20170406_21.jpg
+https://server1.cyberciti.biz/20170420_15.jpg
+https://server1.cyberciti.biz/20170406_24.jpg
+
+To download all files in parallel using wget:
+
+#!/bin/bash
+# Our custom function
+cust_func(){
+  wget -q "$1"
+}
+ 
+while IFS= read -r url
+do
+        cust_func "$url" &
+done < list.txt
+ 
+wait
+echo "All files are downloaded."
+
 
 -------------------------------------------------------------
+* paralleism wih xargs
+https://www.linuxjournal.com/content/parallel-shells-xargs-utilize-all-your-cpu-cores-unix-and-windows
+
+$cat file | grep -v "#.*" | sed -z 's/[\]\n/ /g' | sed -z 's/\"/\\\\"/g' | xargs -I {} -n1 -P10 sh -c '{}'
+
+
+#find -name "*.wav" -print0 | xargs -0 -t -I % -P $(nproc) flac %
+
+-print0 terminates filenames with a null byte rather than a newline so we can use -0 in xargs to prevent filenames with spaces being treated as two seperate arguments.
+
+-t means verbose, makes xargs print every command it's executing, can be useful, remove if not needed.
+
+-I % means replace occurrences of % in the command with arguments read from standard input.
+
+-P $(nproc) means run a maximum of nproc instances of our command in parallel (nproc prints the number of available processing units).
+
+flac % is our command, the -I % from earlier means this will become flac foo.wav
+
+-------------
+you could do bash -c "flac \"%\" && rm \"%\""
+seq 1 500 | xargs -n 1 -P 8 script-to-run.sh input/ output/
+-------------
+*Misc examples
+
+xargs -i -P 0 scp testfile {}: <<EOC
+user@remote-1.example.com
+user@remote-2.example.com
+user@remote-3.example.com
+user@remote-4.example.com
+EOC
+
+	
+#seq 1 10  |  xargs -i -P 0 bash -c 'sleep {} && echo done sleeping for {} seconds'
+
+#sh -c 'command1 & command2 & command3 & wait'
+
+------------------
+*The Matrix
+watch -d -n 0.1 "seq 10 | xargs -n2 -P8 echo"
 
 -------------------------------------------------------------
+* With GNU Parallel http://www.gnu.org/software/parallel/  as:
+
+(echo prog1; echo prog2) | parallel
+
+$ cat list.txt | parallel -j 4 wget -q {}
+$ parallel -j 4 wget -q {} < list.txt
+
+
+*comparism of usage
+$ echo -e '1\n2\n3' | xargs -n1 -P3 -I{} bash -c 'echo {} start; sleep 1; echo {} ready'
+2 start
+1 start
+3 start
+2 ready
+1 ready
+3 ready
+
+$ parallel 'echo {} start; sleep 1; echo {} ready' ::: 1 2 3
+1 start
+1 ready
+2 start
+2 ready
+3 start
+3 ready
+
 -------------------------------------------------------------
 -------------------------------------------------------------
 
