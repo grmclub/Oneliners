@@ -1,0 +1,40 @@
+
+https://www.theunixschool.com/2014/08/sed-examples-remove-delete-chars-from-line-file.html
+https://www.baeldung.com/linux/remove-text-after-x-in-file
+https://www.ibm.com/docs/en/aix/7.2?topic=s-sed-command
+
+
+
+-------------------------------------------------------------
+Sed to remove everything after "." 
+
+Either escape the . with a backslash to get a literal ., or use brackets to define a character class:
+
+sed 's/\..*$//' data.txt > cleaned.txt
+sed 's/[.].*$//' data.txt > cleaned.txt
+
+-------------------------------------------------------------
+https://www.baeldung.com/linux/awk-guide
+https://stackoverflow.com/questions/45969954/extract-multiple-items-on-single-line-using-grep-sed-perl
+
+https://stackoverflow.com/questions/31184609/parsing-fix-logs-for-stock-and-price-in-column-formats-using-grep-awk-unix-with
+http://valurbansky.blogspot.com/2012/01/fix-logs-or-why-i-love-awk.html
+https://unix.stackexchange.com/questions/446436/parsing-fix-messages-for-further-analytics
+
+
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+

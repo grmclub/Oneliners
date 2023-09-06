@@ -1,0 +1,22 @@
+
+-------------------------------------------------------------
+Perl one-liner:
+
+perl -F'/[\/=]/' -lane 'print "$F[2]\t$F[4]\t$F[7]"' file
+These command-line options are used:
+    -n loop around every line of the input file, put the line in the $_ variable, do not automatically print every line
+    -l removes newlines before processing, and adds them back in afterwards
+    -a autosplit mode – perl will automatically split input lines into the @F array. Defaults to splitting on whitespace
+    -F autosplit modifier, in this example splits on either / or =
+    -e execute the perl code
+Perl is closely related to awk, however, the @F autosplit array starts at index $F[0] while awk fields start with $1.
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------

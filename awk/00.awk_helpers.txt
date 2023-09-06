@@ -1,0 +1,238 @@
+https://docstore.mik.ua/orelly/unix3/upt/ch21_14.htm
+https://www.appsloveworld.com/bash/100/181/awk-file-to-split-a-column-into-two-at-space
+
+https://riptutorial.com/awk/topic/2284/string-manipulation-functions
+
+-------------------------------------------------------------
+##Useful oneliners
+
+-Summing a specific field in a log file:
+$ awk '{sum+=$1} END{print sum}' /var/log/syslog
+
+-Calculating the average of a field:
+$ awk '{sum+=$1} END{print sum/NR}' /var/log/syslog
+$ awk '{sum += $3; n++} END {print sum / n}' file.txt
+
+-Counting the number of occurrences of a specific pattern in a log file:
+$ awk '/error/{count++} END{print count}' /var/log/syslog
+$ awk '!/error/ {print}' file.txt
+
+-Filtering based on a range of values:
+$ awk '$1 >= 100 && $1 <= 200 {print}' /var/log/syslog
+
+-Get the list of all errors
+$ awk '$9 ~ /ERROR/' logfile.txt
+
+-Extract a specific range of lines from a file
+$ awk 'NR>=10 && NR<=20 {print}' file.txt
+
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+##assorted
+
+$ awk 'BEGIN{FS=":"; OFS="-"} {print $1,$6,$7}' /etc/passwd
+
+*Print the Total Number of Fields in Each Line
+$ awk '{print NF}' test.txt
+
+*Print Specific Lines That Match a Pattern
+$ awk '/linux/{print $2, $3}' distro.txt
+
+*How to use the relational expression with the “awk” command:
+$awk ‘$3 ~/is/ {print $2}’ testFile.txt
+
+*How to use range pattern with awk command:
+
+A range can also be used for search; simply use the comma “,” to separate the range as presented in the below-mentioned command:
+$awk ‘/Joel/, /Marlene/ {print $3}’ testFile.txt
+
+*Print lines in a range
+awk 'NR>1 && NR < 4' file
+
+Performing calculations column-wise
+awk '{ SUM=SUM+$1 } END { print SUM }' FS=, OFS=, file
+
+
+*parsing the substr command, you can split a string of characters at a given length. Here I use it to capitalize only the first character of the third field:
+
+awk '{ $3 = toupper(substr($3,1,1)) substr($3,2) } $3' FS=, OFS=, file
+
+*Splitting fields in sub-fields
+
+The AWK record-field data model is really nice. However, sometimes you want to split fields themselves into several parts based on some internal separator:
+
+awk '+$1 { split($2, DATE, " "); print $1,$3, DATE[2], DATE[3] }' FS=, OFS=, file
+
+*Searching and replacing with AWK commands
+
+Speaking of regular expressions, sometimes you want to perform substitution like the sed s///g command, but only on one field. The gsub command is what you need in that case:
+
+awk '+$1 { gsub(/ +/, "-", $2); print }' FS=, file
+https://linuxhandbook.com/awk-command-tutorial/
+https://infotechys.com/10-popular-awk-commands/
+===================================
+
+ARGC     Retrieves the number of passed parameters.
+ARGV     Retrieves the command line parameters.
+
+NF     Fields count of the line being processed.
+NR    Retrieves total count of processed records.
+
+FNR     The record which is processed.
+The NF variable specifies the last field in the record without knowing its position:
+
+-------------------------------------------------------------
+* Using multiple delimiters in awk
+
+awk -F '[,:]' '{ print $2 $3 }' file
+By setting the field separator (by means of -F) to "either , or :", we may avoid doing an explicit split() on the data.
+Or,
+awk -F '[,:]' '{ print $2, $3 }' OFS='' file
+which additionally uses an empty output field separator.
+
+The delimiter can be a regular expression.
+awk -F'[\t:]' '{print $1, $2, $4, $17}'
+awk -F'[/=]' '{print $3 "\t" $5 "\t" $8}' file
+
+
+-------------------------------------------------------------
+https://www.theunixschool.com/2012/06/awk-10-examples-to-group-data-in-csv-or.html
+
+
+*How to omit the header record and get only the names printed?
+
+	$ awk 'NR!=1{print $1}' file1
+
+*To find the total of all numbers in second column. i.e, to find the sum of all the prices.
+
+	$ awk -F"," '{x+=$2}END{print x}' file
+
+2. To find the total sum of particular group entry alone. i.e, in this case, of "Item1":
+
+	$ awk -F, '$1=="Item1"{x+=$2;}END{print x}' file
+
+3. If the data to be worked upon is present in a shell variable:
+
+	$ VAR="Item1"
+	$ awk -F, -v inp=$VAR '$1==inp{x+=$2;}END{print x}' file
+	
+ -v is used to pass the shell variable to awk, and the rest is same as the last one.
+
+4. To find unique values of first column
+
+	$ awk -F, '{a[$1];}END{for (i in a)print i;}' file	
+	
+	
+-------------------------------------------------------------
+https://www.theunixschool.com/2012/09/examples-how-to-change-delimiter-of-file-Linux.html
+$ awk '$1=$1' FS="," OFS=":" file
+. awk using gsub function:
+
+$ awk 'gsub(",",":")' file
+
+
+-------------------------------------------------------------
+5. Using the split() Function
+
+We can use the split() function to split a string into an array of substrings based on a specified separator:
+
+count = split(string, array, separator)
+
+Additionally, we get the total number of splits in the count variable.
+
+Let’s use this to split the numeric values in the numbers.txt file:
+
+$ awk '{ split($0, arr, ","); print arr[1]; }' numbers.txt
+-------------------------------------------------------------
+https://www.baeldung.com/linux/awk-split-parameter-by-character
+https://gist.github.com/RyanSchu/72fe0751b3d528940611b18d9a50fc00
+https://www.geeksforgeeks.org/awk-command-unixlinux-examples/
+https://www.ibm.com/docs/zh/aix/7.2?topic=awk-command
+https://learnbyexample.github.io/learn_gnuawk/regular-expressions.html
+https://www.theunixschool.com/2012/06/awk-10-examples-to-group-data-in-csv-or.html
+
+https://www-users.york.ac.uk/~mijp1/teaching/2nd_year_Comp_Lab/guides/grep_awk_sed.pdf
+https://devsday.ru/blog/details/26504
+https://markoskon.com/cut-or-awk-and-paste-commands/
+
+https://www.digitalocean.com/community/tutorials/how-to-use-the-awk-language-to-manipulate-text-in-linux
+https://www3.physnet.uni-hamburg.de/physnet/Tru64-Unix/HTML/APS32DTE/WKXXXXXX.HTM
+
+
+
+
+gsub("+", " "); 
+
+
+split a string in awk
+
+splits a delimited string into an array. This is useful for processing VarID's and any snp_IDs that are in c:pos format. split($1, array,"delimeter" splits the string in column 1 into an array named array based on the delimeter. Arrays indices in awk start at 1.
+
+##example data
+1_178938_A_G_b37
+2_465468_T_C_b37
+awk '{split($1,a,"_"); print a[1] "\t" a[5]}' example_data
+
+-------------------------------------------------------------
+Linux has two regular expression engines:
+
+    The Basic Regular Expression (BRE) engine.
+    The Extended Regular Expression (ERE) engine.
+Define BRE Patterns
+
+You can define a pattern to match text like this:
+
+$ echo "Testing regex using sed" | sed -n '/regex/p'
+
+$ echo "Testing regex using awk" | awk '/regex/{print $0}'
+-------------------------------------------------------------
+To insert a new column (say serial number) before the 1st column
+
+$ awk -F, '{$1=++i FS $1;}1' OFS=, file
+1,Unix,10,A
+2,Linux,30,B
+3,Solaris,40,C
+4,Fedora,20,D
+5,Ubuntu,50,E
+
+
+-------------------------------------------------------------
+https://www.theunixschool.com/2012/02/different-ways-to-split-file-contents.html
+https://www.theunixschool.com/2012/03/join-every-2-lines-in-file.html
+https://www.theunixschool.com/2012/05/awk-match-pattern-in-file-in-linux.html
+https://www.theunixschool.com/2012/05/shell-read-text-or-csv-file-and-extract.html
+https://www.theunixschool.com/2012/09/grep-vs-awk-examples-for-pattern-search.html
+https://www.theunixschool.com/2012/09/find-sum-all-numbers-columns-in-line-linux.html
+https://www.theunixschool.com/2012/05/gnu-dates-and-strings-conversion-in.html
+
+https://www.theunixschool.com/2012/06/awk-10-examples-to-group-data-in-csv-or.html
+https://www.theunixschool.com/2012/07/awk-10-examples-to-read-files-with.html
+
+-------------------------------------------------------------
+https://www.theunixschool.com/2012/03/10-good-shell-scripting-practices.html
+https://www.theunixschool.com/2012/06/10-tips-to-improve-performance-of-shell.html
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
