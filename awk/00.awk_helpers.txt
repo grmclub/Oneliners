@@ -39,6 +39,29 @@ cat /etc/passwd |awk -F\: '{printf("%s \n", substr($1,1,3))}'|head -5
 # substitute "foo" with "bar" ONLY for lines which contain "baz"
  awk '/baz/{gsub(/foo/, "bar")}; 1'
 
+-------------------------------------------------------------
+##Exotic
+
+-using multple delemeters
+awk -F'[,|:]' '{print $2", "$6}' file.csv
+
+--multiple delemeters using split
+awk '
+BEGIN { FS=OFS="," }                    # define input/output field delimiter as ","
+      { split($5,a,"[:|]")              # split 5th field on dual delimiters ":" and "|", store results in array a[]
+        print $2,a[2]                   # print desired items to stdout
+      }
+' test.csv
+
+--Check File details
+printf "Original File:\n"
+#Print the original content of the CSV file
+cat customers.csv
+echo
+echo -n "Total rows:"
+awk -F, 'END{print NR}' customers.csv
+echo -n "Total columns:"
+awk -F, 'END{print NF}' customers.csv
 
 
 -------------------------------------------------------------
