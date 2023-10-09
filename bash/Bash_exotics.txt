@@ -9,10 +9,6 @@ cat largefile|sort|uniq -d
 --If ID's are not of same length
 sort file| uniq -Dw 8
 
-
-
-
-
 *exclude from copy
 rsync -avP --exclude 'sampledir/' src_dir/ dest_dir/
 
