@@ -1,0 +1,106 @@
+
+
+---------------------------------------------------
+*Find only duplicate rows
+cat largefile|sort|uniq -c|awk '{if($1 !=1) print}'
+
+cat largefile|sort|uniq -d
+
+--If ID's are not of same length
+sort file| uniq -Dw 8
+
+
+
+
+
+*exclude from copy
+rsync -avP --exclude 'sampledir/' src_dir/ dest_dir/
+
+* insert a space every 4 charecters
+echo "foobarbazzz"|sed 's/.\{4\}/&/g'
+
+echo "foobarbazzz"|fold -w4|paste -sd' ' -
+
+*Join without spaces
+:s/$\n//
+
+
+*Extract before and after a pattern
+grep -oE '.{5}cde.{5}' file.txt
+
+
+*Insert text at beginning of file
+sed '1s/^/header text\n/' file1
+
+*Append Text at end of file
+echo "trailer text" >> file
+
+sed '$a trailer ext' file
+
+---------------------------------------------------
+##datetime
+
+--Extract data for time range
+
+grep "1[4-7]/Sep/2011" logfile
+
+sed -n '/Dec 5 11:00/,/Dec 5 12:00/p' logfile
+
+
+
+---------------------------------------------------
+##converters
+
+--hex to ascii
+cat xx| xxd -r -p
+
+-r converts hex to binary
+-p prints result in plain text format
+
+printf "\x4E"
+echo -e "\x4E"
+
+
+--ascii table
+
+awk 'BEGIN{for(i=32;i<127;i++) printf("%3d  0x%02x  %c",i,i,i)'
+
+
+#!/bin/bash
+
+echo "DECIMAL -> HEX -> ASCII"
+awk 'BEGIN{for(i=32;i<127;i++) printf("%3d  0x%02x  %c",i,i,i)'|pr -t6 -w78
+
+
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------
+
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
+
+

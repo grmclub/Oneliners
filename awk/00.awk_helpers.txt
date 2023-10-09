@@ -9,6 +9,9 @@ https://riptutorial.com/awk/topic/2284/string-manipulation-functions
 -Summing a specific field in a log file:
 $ awk '{sum+=$1} END{print sum}' /var/log/syslog
 
+--skip header from calculations
+awk 'NR > 1 {sum+=$1} END{print sum}' /var/log/syslog
+
 -Calculating the average of a field:
 $ awk '{sum+=$1} END{print sum/NR}' /var/log/syslog
 $ awk '{sum += $3; n++} END {print sum / n}' file.txt
@@ -25,6 +28,12 @@ $ awk '$9 ~ /ERROR/' logfile.txt
 
 -Extract a specific range of lines from a file
 $ awk 'NR>=10 && NR<=20 {print}' file.txt
+
+--Add column to existing file
+cat input.csv| awk -F',' -vOFS=',' '{$6=$5;$5="USD";print}'
+
+--convert column val from +ve to -ve 
+cat input.csv| awk -F',' -vOFS=',' 'NR > 1 {$2*=-1;$3*=-1;print}'
 
 
 -------------------------------------------------------------
