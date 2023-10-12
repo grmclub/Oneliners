@@ -1,0 +1,25 @@
+
+--------------------------------------------------------------------------------------
+----------
+https://www.linuxjournal.com/content/boost-productivity-bash-tips-and-tricks
+
+alias ddu='du -sh * | sort -hr | head -20'
+
+Use “ddu” to get a list of the top 20 files/folders sizes
+
+ftext () {
+grep -iIHrn --color=always "$1" . | less -R -r
+}
+
+duplicatefind ()
+{
+find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -I{} -n1 find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate
+}
+
+----------
+$ du -ahx --max-depth=1 /var | sort -k1 -rh
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
