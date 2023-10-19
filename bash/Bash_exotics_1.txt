@@ -1,6 +1,28 @@
 
 
 ---------------------------------------------------
+##datetime
+
+--Extract data for time range
+
+grep "1[4-7]/Sep/2011" logfile
+
+sed -n '/Dec 5 11:00/,/Dec 5 12:00/p' logfile
+
+
+
+---------------------------------------------------
+===============================
+*Sort uniq
+–Top ten largest directories in your current directory with human-readable output, 
+du -chx | sort -rh | head
+
+–find duplicates in a set of files quickly by adding the -d option:
+sort namelist1.txt namelist2.txt | uniq -d
+
+most duplicates to bubble up to the top. Fortunately, you have the sort command:
+sort namelist1.txt namelist2.txt | uniq -c | sort -nr
+
 *Find only duplicate rows
 cat largefile|sort|uniq -c|awk '{if($1 !=1) print}'
 
@@ -8,6 +30,8 @@ cat largefile|sort|uniq -d
 
 --If ID's are not of same length
 sort file| uniq -Dw 8
+
+=============================
 
 *exclude from copy
 rsync -avP --exclude 'sampledir/' src_dir/ dest_dir/
@@ -32,17 +56,6 @@ sed '1s/^/header text\n/' file1
 echo "trailer text" >> file
 
 sed '$a trailer ext' file
-
----------------------------------------------------
-##datetime
-
---Extract data for time range
-
-grep "1[4-7]/Sep/2011" logfile
-
-sed -n '/Dec 5 11:00/,/Dec 5 12:00/p' logfile
-
-
 
 ---------------------------------------------------
 ##converters
