@@ -1,0 +1,30 @@
+
+-------------------------------------------------------------
+–backup.sh
+#!/bin/bash
+DATE=$(date '+%F')$
+rsync --dry-run -avz /mnt/nextcloud-data/ jay@myserver.mydomain.com:/mnt/backup-data/nextcloud.learnlinux.cloud/$DATE
+—---
+split -l 4 index.txt split_file
+https://www.linuxjournal.com/content/mastering-split-command-linux-effective-file-splitting-techniques
+
+
+-------------------------------------------------------------
+*exclude from copy
+rsync -avP --exclude 'sampledir/' src_dir/ dest_dir/
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+
+
+
+
+

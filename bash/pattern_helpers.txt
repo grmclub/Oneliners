@@ -1,0 +1,116 @@
+
+---------------------------------------------------
+* insert a space every 4 charecters
+echo "foobarbazzz"|sed 's/.\{4\}/&/g'
+
+echo "foobarbazzz"|fold -w4|paste -sd' ' -
+
+*Join without spaces
+:s/$\n//
+
+
+*Extract before and after a pattern
+grep -oE '.{5}cde.{5}' file.txt
+
+
+*Insert text at beginning of file
+sed '1s/^/header text\n/' file1
+
+*Append Text at end of file
+echo "trailer text" >> file
+
+sed '$a trailer ext' file
+
+-------------------------------------------------------------
+* Lines before pattern
+
+This sed command will print all lines after and including the matching line:
+sed -n '/^WHATEVER$/,$p'
+
+The -n switch makes sed print only when told (the p command).
+
+If you don't want to include the matching line you can tell sed to delete from the start of the file to the matching line:
+sed '1,/^WHATEVER$/d'
+
+sed -i '/somestring/,$!d' file
+
+Explanation of replace expressions:
+    , matches lines starting from where the first address matches, and continues until the second match (inclusively).
+    $ matches the last line of the last file of input, or the last line of each file when the -i or -s options are specified.
+    ! If the character follows an address range, then only lines which do not match the address range will be selected.
+    d Delete the pattern space; immediately start next cycle.
+
+or
+sed '1,/mail@server\.com/d'  # removing the matched line
+sed '/mail@server\.com/,$!d' # keeping the matched line
+
+###Explanations
+
+    1,/mail@server\.com/d – delete every line from line 1 to (,) mail@server.com
+    /mail@server\.com/,$!d – don't (!) delete every line from mail@server.com to (,) the end of the file ($), but everything else
+or
+#awk
+
+awk 'f;/mail@server\.com/{f=1}' # excluding the matched line
+awk '/mail@server\.com/{f=1}f'  # including the matched line
+
+
+or
+Here's a way you can do it using awk:
+awk '/somestring/ { f = 1 } f' file
+When the pattern matches, set f to true. When f becomes true, print each line.
+
+$ awk '/somestring/,0' file 
+
+-------------------------------------------------------------
+* Print Lines after pattern
+
+sed -n '/dog 123 4335/,$p'
+
+
+
+
+-------------------------------------------------------------
+* last match as delimiter :
+
+tac animals.txt | sed -e '/dog 123 4335/q' | tac
+
+* All lines after the last match
+
+tac infile | sed '/string match/,$d' | tac
+
+* All lines before the last match
+
+tac infile | sed '1,/string match/d' | tac
+
+
+* awk solution:
+
+$ awk 'FNR==NR{if(/match/)x=NR; next}; FNR>x' input.txt{,}
+string log 5
+string log 6
+
+
+
+-------------------------------------------------------------
+*awk match examples
+https://gist.github.com/makeittotop/841927aaa746c8166342
+https://www.shortcutfoo.com/app/dojos/awk/cheatsheet
+
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+

@@ -32,32 +32,6 @@ cat largefile|sort|uniq -d
 sort file| uniq -Dw 8
 
 =============================
-
-*exclude from copy
-rsync -avP --exclude 'sampledir/' src_dir/ dest_dir/
-
-* insert a space every 4 charecters
-echo "foobarbazzz"|sed 's/.\{4\}/&/g'
-
-echo "foobarbazzz"|fold -w4|paste -sd' ' -
-
-*Join without spaces
-:s/$\n//
-
-
-*Extract before and after a pattern
-grep -oE '.{5}cde.{5}' file.txt
-
-
-*Insert text at beginning of file
-sed '1s/^/header text\n/' file1
-
-*Append Text at end of file
-echo "trailer text" >> file
-
-sed '$a trailer ext' file
-
----------------------------------------------------
 ##converters
 
 --hex to ascii
