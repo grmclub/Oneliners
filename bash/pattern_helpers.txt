@@ -32,6 +32,7 @@ The -n switch makes sed print only when told (the p command).
 If you don't want to include the matching line you can tell sed to delete from the start of the file to the matching line:
 sed '1,/^WHATEVER$/d'
 
+--use
 sed -i '/somestring/,$!d' file
 
 Explanation of replace expressions:
@@ -99,6 +100,14 @@ https://www.shortcutfoo.com/app/dojos/awk/cheatsheet
 
 
 -------------------------------------------------------------
+* Filter exactly n digits
+
+grep -E '[0-9]{5}' is looking for numbers with at least 5 digits
+
+*display all lines that contain a four-digit sequence, but do not contain any sequence of more than four digits
+grep -P '\d{4}' file | grep -Pv '\d{5}'
+grep -E '[0-9]{4}' file | grep -Ev '[0-9]{5}'
+
 
 -------------------------------------------------------------
 
