@@ -1,17 +1,6 @@
 
 
----------------------------------------------------
-##datetime
 
---Extract data for time range
-
-grep "1[4-7]/Sep/2011" logfile
-
-sed -n '/Dec 5 11:00/,/Dec 5 12:00/p' logfile
-
-
-
----------------------------------------------------
 ===============================
 *Sort uniq
 –Top ten largest directories in your current directory with human-readable output, 

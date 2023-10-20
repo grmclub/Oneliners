@@ -1,0 +1,32 @@
+
+
+----------------------------------------------------- -------------------
+* Monitor a directory for changes
+
+On Linux, there is inotify. On the command line, you can use inotifywait. Usage example:
+inotifywait -m /path/to/dir | while read -r dir event name; do
+  case $event in
+    OPEN) echo "The file $name was created or opened (not necessarily for writing)";;
+    WRITE) echo "The file $name was written to";;
+    DELETE) echo "The file $name was deleted ";;
+  esac
+done
+
+------------- ----
+#!/bin/bash
+
+WATCH=/tmp
+inotifywait -q -m -e create --format %f $WATCH | while read event
+do
+    ls -ltr $WATCH/$event
+done
+------------- ----
+##One liner
+
+inotifywait -q -m -e create --format %w%f /some/directory
+
+inotifywait -m --timefmt '%H:%M' --format '%T %w %e %f' /etc/resolv.conf
+
+----------------------------------------------------- -------------------
+----------------------------------------------------- -------------------
+----------------------------------------------------- -------------------

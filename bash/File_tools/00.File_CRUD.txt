@@ -1,0 +1,56 @@
+
+---------------------------------------------------------------------
+===================
+copy, move, rename
+===================
+1. joining Files
+
+    -Print Only Unpaired Lines using -v option
+    $ join -v1 testfile1 testfile2
+
+    Do not Check the Sortness using –nocheck-order option
+    $ join --nocheck-order testfile1 testfile2
+
+    Print Unpairable Lines using -a option
+    $ join -a1 testfile1 testfile2
+
+    Join Based on Different Columns from Both Files using -1 and -2 option
+    $ join -1 1 -2 2 testfile1 testfile2
+
+
+
+
+---------------------------------------------------------------------
+
+
+
+
+---------------------------------------------------------------------
+==========
+Delete
+==========
+
+##Delete Files
+find "${storepath}/" -maxdepth 1 -type f -delete
+
+##Remove the first line from the file
+sed 1d gplot.csv > gplot2.csv
+tail -n +2 inputFile > outputFile
+
+* Clean up directories : once a month
+tmpwatch -v -m 30d /home/ABC/md/{log,out}
+tmpwatch -v -m 30d /home/ABC/md/csv/log
+
+
+
+
+---------------------------------------------------------------------
+
+
+---------------------------------------------------------------------
+
+
+---------------------------------------------------------------------
+
+
+---------------------------------------------------------------------

@@ -1,0 +1,126 @@
+
+
+http://www.epochconverter.com/
+
+----------------- ---------------------------- ------------------
+* Convert Epoch Seconds To the Current Time
+
+Type the following command to display the seconds since the epoch:
+date +%s
+
+Sample outputs:
+1268727836
+
+AWK Example
+echo 1268727836 | awk '{print strftime("%c",$1)}'
+
+Perl Example
+perl -e "print scalar(localtime(1268727836))"
+
+#convert epoch time
+date -d @1268727836 +"%d-%m-%Y %T %z"
+$ date -d @1361234760.790
+
+
+----------------- ---------------------------- ------------------
+1. print human readable date
+
+    date +"%Y%m%d%H%M%S"
+    20141107141104
+
+2. conversion functions
+
+   strftime - epoch to formatted date time array
+   strptime - convert a string representation of time to a time tm structure
+
+
+----------------- ---------------------------- ------------------
+
+To convert a date to seconds since the epoch:
+date --date="19-FEB-12" +%s
+
+Current epoch:
+date +%s
+
+So, since your dates are in the past:
+NOW=`date +%s`
+THEN=`date --date="19-FEB-12" +%s`
+
+let DIFF=$NOW-$THEN
+echo "The difference is: $DIFF"
+
+----------------- ---------------------------- ------------------
+1. Bash script: difference in minutes between two times
+
+Track-1
+=======
+A pure bash solution :
+old=09:11
+new=17:22
+
+# feeding variables by using read and splitting with IFS
+IFS=: read old_hour old_min <<< "$old"
+IFS=: read hour min <<< "$new"
+
+# convert hours to minutes
+# the 10# is there to avoid errors with leading zeros
+# by telling bash that we use base 10
+total_old_minutes=$((10#$old_hour*60 + 10#$old_min))
+total_minutes=$((10#$hour*60 + 10#$min))
+
+echo "the difference is $((total_minutes - total_old_minutes)) minutes"
+------------ -----------
+Track-2
+=======
+
+Another solution using date (we work with hour/minutes, so the date is not important)
+old=09:11
+new=17:22
+
+IFS=: read old_hour old_min <<< "$old"
+IFS=: read hour min <<< "$new"
+
+# convert the date "1970-01-01 hour:min:00" in seconds from Unix EPOCH time
+sec_old=$(date -d "1970-01-01 $old_hour:$old_min:00" +%s)
+sec_new=$(date -d "1970-01-01 $hour:$min:00" +%s)
+
+echo "the difference is $(( (sec_new - sec_old) / 60)) minutes"
+
+------------ -----------
+Track-3
+=======
+
+I would convert the dates to UNIX timestamps; you can subtract to get the difference in seconds, then divide by 60:
+#!/bin/bash
+
+MPHR=60    # Minutes per hour.
+
+CURRENT=$(date +%s -d '2007-09-01 17:30:24')
+TARGET=$(date +%s -d'2007-12-25 12:30:00')
+
+MINUTES=$(( ($TARGET - $CURRENT) / $MPHR ))
+
+------------ -----------
+Track-4
+=======
+
+Here is how I did it:
+START=$(date +%s);
+sleep 1; # Your stuff
+END=$(date +%s);
+echo $((END-START)) | awk '{printf "%d:%02d:%02d", $1/3600, ($1/60)%60, $1%60}'
+
+----------------- ---------------------------- ------------------
+
+
+
+
+
+----------------- ---------------------------- ------------------
+
+
+
+
+
+
+----------------- ---------------------------- ------------------

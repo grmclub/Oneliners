@@ -1,6 +1,5 @@
 
 --------------------------------------------------------------------------------------
-----------
 https://www.linuxjournal.com/content/boost-productivity-bash-tips-and-tricks
 
 alias ddu='du -sh * | sort -hr | head -20'
@@ -29,7 +28,15 @@ or
 * skip writing if construct
 [[ "$line" =~ $pre$pat$post ]] && echo "$line"
  
-
 --------------------------------------------------------------------------------------
+##Bash Tools
+
+#curl -x http://myproxy:8080 --proxy-user ${usr}:${pass} -L ${site} > ${dt}_n08.pdf
+
+#Extract XML Value in bash script
+title=$(sed -n -e 's/.*<title>\(.*\)<\/title>.*/\1/p' <<< $data)
+
+$ title=$(grep -oPm1 "(?<=<title>)[^<]+" <<< "$data")
+
 --------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------

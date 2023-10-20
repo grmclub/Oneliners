@@ -1,0 +1,134 @@
+
+---------------------------------------------------
+##datetime
+
+--Extract data for time range
+
+grep "1[4-7]/Sep/2011" logfile
+
+sed -n '/Dec 5 11:00/,/Dec 5 12:00/p' logfile
+
+---------------------------------------------------
+* Bash : converting unix timestamp to date
+
+#echo <unix time> | perl -e 'print localtime(<>) . "\n";'
+#date -d @1232144092
+
+##Print Unix Timestamp
+#date +%s
+
+##Convert from Unix Timestamps
+$ date -d @1193144433
+Tue Oct 23 15:00:33 EST 2007
+
+---------------------------------------------------
+#today=`date +%Y%m%d`
+#now=`date +%H%M
+
+#Check the time range
+if [ ${now} -lt 1700 ] || [ ${now} -gt 1800 ]; then
+   echo "This is not the Safe time to start Receivers..."
+   echo "---Run receivers between 17:00 and 18:00---"
+   exit 0
+fi
+
+
+cat bc_$(date +%Y%m%d_%H%M%S).txt
+---------------------------------------------------
+* Calculate later date
+
+-d, --date=STRING
+          display time described by STRING, not ‘now’
+		  
+* Calculate date from a date
+date +%Y-%m-%d -d "2014-01-01 +3 month"
+
+You can use "+x days" as format string:
+$ date -d "+10 days"
+
+$ date -v -1d
+
+In order to get 1 day back date using date command:
+$ date -v -1d
+
+It will give (current date -1) means 1 day before .
+$ date -v +1d
+
+This will give (current date +1) means 1 day after.
+
+Similarly below written code can be used in place of "d" to find out year,month etc.
+y-Year
+m-Month
+w-Week
+d-Day
+H-Hour
+M-Minute
+S-Second
+---------------------------------------------------
+* linux + add X days to date and get new virtual date
+
+prog_end_date=`date '+%C%y%m%d' -d "$end_date+10 days"`
+So if $end_date=20131001, $prog_end_date=20131011
+
+You can use "+x days" as format string:
+$ date -d "+10 days"
+
+$ date --date="next day"
+Getting Date In the Future
+
+To get tomorrow and day after tomorrow (tomorrow+N) use day word to get date in the future as follows:
+
+date --date='tomorrow'
+date --date='1 day'
+date --date='10 day'
+date --date='10 week'
+date --date='10 month'
+date --date='10 year'
+
+
+date -d "-1 days" +"%Y%m%d"
+---------------------------------------------------
+* formattters
+
+--Get day of the week
+date '+%u'
+or
+date '+%a'
+or
+date '+%A'
+
+---------------------------------------------------
+* Check files with dates
+#pssh -l jack_beanstalk -Hdxsftp0{1,2} -t 900 -p 3 -i "ls -lrt /home/ABC/EST_MASTER_$(date --date='3 days ago' '+%Y%m%d').csv"
+
+* Copy files every day - with crontab
+00 15 * * 1-5 /usr/bin/rsync -a /home/ABC/log/SEQ_msg_$(date "+\%Y\%m\%d").log /tmp
+---------------------------------------------------
+
+---------------------------------------------------
+
+
+---------------------------------------------------
+
+---------------------------------------------------
+
+---------------------------------------------------
+
+
+---------------------------------------------------
+
+---------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
