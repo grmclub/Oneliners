@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------------
 https://www.theunixschool.com/2012/12/howto-remove-leading-trailing-spaces.html
-
+https://www.baeldung.com/linux/trim-whitespace-bash-variable
 
 --------------------------------------------------------------------------------------
 * Remove / Delete All Leading Blank Spaces / Tabs ( whitespace ) From Each Line
