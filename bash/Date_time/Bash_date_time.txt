@@ -21,6 +21,9 @@ sed -n '/Dec 5 11:00/,/Dec 5 12:00/p' logfile
 $ date -d @1193144433
 Tue Oct 23 15:00:33 EST 2007
 
+# convert timestamp to date:
+$ date -d @1659119415 '+%Y-%m-%d %H:%M:%S'
+2022-07-29 15:30:15
 ---------------------------------------------------
 #today=`date +%Y%m%d`
 #now=`date +%H%M
