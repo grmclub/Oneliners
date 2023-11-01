@@ -1,0 +1,111 @@
+
+
+----------------------------------------------------------------------------
+* FORMAT is as follows
+
+date +"FORMAT"
+Where, FORMAT can be any one of the following:
+%a : Abbreviated weekday name (Sun..Sat)
+%b : Abbreviated month name (Jan..Dec)
+%B : Full month name, variable length (January..December)
+%d : day of month (01..31)
+%e : day of month, blank padded ( 1..31)
+%H : 24 hour format (00..23)
+%I : 12 hour format (01..12)
+%j : day of year (001..366)
+
+--------------- -------------
+date '+%s' -d 2011-11-04
+
+
+$date "+%Y%m%d"
+$date "+%Y-%m-%d"
+2010-02-10
+%Y is keyword for four digit year
+%m is keyword for two digit month
+%d is keyword for two digit date
+
+--------------- -------------
+* Get future or past daate
+
+prog_end_date=`date '+%C%y%m%d' -d "$end_date+10 days"`
+So if $end_date=20131001, $prog_end_date=20131011
+
+You can use "+x days" as format string:
+$ date -d "+10 days"
+
+$ date --date="next day"
+Getting Date In the Future
+
+To get tomorrow and day after tomorrow (tomorrow+N) use day word to get date in the future as follows:
+
+date --date='tomorrow'
+date --date='1 day'
+date --date='10 day'
+date --date='10 week'
+date --date='10 month'
+date --date='10 year'
+
+date -d "-1 days" +"%Y%m%d"
+--------------- -------------
+##Print Unix Timestamp
+#date +%s
+
+
+##Convert from Unix Timestamps
+#echo <unix time> | perl -e 'print localtime(<>) . "\n";'
+#date -d @1232144092
+Tue Oct 23 15:00:33 CEST 2007
+
+--------------- -------------
+* Wait for log msg to come
+
+#!/bin/bash
+    set -e
+
+    end_of_wait=$(date +%s -d "5 minutes")
+    ssh host1 bash <<EOF
+        set -ex
+        cd /var/log/xx
+        while ! grep program*.log
+        do
+            [[ \$(date +%s) -le ${end_of_wait} ]]
+            sleep 5
+        done
+    EOF
+
+--------------------------------------------------------------------------------------
+* Dates from present date
+
+-Days from date
+date +%Y-%m-%d -d "7 day ago"
+
+-Dates from given date
+date +%Y-%m-%d -d "2021-05-19 7 day ago"
+
+#Unixtime
+date +%s -d "2021-05-19"
+
+#Timestamp1= to epoch
+date -d "14:26:43.455" +%s
+
+#epoch to human readable
+date -d @123456789
+
+#calc date diff
+$[($(date +%s) -1628054803)/60]
+
+
+* Generate time
+date -d '5 hour ago' +%H:%M
+
+--------------------------------------------------------------------------------------
+#Check no of days in each month
+for m in {1..12};do
+	date -d "$m/1 +1 month -1 day" +"%b -%d days";
+done
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+

@@ -1,0 +1,124 @@
+
+-------------------------------------------------------------
+
+=================================================
+--basic csv read
+
+while IFS=, read -r field1 field2
+do
+    echo "$field1 and $field2"
+done < input.csv
+
+
+--read into an array
+FILE=data.csv
+VALUE="$1"
+COLNUM=$2
+IFS="$3"
+
+while read -r -a myArray
+do
+    if "$myArray[$COLNUM]"=="$VALUE"; then
+        exit 0
+    fi
+done < tail -n +2 $FILE
+
+exit 1
+=================================================
+
+-------------------------------------------------------------
+https://www.baeldung.com/linux/csv-parsing
+
+$ cat input.csv
+SNo,Quantity,Price,Value
+1,2,20,40
+2,5,10,50
+
+=================================================
+--Reading Records From a File
+
+We’ll run an example to read records from our input file:
+
+#!/bin/bash
+while read line
+do
+   echo "Record is : $line"
+done < input.csv
+
+--Ignoring the Header Line
+
+#!/bin/bash
+while read line
+do
+   echo "Record is : $line"
+done < <(tail -n +2 input.csv)
+
+
+--store the field values :
+
+#! /bin/bash
+while IFS="," read -r rec_column1 rec_column2 rec_column3 rec_column4
+do
+  echo "Displaying Record-$rec_column1"
+  echo "Quantity: $rec_column2"
+  echo "Price: $rec_column3"
+  echo "Value: $rec_column4"
+  echo ""
+done < <(tail -n +2 input.csv)
+
+--There can be instances where we’re interested in reading only the first few columns of the file for processing
+
+#! /bin/bash
+while IFS="," read -r rec_column1 rec_column2 rec_remaining
+do
+  echo "Displaying Record-$rec_column1"
+  echo "Quantity: $rec_column2"
+  echo "Remaining fields of Record-$rec_column1 : $rec_remaining"
+  echo ""
+done < <(tail -n +2 input.csv)
+
+--From Specific Column Numbers
+
+#! /bin/bash
+while IFS="," read -r rec1 rec2
+do
+  echo "Displaying Record-$rec1"
+  echo "Price: $rec2"
+done < <(cut -d "," -f1,3 input.csv | tail -n +2)
+=================================================
+--Mapping Columns of CSV File into Bash Arrays
+
+#! /bin/bash
+arr_record1=( $(tail -n +2 input.csv | cut -d ',' -f1) )
+arr_record2=( $(tail -n +2 input.csv | cut -d ',' -f2) )
+arr_record3=( $(tail -n +2 input.csv | cut -d ',' -f3) )
+arr_record4=( $(tail -n +2 input.csv | cut -d ',' -f4) )
+echo "array of SNos  : ${arr_record1[@]}"
+echo "array of Qty   : ${arr_record2[@]}"
+echo "array of Price : ${arr_record3[@]}"
+echo "array of Value : ${arr_record4[@]}"
+
+=================================================
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+-------------------------------------------------------------

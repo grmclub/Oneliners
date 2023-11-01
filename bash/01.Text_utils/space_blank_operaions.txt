@@ -7,6 +7,28 @@ https://mywiki.wooledge.org/BashFAQ/067
 --------------------------------------------------------------------------------------
 * Remove / Delete All Leading Blank Spaces / Tabs ( whitespace ) From Each Line
 
+To delete trailing whitespace from end of each line, enter:
+
+
+cat input.txt | sed 's/[ \t]*$//' > output.txt
+
+remove all leading and trailing whitespace from end of each line:
+cat input.txt | sed 's/^[ \t]*//;s/[ \t]*$//' > output.txt
+
+*Remove leading whitespace chars:
+
+$ sed -e 's/^[[:space:]]*//g' filename
+
+*Remove trailing whitespace chars:
+
+$ sed -e 's/[[:space:]]*$//g' filename
+
+Doesn't discriminate between tabs and spaces.
+
+
+
+--------------------------------------------------------------------------------------
+
 To remove all whitespace (including tabs) from left to first word, enter:
 echo "     This is a test" | sed -e 's/^[ \t]*//'
 sed "s/^[ \t]*//" -i youfile
@@ -32,24 +54,7 @@ Use this more portable sed:
 
 sed -i.bak 's/^[[:space:]]*//' file
 
---------------------------------------------------------------------------------------
-To delete trailing whitespace from end of each line, enter:
 
-
-cat input.txt | sed 's/[ \t]*$//' > output.txt
-
-remove all leading and trailing whitespace from end of each line:
-cat input.txt | sed 's/^[ \t]*//;s/[ \t]*$//' > output.txt
-
-Remove leading whitespace chars:
-
-$ sed -e 's/^[[:space:]]*//g' filename
-
-Remove trailing whitespace chars:
-
-$ sed -e 's/[[:space:]]*$//g' filename
-
-Doesn't discriminate between tabs and spaces.
 --------------------------------------------------------------------------------------
 remove blank line you can try any one of the following command:
 

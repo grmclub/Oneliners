@@ -1,0 +1,132 @@
+
+-------------------------------------------------------------
+* read multiple variables in oneline
+
+fields="$1"
+symbol="$2"
+
+#601898.SG.side a.1.601898.SG.side b.1
+symbol=$(echo $symbol | tr " " "_")
+IFS='.' read -r id1 ex1 src1 ty1 id2 ex2 src2 ty2 <<<"$symbol"
+
+#echo "$id1- $ex1- $src1- $ty1- $id2- $ex2- $src2- $ty2"
+
+
+-------------------------------------------------------------
+alias dx="du -sx *| sort -nr| head|cut -f2| xargs -n1 du -h"
+ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null <host> /bin/df -h /var/tmp | /usr/bin/tail -1 | awk '{print $(NF-1)}' | cut -d'%' -f1
+
+-------------------------------------------------------------
+* Generate a Random Password
+
+https://vitux.com/debian_secure_password/
+
+date +%s | sha256sum | base64 | head -c 32 ; echo
+openssl rand -base64 32
+apg -a1
+
+* Password protect zip file
+#zip -P passw0rd secure.zip file1 file2 file3
+
+DIRECTORY=.
+for i in $DIRECTORY/*.tar; do
+zip -0 -e $i'.zip' $i -P mypassword
+done
+---------------------
+
+#zip -Pxx file.zip file1 file2
+
+#unzip -Pxx file.zip
+
+-------------------------------------------------------------
+*Extract single file from tar
+
+1. Check contents of tar
+#tar -tvf xx.tar
+
+2. Extract desired file only
+
+------------------------------------- 
+* Bash File tools
+find
+grep, sed, awk
+tr,cut, join
+sort,uniq
+
+-------------------------------------
+*Clean up Files
+
+-Delete files older than 30 days
+#find /opt/backup -iname "*.log" -type f -mtime +30 -exec rm -f {} \;
+
+-Delete files over 1 year old
+find . -maxdepth 1 -type d -mtime +365| xargs -n1 rm -rf
+
+-Find by size
+find / -size 10M
+
+-Find by owner
+find / -user john
+find / -perm 644
+
+-Find empty folders
+find / -empty
+
+-Find files which are not scripts
+#find . \! -name "*.csh" -and \! -name "*.sh"
+
+#ls -l | egrep -v "*.(csh|sh)"
+#ls -l | grep -Ev "*.(csh|sh)"
+
+-------------------------------------
+*lsof
+
+-open files by user
+#lsof -u tecmint
+
+-Processes on port
+#lsof -i TCP:22
+#netstat -nltap
+
+-find by PID
+lsof -p xxx
+
+-find network connections
+lsof -i
+
+-kill activity from an user
+#kill -9 `lsof -t -u techmint`
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -110,7 +110,85 @@ grep -E '[0-9]{4}' file | grep -Ev '[0-9]{5}'
 
 
 -------------------------------------------------------------
+-------------------------------------------------------------
+* Match and extract fom delimeted string
 
+	grep "my_string" file |awk -F ";" '{print $5}'
+	or
+	awk -F ";" '/my_string/ {print $5}' file
+	For 2nd column:
+	awk -F ";" '$2 ~ /my_string/ {print $5}' file
+	For exact matching:
+	awk -F ";" '$2 == "my_string" {print $5}' file
+-------------------------------------------------------------
+*Delete until pattern
+
+	sed '1,/mail@server\.com/d'  # removing the matched line
+	sed '/mail@server\.com/,$!d' # keeping the matched line
+
+	Another awk approachs, including the matched line.
+	awk '/pattern/, 0' infile
+
+	Excluding the matched line.
+	awk '/pattern/&& getline, 0' infile
+
+*Insert a line before or after a pattern 
+https://www.theunixschool.com/2012/06/insert-line-before-or-after-pattern.html
+
+
+	1. awk solution.
+
+	$ awk '/Fedora/{print "Cygwin"}1' file
+	Linux
+	Solaris
+	Cygwin
+	Fedora
+	Ubuntu
+	AIX
+	HPUX
+
+	The '1' at the end prints every line by default. On finding the pattern 'Fedora', 'Cygwin' is printed. Hence, first  "Cygwin" gets printed followed by 'Fedora'(1).
+
+	2. sed solution which is simple.
+
+	$ sed 's/.*Fedora.*/Cygwin\n&/' file
+	Linux
+	Solaris
+	Cygwin
+	Fedora
+	Ubuntu
+	AIX
+	HPUX
+
+
+* Inserting after the Pattern:
+
+	5. awk solution
+
+	$ awk '/Fedora/{print;print "Cygwin";next}1' file
+	Linux
+	Solaris
+	Fedora
+	Cygwin
+	Ubuntu
+	AIX
+	HPUX
+
+	  The difference here is the addition of two extra commands: print and next. print will print the current line, and the next command will skip the current line from printing again.
+
+	6. sed solution:
+
+	$ sed 's/.*Fedora.*/&\nCygwin/' file
+	Linux
+	Solaris
+	Fedora
+	Cygwin
+	Ubuntu
+	AIX
+	HPUX
+
+	  Simple change from the earlier sed solution. Patten matched(&) followed by "Cygwin".
+-------------------------------------------------------------
 -------------------------------------------------------------
 -------------------------------------------------------------
 

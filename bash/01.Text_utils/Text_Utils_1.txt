@@ -1,0 +1,66 @@
+
+--------------------------------------------------------------------------------------
+python
+-report template
+-utils class - file, mail, shell, scrape
+-net_tools
+--------------------------------------------------------------------------------------
+1. delete blank lines
+    :g/^$/d
+    :v/./d
+
+------------------
+vim:
+Clear white-spaces	    :%s=\s\+$==
+Convert tabs to spaces	:set expandtab :%retab!
+
+--Configure editor
+:set ts=4 et sw=4
+-----------------
+##Replace trailing spaces
+find . -name "*.php" -type f | xargs sed -i 's/[ \t]*$//'
+find . -name "*.php" -type f | xargs awk '/[ \t]+$/ {print FILENAME;print NR; print;}'
+
+
+--------------------------------------------------------------------------------------
+
+https://www.gnu.org/software/sed/manual/html_node/Addresses.html
+---------------------------------------------------
+##Add text to Beginning of file
+echo 'task goes here' | cat - todo.txt > temp && mv temp todo.txt
+
+or
+sed -i '1s/^/task goes here\n/' todo.txt
+
+
+##add lines to end of file
+echo 'I=eth0' >> net.eth0.config.sh
+
+--------------------------------------------------------------------------------------
+*Extract text between patterns
+
+cat output.txt | sed -n '/0: jdbc:drill/, /0: jdbc:drill/p' | grep -v closing | grep -v "rows selected"
+cat output.txt | sed -n '/0: jdbc:drill/, /0: jdbc:drill/p' | grep -Ev "closing|rows selected"
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

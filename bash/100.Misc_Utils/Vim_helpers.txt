@@ -1,0 +1,31 @@
+#Get rid of leading spaces
+:%left
+
+guu     : lowercase line
+gUU     : uppercase line
+:%!cat -n : add line numbers
+
+* Or use vim to read from STDIN:
+vim <(ls -la)
+ls -la | vim -
+
+Global Mode KB
+================
+Delete all lines matching a pattern.
+:g/pattern/d
+
+Delete all lines that do not match a pattern. The commands shown are equivalent (v is "inverse").
+:g!/pattern/d
+:v/pattern/d
+
+Copy all lines matching a pattern to end of file.
+:g/pattern/t$
+
+Move all lines matching a pattern to end of file.
+:g/pattern/m$
+
+Delete all blank lines (^ is start of line; \s* is zero or more whitespace characters; $ is end of line)
+:g/^\s*$/d
+
+----------------
+
