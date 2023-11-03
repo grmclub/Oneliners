@@ -138,6 +138,14 @@ $ parallel 'echo {} start; sleep 1; echo {} ready' ::: 1 2 3
 3 ready
 
 -------------------------------------------------------------
+* Bash parallel command execution
+
+--run command on a group of nodes in parallel
+echo -n m{1..5}.cluster.net | xargs -d' ' -n1 -P5 -I{} ssh {} 'uptime' 
+echo "uptime" | tee >(ssh host1) >(ssh host2) >(ssh host3)
+xargs -n1 -P100 -I{} sh -c 'ssh {} uptime >output/{} 2>error/{}' <hostlist
+
+
 -------------------------------------------------------------
 
 -------------------------------------------------------------
