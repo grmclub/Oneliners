@@ -1,3 +1,10 @@
+https://datascienceatthecommandline.com/
+https://jeroenjanssens.com/dsatcl/chapter-5-scrubbing-data
+https://github.com/wireservice/csvkit
+https://csvkit.readthedocs.io/en/latest/
+https://github.com/jeroenjanssens/data-science-at-the-command-line/tree/master/book/2e/data
+
+https://www.usenix.org/sites/default/files/conference/protected-files/lisa19_maheshwari.pdf
 
 -------------------------------------------------------------
 #extracting between patterns
@@ -32,11 +39,62 @@ cat file.in|awk '{ ($3 == "1" ? sum_b +=$5 : sum_s +=$5); } END{ print sum_b, su
  awk 'ORS=NR%5?",":"\n"' file
  
  
+# Billing for Books
+
+$ cat bookdetails.txt
+1 Linux-programming 2 450
+2 Advanced-Linux 3 300
+3 Computer-Networks 4 400
+4 OOAD&UML 3 450
+5 Java2 5 200
+
+awk -f script-filename inputfilename
+$ cat book-calculation.awk
+BEGIN {
+	total=0;
+}
+{
+	itemno=$1;
+	book=$2;
+	bookamount=$3*$4;
+	total=total+bookamount;
+	print itemno," ", book,"\t","$"bookamount;
+}
+END {
+	print "Total Amount = $"total;
+}
  
- 
- 
+-------------------------------------------------------------
+#html report
+
+$ cat string.awk
+BEGIN{
+title="AWK";
+print "<html>\n<title>"title"</title><body bgcolor=\"#ffffff\">\n<table border=1><th  colspan=2 align=centre>Student Details</th>";
+
+}
+{
+name=$1;
+rollno=$2;
+print "<tr><td>"name"</td><td>"rollno"</td></tr>";
+   
+}
+END {
+    print "</table></body>\n</html>";
+}
+
+-------------------------------------------------------------
+
 -------------------------------------------------------------
 
 -------------------------------------------------------------
 
 -------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+
+
+

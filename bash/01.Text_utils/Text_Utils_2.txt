@@ -1,10 +1,62 @@
 
+https://tldp.org/LDP/abs/html/string-manipulation.html
+
+#Bash string manipulation cheatsheet
+https://gist.github.com/magnetikonline/90d6fe30fc247ef110a1
+
+#Bash array usage cheatsheet
+https://gist.github.com/magnetikonline/0ca47c893de6a380c87e4bdad6ae5cf7
+
+#Shell redirection cheatsheet
+https://gist.github.com/magnetikonline/096e4ff4f37027e65d74
+
+#Bash if expressions cheatsheet
+https://gist.github.com/magnetikonline/5282716
+
+https://linuxhandbook.com/bash-strings/
+https://tldp.org/LDP/abs/html/
+
+
+
+-------------------------------------------------------------
+#Bash String operations
+
+-Extract substring from $string at $position
+${string:position:length}
+
+ex:
+-Substring Extraction and Replacement
+str="2023-10-12"
+
+echo "${str:5:2}" # 10
+echo "${str::4}" # 2023
+echo "2022-${str:5}" # 2022-10-12
+
+-Substring Removal
+  Deletes shortest match of $substring from front of $string.
+${string#substring}
+  Deletes longest match of $substring from front of $string.
+${string##substring}
+
+-Replace only first match
+${string/pattern/replacement}
+
+-Replace all the matches
+${string//pattern/replacement}
+
+-Replace beginning and end
+${string/#pattern/replacement}
+Following syntax replaces with the replacement string, only when the pattern matches beginning of the $string.
+
+${string/%pattern/replacement}
+Following syntax replaces with the replacement string, only when the pattern matches at the end of the given $string.
 
 
 
 -------------------------------------------------------------
 
--------------------------------------------------------------
+
+https://www.thegeekstuff.com/2010/01/8-powerful-awk-built-in-variables-fs-ofs-rs-ors-nr-nf-filename-fnr/
 
 -------------------------------------------------------------
 -------------------------------------------------------------
