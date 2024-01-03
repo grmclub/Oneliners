@@ -6,6 +6,15 @@ https://github.com/jeroenjanssens/data-science-at-the-command-line/tree/master/b
 
 https://www.usenix.org/sites/default/files/conference/protected-files/lisa19_maheshwari.pdf
 
+
+Related University Material
+The Missing Semester at MIT //https://missing.csail.mit.edu/
+Great Practical Ideas in CS at CMU // https://www.cs.cmu.edu/~07131/f20/
+https://mareksuppa.com/teaching/linux-cli-data-science/2022/#lecture-12-modern-unix-tools
+
+
+
+
 -------------------------------------------------------------
 #extracting between patterns
 
