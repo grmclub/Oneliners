@@ -89,14 +89,14 @@ $awk ‘$3 ~/is/ {print $2}’ testFile.txt
 
 *How to use range pattern with awk command:
 
-A range can also be used for search; simply use the comma “,” to separate the range as presented in the below-mentioned command:
+A range can also be used for search; use comma “,” to separate the range
 $awk ‘/Joel/, /Marlene/ {print $3}’ testFile.txt
 
 *Print lines in a range
 awk 'NR>1 && NR < 4' file
 
 Performing calculations column-wise
-awk '{ SUM=SUM+$1 } END { print SUM }' FS=, OFS=, file
+awk '{ SUM +=$1 } END { print SUM }' FS=, OFS=, file
 
 
 *parsing the substr command, you can split a string of characters at a given length. Here I use it to capitalize only the first character of the third field:
