@@ -12,7 +12,7 @@ The Missing Semester at MIT //https://missing.csail.mit.edu/
 Great Practical Ideas in CS at CMU // https://www.cs.cmu.edu/~07131/f20/
 https://mareksuppa.com/teaching/linux-cli-data-science/2022/#lecture-12-modern-unix-tools
 
-
+https://karandeepsingh.ca/post/advanced-string-operations-in-bash-building-custom-functions/
 
 
 -------------------------------------------------------------
