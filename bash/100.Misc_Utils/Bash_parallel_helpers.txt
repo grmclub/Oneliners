@@ -53,6 +53,7 @@ echo "All done"
 ------------------
 variant_4
 
+https://www.cyberciti.biz/faq/how-to-run-command-or-code-in-parallel-in-bash-shell-under-linux-or-unix/
 To download all files in parallel using wget:
 
 #!/bin/bash

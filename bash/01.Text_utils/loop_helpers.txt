@@ -7,6 +7,27 @@ for i in {$start..$end}; do
     # do something...
     echo $i
 done
+
+##{START..END..INCREMENT}
+for i in {0..10..2}
+do 
+  echo "Welcome $i times"
+done
+
+for (( c=1; c<=5; c++ ))
+do  
+   echo "Welcome $c times"
+done
+
+# Install the PHP packages listed in the PKGS variable.
+PKGS="php7-openssl-7.3  php7-common-7.3  php7-fpm-7.3  php7-opcache-7.3 php7-7.3"
+for p in $PKGS
+do
+   echo "Installing $p package"
+   sudo apk add "$p"
+done
+
+
 ---------------------------------------------------
 # Please, check the number of jobs running
 while [ $(ls -l | grep jobRunning | wc -l) -ge $nprocesses ];
