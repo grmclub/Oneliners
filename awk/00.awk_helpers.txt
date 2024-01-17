@@ -45,8 +45,19 @@ substr(s, i [, n])
 
 cat /etc/passwd |awk -F\: '{printf("%s \n", substr($1,1,3))}'|head -5
 
+--Find and Replace
 # substitute "foo" with "bar" ONLY for lines which contain "baz"
- awk '/baz/{gsub(/foo/, "bar")}; 1'
+awk '/baz/{gsub(/foo/, "bar")}; 1'
+ 
+#Replace comma in a column
+awk '{ gsub(",","",$3); print $3 }' /tmp/data.txt
+awk '{sub(/{OLD_TERM}/,{NEW_TERM}); print}' {file}
+
+awk -F',' -vOFS=',' '{ gsub("CC", "C", $1) ; gsub("AA", "A", $1) ; print }'
+
+##gsub stands for global substitution. Therefore, we can use it to replace all occurrences of a string or regex with a given string
+##sub will only replace the first occurrence of a string. On the other hand, gsub will replace all occurrences
+
 
 -------------------------------------------------------------
 ##Exotic
