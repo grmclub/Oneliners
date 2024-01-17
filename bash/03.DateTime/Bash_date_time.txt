@@ -88,6 +88,16 @@ date --date='10 week'
 date --date='10 month'
 date --date='10 year'
 
+date --date='2 days ago'
+
+--Add days
+## Try NYZ time zone ##
+TZ='America/New_York' date -d "2020-07-29+20 days"
+
+--Sub days
+date -d "YYYY-MM-DD-N days"
+date -d "2020-08-15-5 days"
+
 
 date -d "-1 days" +"%Y%m%d"
 ---------------------------------------------------
