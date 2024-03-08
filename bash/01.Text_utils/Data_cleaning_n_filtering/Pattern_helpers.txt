@@ -16,6 +16,10 @@ grep -oE '.{5}cde.{5}' file.txt
 *Insert text at beginning of file
 sed '1s/^/header text\n/' file1
 
+sed -i '1s;^;DATA-Line-1\n;' input
+
+
+
 *Append Text at end of file
 echo "trailer text" >> file
 

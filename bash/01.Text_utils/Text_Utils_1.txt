@@ -43,7 +43,14 @@ cat output.txt | sed -n '/0: jdbc:drill/, /0: jdbc:drill/p' | grep -v closing | 
 cat output.txt | sed -n '/0: jdbc:drill/, /0: jdbc:drill/p' | grep -Ev "closing|rows selected"
 
 --------------------------------------------------------------------------------------
+##Shell redirection
 
+    1. To redirect stderr (standard error) to a file:
+    command 2> errors.txt
+    2.redirect both stderr and stdout (standard output):
+    command &> output.txt
+    3.redirect stdout to a file named myoutput.txt, and then redirect stderr to stdout using 2>&1 (errors.txt):
+    command > out 2>errors.txt 
 --------------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------------
