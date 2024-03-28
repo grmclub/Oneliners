@@ -46,38 +46,6 @@ done
 
 2. Extract desired file only
 
-------------------------------------- 
-* Bash File tools
-find
-grep, sed, awk
-tr,cut, join
-sort,uniq
-
--------------------------------------
-*Clean up Files
-
--Delete files older than 30 days
-#find /opt/backup -iname "*.log" -type f -mtime +30 -exec rm -f {} \;
-
--Delete files over 1 year old
-find . -maxdepth 1 -type d -mtime +365| xargs -n1 rm -rf
-
--Find by size
-find / -size 10M
-
--Find by owner
-find / -user john
-find / -perm 644
-
--Find empty folders
-find / -empty
-
--Find files which are not scripts
-#find . \! -name "*.csh" -and \! -name "*.sh"
-
-#ls -l | egrep -v "*.(csh|sh)"
-#ls -l | grep -Ev "*.(csh|sh)"
-
 -------------------------------------
 *lsof
 

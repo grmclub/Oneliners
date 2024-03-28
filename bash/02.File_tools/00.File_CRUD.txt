@@ -1,4 +1,13 @@
+* Bash File tools
 
+find
+
+grep, sed, awk
+tr,cut,split,join
+diff, patch
+sort,uniq
+
+tar,bz,gz,zip
 ---------------------------------------------------------------------
 ===================
 copy, move, rename
@@ -16,11 +25,6 @@ copy, move, rename
 
     Join Based on Different Columns from Both Files using -1 and -2 option
     $ join -1 1 -2 2 testfile1 testfile2
-
-
----------------------------------------------------------------------
-
-
 
 
 ---------------------------------------------------------------------
