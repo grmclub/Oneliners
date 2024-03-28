@@ -1,0 +1,77 @@
+-------------------------------------------------------------
+##How to remove duplicate lines inside a text file using awk
+
+The syntax is as follows to preserves the order of the text file:
+awk '!seen[$0]++' input > output
+awk '!seen[$0]++' data.txt > output.txt
+more output.txt
+
+
+##How to remove duplicates line from multiple text file in Perl?
+perl -lne '$seen{$_}++ and next or print;' input > output
+perl -lne '$seen{$_}++ and next or print;' data.txt > output.txt
+more output.txt
+
+#Removing Duplicate Lines With Sort, Uniq and Shell Pipes
+
+Use the following syntax:
+sort {file-name} | uniq -u
+
+-u : check for strict ordering, remove all duplicate lines
+
+##eliminate any duplicate entries in a file while ordering the file, run:
+sort +2 -u users.txt
+sort -u users.txt
+-------------------------------------------------------------
+--How to remove duplicate lines inside a text file?
+
+An awk solution seen on #bash (Freenode):
+
+awk '!seen[$0]++' filename
+awk '!a[$0]++' price_log.txt
+
+
+If you want to edit the file in-place, you can use the following command (provided that you use a GNU awk version that implements this extension):
+
+awk -i inplace '!seen[$0]++' filename
+$ awk '{if (++dup[$0] == 1) print $0;}' input_file > output_file
+
+--perl
+$ perl -ne 'print unless $dup{$_}++;' input_file > output_file
+
+
+
+--removing all but the last occurrence is the inverse of removing all but the first, there is also this solution:
+
+tac file | awk '! seen[$0]++' | tac
+tac reverses lines in the file, and awk will only output the first occurrence of a duplicate line.
+
+--Combination of keys
+https://www.baeldung.com/linux/remove-duplicate-lines-no-sorting
+use Product and Price as the key to the associative array:
+Product, Price, Last Update
+Table, 150, 2020-11-10
+Table, 150, 2019-10-10
+Table, 170, 2020-12-10
+Chair, 57, 2019-05-05
+Chair, 57, 2020-02-04
+Bed, 400, 2020-07-07
+Bed, 420, 2020-08-08
+Bed, 420, 2020-07-10
+
+$ awk -F', ' '!a[$1 FS $2]++' price_log.txt 
+Product, Price, Last Update
+Table, 150, 2020-11-10
+Table, 170, 2020-12-10
+Chair, 57, 2019-05-05
+Bed, 400, 2020-07-07
+Bed, 420, 2020-08-08
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
