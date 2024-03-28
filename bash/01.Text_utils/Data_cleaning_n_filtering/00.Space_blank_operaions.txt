@@ -3,44 +3,50 @@ https://www.theunixschool.com/2012/12/howto-remove-leading-trailing-spaces.html
 https://www.baeldung.com/linux/trim-whitespace-bash-variable
 https://mywiki.wooledge.org/BashFAQ/067
 
-
+--Notepad++ Blank Operations to mimic in cmdLine
+	- Trim Trailing Space
+	- Trim Leading Space
+	- Trim Leading and Trailing Space
+	- EOL to Space
+	- Remove Unnecessary Blank and EOL
+	- Tab to Space
+	- Space to Tab (All)
+	- Space to Tab (Leading)
+	
+--Line Operations
+	- split
+	- join
+	- sort
+	- remove empty lines
+	- extract/delete lines matching pattern
+	- extract/delete duplicates
+	
 --------------------------------------------------------------------------------------
 * Remove / Delete All Leading Blank Spaces / Tabs ( whitespace ) From Each Line
 
-To delete trailing whitespace from end of each line, enter:
-
-
+##To delete trailing whitespace from end of each line, enter:
 cat input.txt | sed 's/[ \t]*$//' > output.txt
 
-remove all leading and trailing whitespace from end of each line:
+##remove all leading and trailing whitespace from end of each line:
 cat input.txt | sed 's/^[ \t]*//;s/[ \t]*$//' > output.txt
 
-*Remove leading whitespace chars:
-
+##Remove leading whitespace chars:
 $ sed -e 's/^[[:space:]]*//g' filename
 
-*Remove trailing whitespace chars:
-
+##Remove trailing whitespace chars:
 $ sed -e 's/[[:space:]]*$//g' filename
 
 Doesn't discriminate between tabs and spaces.
-
-
-
 --------------------------------------------------------------------------------------
-
-To remove all whitespace (including tabs) from left to first word, enter:
+##To remove all whitespace (including tabs) from left to first word, enter:
 echo "     This is a test" | sed -e 's/^[ \t]*//'
 sed "s/^[ \t]*//" -i youfile
-
 
 For this specific problem, something like this would work:
 $ sed 's/^ *//g' < input.txt > output.txt
 
 It says to replace all spaces at the start of a line with nothing. If you also want to remove tabs, change it to this:
 $ sed 's/^[ \t]+//g' < input.txt > output.txt
-
-
 
 This Perl code edits your original file:
 perl -i -ne 's/^\s+//;print' file
@@ -49,16 +55,13 @@ The next one makes a backup copy before editing the original file:
 perl -i.bak -ne 's/^\s+//;print' file
 
 
-
-Use this more portable sed:
-
+Take a backup and update with sed:
 sed -i.bak 's/^[[:space:]]*//' file
 
 
 --------------------------------------------------------------------------------------
-remove blank line you can try any one of the following command:
-
- - sed "/^$/d"  filename
+##remove blank line:
+sed "/^$/d"  filename
 
 --------------------------------------------------------------------------------------
 
