@@ -1,6 +1,10 @@
 --Which -regex is faster
 https://www.biostars.org/p/44123/#44168
 
+-regex performance 
+https://swtch.com/~rsc/regexp/regexp1.html
+
+
 --Check links
 https://linuxhandbook.com/awk-command-tutorial/
 https://likegeeks.com/awk-command/
