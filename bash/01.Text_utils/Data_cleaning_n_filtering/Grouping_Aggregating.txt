@@ -1,6 +1,14 @@
 --Which -regex is faster
 https://www.biostars.org/p/44123/#44168
 
+--Check links
+https://linuxhandbook.com/awk-command-tutorial/
+https://likegeeks.com/awk-command/
+https://www.theunixschool.com/2012/06/awk-10-examples-to-group-data-in-csv-or.html
+https://www.gnu.org/software/coreutils/manual/html_node/index.html
+https://developer.ibm.com/?q=Linux
+
+
 -------------------------------------------------------------
 ---group multiple fields and aggregate data
 https://unix.stackexchange.com/questions/336144/group-a-files-contents-by-two-fields-and-sum-a-third-field
@@ -16,15 +24,11 @@ AAA~111~6~3
 AAA~222~2~1
 BBB~111~2~1
 
-awk -F',' -vOFS=',' 'NR>1{ s[$1","$6] +=$3;} END{ for(I in s){ print i, s[i]}}'| sort -t',' -k1
+
 -------------
+##Use Case: Extract from aggregate selection of multiple fields
 
-https://linuxhandbook.com/awk-command-tutorial/
-https://likegeeks.com/awk-command/
-https://www.theunixschool.com/2012/06/awk-10-examples-to-group-data-in-csv-or.html
-https://www.gnu.org/software/coreutils/manual/html_node/index.html
-https://developer.ibm.com/?q=Linux
-
+awk -F',' -vOFS=',' 'NR>1{ s[$1","$6] +=$3;} END{ for(I in s){ print i, s[i]}}'| sort -t',' -k1
 
 ------
 
