@@ -1,0 +1,52 @@
+--Which -regex is faster
+https://www.biostars.org/p/44123/#44168
+
+-------------------------------------------------------------
+---group multiple fields and aggregate data
+https://unix.stackexchange.com/questions/336144/group-a-files-contents-by-two-fields-and-sum-a-third-field
+
+awk -F'~' 'BEGIN { SUBSEP = OFS = FS } { s[$1,$2] += $3; ++c[$1,$2] } END { for (i in s) { print i, s[i], c[i] } }' file
+AAA~111~6~3
+BBB~111~2~1
+AAA~222~2~1
+You could also choose a tool like GNU datamash, which knows how to calculate basic things like sums etc. on data in simple record formats:
+
+$ datamash -t '~' -s groupby 1,2 sum 3 count 3 <file
+AAA~111~6~3
+AAA~222~2~1
+BBB~111~2~1
+
+awk -F',' -vOFS=',' 'NR>1{ s[$1","$6] +=$3;} END{ for(I in s){ print i, s[i]}}'| sort -t',' -k1
+-------------
+
+https://linuxhandbook.com/awk-command-tutorial/
+https://likegeeks.com/awk-command/
+https://www.theunixschool.com/2012/06/awk-10-examples-to-group-data-in-csv-or.html
+https://www.gnu.org/software/coreutils/manual/html_node/index.html
+https://developer.ibm.com/?q=Linux
+
+
+------
+
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
