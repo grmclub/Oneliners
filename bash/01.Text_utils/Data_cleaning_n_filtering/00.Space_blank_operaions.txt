@@ -6,7 +6,7 @@ https://mywiki.wooledge.org/BashFAQ/067
 
 --------------------------------------------------------------------------------------
 ##objectives
---Notepad++ Blank Operations to mimic in cmdLine
+--Blank Operations to mimic in cmdLine
 	- Trim Trailing Space
 	- Trim Leading Space
 	- Trim Leading and Trailing Space
