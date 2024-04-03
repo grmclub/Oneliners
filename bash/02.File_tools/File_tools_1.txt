@@ -12,6 +12,29 @@ https://www.linuxjournal.com/content/mastering-split-command-linux-effective-fil
 -------------------------------------------------------------
 *exclude from copy
 rsync -avP --exclude 'sampledir/' src_dir/ dest_dir/
+
+##Rate limiting
+*Keep rsync command from using all of my bandwidth
+rsync --bwlimit=KBPS [options] user@src /path/to/dir
+$ rsync --bwlimit=1000 /var/www/html/ \
+backups@server1.cyberciti.biz:~/mysite.backups/
+
+*Rate limiting using ionice
+https://www.cyberciti.biz/tips/linux-set-io-scheduling-class-priority.html
+https://www.cyberciti.biz/faq/how-to-set-keep-rsync-from-using-all-your-bandwidth-on-linux-unix/
+
+/usr/bin/ionice -c2 -n7 /root/scripts/nas.backup.full
+
+OR
+/usr/bin/ionice -c2 -n7 rsync \
+-bwlimit=1000 /path/to/source /path/to/dest/
+
+Where:
+
+    -c or --class {class} : Name or number of scheduling class, 0: none, 1: realtime, 2: best-effort, 3: idle.
+    -n or --classdata {num} : priority (0..7) in the specified scheduling class, only for the realtime and best-effort classes
+
+
 -------------------------------------------------------------
 -------------------------------------------------------------
 
