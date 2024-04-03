@@ -1,0 +1,54 @@
+
+https://askubuntu.com/questions/1206110/sed-extract-lines-from-text
+--------------------------------------------------------------------------------------
+##Extract particular lines
+awk 'NR==1 || NR==5 || NR==1010' "file"
+
+sed -n -e 1p -e 3p -e 5p
+
+--generate a range
+$ for i in {1..100..2}; do echo -n " -e ${i}p"; done
+ -e 1p -e 3p -e 5p -e 7p -e 9p -e 11p -e 13p -e 15p -e 17p -e 19p -e 21p -e 23p -e 25p -e 27p
+
+##Extracted odd/even lines
+--Get even lines
+awk 'NR%2==0' filename
+perl -lne 'print if $. % 2 == 0' infile > outfile
+
+--Get odd lines
+awk 'NR%2==1' filename
+awk '!(NR%2)' file
+
+--Keep odd lines
+sed 'n; d' infile > outfile
+
+--Keep even lines
+sed '1d; n; d' infile > outfile
+
+ sed -n 'p;n' file # keep odd
+ sed -n 'n;p' file # keep even
+
+-n: suppress printing
+-p: print current line
+-n: next line
+
+--------------------------------------------------------------------------------------
+#Extracting lines between patterns
+cat output.txt | sed -n '/10:00/, /10:30/p'
+
+-Extract range use comma “,” to separate the range
+$awk ‘/Joel/, /Marlene/ {print $3}’ testFile.txt
+
+-print section of file between two regular expressions (inclusive)
+awk '/Iowa/,/Montana/'        
+
+-Extract a specific range of lines from a file
+$ awk 'NR>=10 && NR<=20 {print}' file.txt
+
+#processing on match
+ awk '/regex/{print x};{x=$0}'
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
