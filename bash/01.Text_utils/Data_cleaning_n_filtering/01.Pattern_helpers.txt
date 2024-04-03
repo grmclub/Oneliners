@@ -18,8 +18,6 @@ sed '1s/^/header text\n/' file1
 
 sed -i '1s;^;DATA-Line-1\n;' input
 
-
-
 *Append Text at end of file
 echo "trailer text" >> file
 
@@ -111,9 +109,6 @@ grep -E '[0-9]{5}' is looking for numbers with at least 5 digits
 *display all lines that contain a four-digit sequence, but do not contain any sequence of more than four digits
 grep -P '\d{4}' file | grep -Pv '\d{5}'
 grep -E '[0-9]{4}' file | grep -Ev '[0-9]{5}'
-
-
--------------------------------------------------------------
 -------------------------------------------------------------
 * Match and extract fom delimeted string
 

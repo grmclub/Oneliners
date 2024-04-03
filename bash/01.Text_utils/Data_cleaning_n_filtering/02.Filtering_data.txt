@@ -16,26 +16,6 @@ https://karandeepsingh.ca/post/advanced-string-operations-in-bash-building-custo
 
 
 -------------------------------------------------------------
-#extracting between patterns
-
-cat output.txt | sed -n '/10:00/, /10:30/p'
-
---awk
-
--Extract a specific range of lines from a file
-$ awk 'NR>=10 && NR<=20 {print}' file.txt
-
--Extract range use comma “,” to separate the range
-$awk ‘/Joel/, /Marlene/ {print $3}’ testFile.txt
-
--print section of file between two regular expressions (inclusive)
-awk '/Iowa/,/Montana/'             # case sensitive
-
-#processing on match
- awk '/regex/{print x};{x=$0}'
-
-
--------------------------------------------------------------
 #buy sell sum
 
 cat file.in|awk '{ ($3 == "1" ? sum_b +=$5 : sum_s +=$5); } END{ print sum_b, sum_s; }' 
