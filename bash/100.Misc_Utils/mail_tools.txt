@@ -1,5 +1,132 @@
 --------------------------------------------------------------------------------------
+echo 'mail content' | mailx -s 'email subject' -a attachment.txt username@xyz.com
+
+#!/bin/bash
+recipient="example1@example.com,example2@example.com"
+subject="Test Email"
+body="This is a test email sent using mailx."
+attachment="/path/to/file"
+==============
+
+# For HTML emails
+MIME="MIME-Version: 1.0\nContent-Type: text/html\n"
+
+echo "$body" | mailx -s "$subject" -a "$attachment" $recipient
+--------------------------------------------------------------------------------------
+--sendmail
+mailbody="Testmail via bash script"
+echo "From: info@myserver.test" > /tmp/mailtest
+echo "To: john@mywebsite.test" >> /tmp/mailtest
+echo "Subject: Mailtest subject" >> /tmp/mailtest
+echo "" >> /tmp/mailtest
+echo $mailbody >> /tmp/mailtest
+cat /tmp/mailtest | /usr/sbin/sendmail -t
+
+==============
+subject="mail subject"
+body="Hello World"
+from="me@example.com"
+to="recipient1@example.com,recipient2@example.com"
+echo -e "Subject:${subject}\n${body}" | sendmail -f "${from}" -t "${to}"
+===============
+
+#!/bin/bash
+recipient="example1@example.com,example2@example.com"
+subject="Test Email"
+body="This is a test email sent using sendmail."
+
+# For HTML emails, add the following line
+MIME="MIME-Version: 1.0\nContent-Type: text/html\n"
+
+echo -e "To: $recipient\nSubject: $subject\n$MIME\n\n$body" | sendmail -t
+===============
+
+(
+echo "From: ${from}";
+echo "To: ${to}";
+echo "Subject: ${subject}";
+echo "Content-Type: text/html";
+echo "MIME-Version: 1.0";
+echo "";
+echo "${message}";
+) | sendmail -t
+
+===============
+SUBJ="Send mail with file attachments"
+TO=someone@domain_name
+CC=someoneelse_1@domain_name,someoneelse_2@domain_name
+(
+cat << !
+To : ${TO}
+Subject : ${SUBJ}
+Cc : ${CC}
+
+MIME-Version: 1.0
+Content-Type: text/html
+
+!
+
+cat << !
+##this is body message
+##paste the html body here or use below
+`cat body.html`
+
+
+!
+
+uuencode ${file_1} ${file_1}
+uuencode ${file_2} ${file_2}
+uuencode ${file_3} ${file_3}
+!
+
+) | sendmail -v ${TO} ${CC}
+
+
+--------------------------------------------------------------------------------------
+--misc
+
+curl --url 'smtps://smtp.gmail.com:465' --ssl-reqd \
+  --mail-from 'from-email@gmail.com' \
+  --mail-rcpt 'to-email@gmail.com' \
+  --user 'from-email@gmail.com:YourPassword' \
+  -T <(echo -e 'From: from-email@gmail.com\nTo: to-email@gmail.com\nSubject: Curl Test\n\nHello')
+
+--mutt
+#!/bin/bash
+recipient="example1@example.com,example2@example.com"
+subject="Greetings!"
+body="Hello, World! This is a test email sent using 'mutt'."
+
+echo "$body" | mutt -s "$subject" -- $recipient
+
+--Send email in HTML format:
+#!/bin/bash
+recipient="example1@example.com,example2@example.com"
+subject="Greetings!"
+body="/path/to/body.html"
+
+mutt -e "my_hdr Content-Type: text/html" -s "$subject" -i "$body" -- $recipient
+
+In the script, -e "my_hdr Content-Type: text/html" sets the Content-Type header to text/html, 
+and -i "$body" inserts the content of the file specified by the $body.
+
+--Send an email with attachments:
+
+#!/bin/bash
+recipient="example1@example.com,example2@example.com"
+subject="Greetings!"
+body="Hello, World! This is a test email sent using 'mutt'."
+attachment="/path/to/file"
+
+echo "$body" | mutt -s "$subject" -a "$attachment" -- $recipient
 
 --------------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+
+
