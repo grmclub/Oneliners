@@ -38,6 +38,10 @@ awk -F',' -vOFS=',' 'NR>1{ s[$1","$6] +=$3;} END{ for(I in s){ print i, s[i]}}'|
 
 
 -------------------------------------------------------------
+#buy sell sum - Aggregation of a single column
+
+cat file.in|awk '{ ($3 == "1" ? sum_b +=$5 : sum_s +=$5); } END{ print sum_b, sum_s; }' 
+
 
 -------------------------------------------------------------
 
