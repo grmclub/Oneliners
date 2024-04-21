@@ -15,9 +15,9 @@ https://mareksuppa.com/teaching/linux-cli-data-science/2022/#lecture-12-modern-u
 https://karandeepsingh.ca/post/advanced-string-operations-in-bash-building-custom-functions/
 
 -------------------------------------------------------------
- # concatenate every 5 lines of input, using a comma separator
- # between fields
- awk 'ORS=NR%5?",":"\n"' file
+# concatenate every 5 lines of input, using a comma separator
+# between fields
+awk 'ORS=NR%5?",":"\n"' file
  
  
 # Billing for Books
@@ -65,8 +65,57 @@ END {
 }
 
 -------------------------------------------------------------
+#conditionl update to a field 
+- Use case to fix incorrect data in a field
 
+	for file in *.csv;do awk -F'\001' '{ if($4 == 1234)$5=4321; print;} ' $file > ${file}.mod;done
+	for file in *.csv;do mv ${file}.mod $file;done
+
+#Replace in multiple files
+	$find . -print0 | xargs -0 sed -i 's/%s/%d/g; s/bcm_errstr(rv)/rv/g;'
+	$find /path/to/files/ -name "target_text_file" -exec sed -i -- 's/SOME_TEXT/SOME_TEXT_TO_REPLACE/g' {} \;
+
+	IFS=$'\n' # Very important! Splits files on newline instead of space.
+
+	for file in $(cat files.txt); do
+		sed ...
+	done
 -------------------------------------------------------------
+--Apply multiple substitutions in one file
+
+Ref:
+https://github.com/jbranchaud/til/blob/master/sed/apply-multiple-substitutions-to-the-input.md
+
+
+#Sequential Substitutions Using the -e Flag
+	sed -i -e 's/a/b/g' -e 's/b/d/g' file
+	sed -e 's/a/b/g ; s/b/d/g' file
+
+#Substitution Separators
+	$ sed 's/^[[:space:]]*//g; s:/usr/bin/:/usr/local/bin/:g; s/http/https/g' input_file
+
+#Newline Separator
+	$ sed 's/^[[:space:]]*//g
+	>      s:/usr/bin/:/usr/local/bin/:g
+	>      s/http/https/g' input_file
+
+#Script File and the -f Flag
+	$ cat script.sed
+	s/^[[:space:]]*//g
+	s:/usr/bin/:/usr/local/bin/:g
+	s/http/https/g
+
+	pass the script file to sed using the -f flag:
+
+	$ sed -f script.sed input_file
+
+#Script File With Shebang
+	$ cat script.sed
+	#!/usr/bin/sed -f
+	s/^[[:space:]]*//g
+	s:/usr/bin/:/usr/local/bin/:g
+	s/http/https/g
+
 
 -------------------------------------------------------------
 
