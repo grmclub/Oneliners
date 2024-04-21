@@ -236,6 +236,10 @@ And now if you do:
 perl -pne 's/\xe8\x90/\x41\x42/g' < a > output
 You get 0x41 0x42, which is AB
 -------------------------------------------------------------
+-- Search in binary files
+#strings
+#dd if=file count=x | grep "string"
+Note that x will default to 512 byte blocks.
 
 
 -------------------------------------------------------------
