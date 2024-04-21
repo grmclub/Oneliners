@@ -1,0 +1,81 @@
+
+-------------------------------------------------------------
+## basic key-val extraction
+
+	#grep -o 'Foo=[^,]*' file
+    #awk -v RS=', ' -F'=' '$1=="Foo"' <file>
+    #sed -e 's/, /\n/g' | grep '^Foo='
+
+-------------------------------------------------------------
+	[LOGGER]
+	server_ip: 1.1.1.1
+	server_port:123
+
+	awk '/^server_ip/ {print $2}' file
+	sed -n 's/server_ip: //p' file
+	grep -oP '(?<=server_ip: ).*' file
+	1.1.1.1
+
+--multiple section filter
+	$ cat file
+	[GOG]
+	server_ip: 2.2.2.2
+	server_port: 123
+	[LOGGER]
+	server_ip: 1.1.1.1
+	server_port: 123
+	[FOG]
+	server_ip: 3.3.3.3
+	server_port: 123
+
+	awk '/LOGGER/,/^server_ip/{if (/^server_ip/) print $2}' file
+	1.1.1.1
+	sed -n '/LOGGER/,/^server_ip/{s/server_ip: //p}' file
+	1.1.1.1
+
+	--Script
+
+	#!/bin/bash
+	if [ -z "$1" ]
+	then
+	echo "Usage : command server_name"
+	exit 1
+	fi
+	sed -n "/$1/{n;N;p;q}" file
+
+	--On Running
+
+	$ ./script LOGGER
+	server_ip: 1.1.1.1
+	server_port: 123
+
+
+
+-------------------------------------------------------------
+--parse json key-value data
+
+	curl -s 'https://api.github.com/users/lambda' | jq -r '.name'
+	Python 3:
+
+	curl -s 'https://api.github.com/users/lambda' | \
+		python3 -c "import sys, json; print(json.load(sys.stdin)['name'])"
+
+	Python 2:
+
+	export PYTHONIOENCODING=utf8
+	curl -s 'https://api.github.com/users/lambda' | \
+		python2 -c "import sys, json; print json.load(sys.stdin)['name']"
+
+	echo '{"hostname":"test","domainname":"example.com"}' | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["hostname"]'
+	curl -s http://twitter.com/users/username.json | \
+		python -c "import json,sys;obj=json.load(sys.stdin);print(obj['name']);"
+		
+		
+		
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------------------------------------------------
