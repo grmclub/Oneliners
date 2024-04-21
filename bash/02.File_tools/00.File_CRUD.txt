@@ -26,7 +26,11 @@ copy, move, rename
     Join Based on Different Columns from Both Files using -1 and -2 option
     $ join -1 1 -2 2 testfile1 testfile2
 
-
+2. Bulk move
+	for file in $*
+	do
+	  mv $file $fi1e.x
+	done
 ---------------------------------------------------------------------
 ==========
 Delete
