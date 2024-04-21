@@ -54,21 +54,23 @@ sed '/mail@server\.com/,$!d' # keeping the matched line
 or
 #awk
 
-awk 'f;/mail@server\.com/{f=1}' # excluding the matched line
-awk '/mail@server\.com/{f=1}f'  # including the matched line
+	#awk 'f;/mail@server\.com/{f=1}' # excluding the matched line
+	#awk '/mail@server\.com/{f=1}f'  # including the matched line
 
+	or
+	Here's a way you can do it using awk:
+	awk '/somestring/ { f = 1 } f' file
+	When the pattern matches, set f to true. When f becomes true, print each line.
 
-or
-Here's a way you can do it using awk:
-awk '/somestring/ { f = 1 } f' file
-When the pattern matches, set f to true. When f becomes true, print each line.
+	$ awk '/somestring/,0' file 
 
-$ awk '/somestring/,0' file 
+## Remove n lines before & m lines after pattern
+	$ grep -v "$(grep -B 4 -A 5 'address 172.29.16.102' <file>)" <file>
 
 -------------------------------------------------------------
 * Print Lines after pattern
 
-sed -n '/dog 123 4335/,$p'
+	sed -n '/dog 123 4335/,$p'
 
 
 
@@ -188,9 +190,51 @@ https://www.theunixschool.com/2012/06/insert-line-before-or-after-pattern.html
 
 	  Simple change from the earlier sed solution. Patten matched(&) followed by "Cygwin".
 -------------------------------------------------------------
--------------------------------------------------------------
--------------------------------------------------------------
+# delete the rest of each line after a certain pattern or a string in a file
 
+	sed 's/\.com.*/.com/' file.txt
+    awk -F '\\.com' '{print $1".com"}' file.txt
+	
+	#python approach
+	#!/usr/bin/env python
+	import sys
+	with open( sys.argv[1]  ) as file:
+		for line in file:
+			print line.split("/")[0]
+
+-------------------------------------------------------------
+--binary file sed replacement
+
+	#hexdump -ve '1/1 "%.2x"' dirty.jpg | grep -o "ffd8.*ffd9" | xxd -r -p > clean.jpg
+	bbe is a "sed for binary files"
+	#bbe -e 's/original/replaced/' infile > outfile
+	#xxd infile | sed 's/xxxx xxxx/yyyy yyyy/' | xxd -r > outfile
+	#sed -i "s/$(python -c "print('\x1f', end='')")/;/g" file
+
+	#Py soution
+	import re
+
+	f = open('file.jpeg', 'rb+')
+	data = f.read()
+	match = re.search('(\xff\xd8[0-9A-fa-f]+)\xff\xd9', data)
+	if match:
+		result = match.group(1)
+		f.seek(0)
+		f.write(result)
+		f.truncate()
+	else:
+		print 'No match'
+	f.close()
+-------------------------------------------------------------
+--replace 2 byte unicode in binary file
+replace each Unicode byte pair with a new Unicode byte pair. 
+For example, the original file contains "C3 B9 C3 AB C3 B8 C3 B0" and would like to replace this with "D7 A0 D7 A8 D7 9B D7 A9". I would need to replace every "C3 B9" with "D7 A0" throughout the file.
+
+A sample file:
+echo -e "\xe8\x90" > a
+And now if you do:
+perl -pne 's/\xe8\x90/\x41\x42/g' < a > output
+You get 0x41 0x42, which is AB
 -------------------------------------------------------------
 
 
