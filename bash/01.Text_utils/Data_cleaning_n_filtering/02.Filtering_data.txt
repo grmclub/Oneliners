@@ -16,7 +16,7 @@ https://karandeepsingh.ca/post/advanced-string-operations-in-bash-building-custo
 
 
 -------------------------------------------------------------
-#buy sell sum
+#buy sell sum - Aggregation
 
 cat file.in|awk '{ ($3 == "1" ? sum_b +=$5 : sum_s +=$5); } END{ print sum_b, sum_s; }' 
 

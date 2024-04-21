@@ -24,7 +24,7 @@ echo "trailer text" >> file
 sed '$a trailer ext' file
 
 -------------------------------------------------------------
-* Lines before pattern
+* Lines before/after pattern
 
 This sed command will print all lines after and including the matching line:
 sed -n '/^WHATEVER$/,$p'
