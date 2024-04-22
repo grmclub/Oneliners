@@ -1,0 +1,49 @@
+https://www.thegeekstuff.com/tag/awk-tutorial-examples/
+https://www.thegeekstuff.com/2010/01/8-powerful-awk-built-in-variables-fs-ofs-rs-ors-nr-nf-filename-fnr/
+
+https://jeroenjanssens.com/dsatcl/chapter-4-creating-command-line-tools
+https://linuxconfig.org/how-to-count-number-of-columns-in-csv-file-using-bash-shell
+https://www.tim-dennis.com/data/tech/2016/08/09/using-awk-filter-rows
+--------------------------------------------------------------------------------------
+#Detecting records with different number of columns in a CSV
+
+awk -F, 'NF>3' file
+Chris Doe, Adam Smith, 999 Street, 3145679999
+
+$ awk -F, '{print > (NF>3 ? "bad" : "good")}' file
+
+
+--------------------------------------------------------------------------------------
+#Count number of columns in CSV files and rename if less than 11 columns
+
+for file in *.csv; do
+    cols=$( awk -F, 'NR == 1 {print NF; exit}' "$file" )
+    if [[ "$cols" -lt 11 ]]; then
+        mv -v "$file" "$file.bad"
+    fi
+done
+
+or, with bash without awk
+
+for file in *.csv; do
+    IFS=, read -ra fields <"$file"
+    if [[ "${#fields[@]}" -lt 11 ]]; then
+        mv -v "$file" "$file.bad"
+    fi
+done
+
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+
+
