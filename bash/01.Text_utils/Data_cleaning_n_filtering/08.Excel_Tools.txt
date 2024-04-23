@@ -1,0 +1,54 @@
+
+– excel compare columns
+https://www.ablebits.com/office-addins-blog/excel-compare-two-columns-matches-differences/
+
+--------------------------------------------------------------------------------------
+##Matches and differences
+
+=IF(A2=B2,"Match","No match")
+Or
+=IF(A2<>B2,"No match","Match")
+
+##Compare two lists for case-sensitive matches in the same row
+find case-sensitive matches between 2 columns in each row, then use the EXACT function:
+
+=IF(EXACT(A2, B2), "Match", "")
+
+##Find matches in all cells within the same row
+If your table has three or more columns and you want to find rows that have the same values in all cells
+
+=IF(AND(A2=B2, A2=C2), "Full match", "")
+
+===========================
+##How to compare two lists in Excel and pull matches
+=VLOOKUP(D2, $A$2:$B$6, 2, FALSE)
+
+=INDEX($B$2:$B$6, MATCH($D2, $A$2:$A$6, 0))
+
+=XLOOKUP(D2, $A$2:$A$6, $B$2:$B$6)
+
+##Highlight unique entries in each list
+=COUNTIF($C$2:$C$5, $A2)=0
+
+
+--------------------------------------------------------------------------------------
+
+
+
+
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
