@@ -106,6 +106,20 @@ for m in {1..12};do
 done
 
 --------------------------------------------------------------------------------------
+##Multiple assigns with one cmd
+eval $(date "+thismon=%m;thisday=%d;thisyear=%Y;dayofyear=%j")
 
+##Daytime calc
+function isdaytime
+{
+  hour=$(date +%H)
+  if [ $hour -ge 8 -a $hour -le 18 ] ; then
+    return 1
+  else
+    return 0
+  fi
+}
+
+isdaytime ; daytime=$?
 --------------------------------------------------------------------------------------
 
