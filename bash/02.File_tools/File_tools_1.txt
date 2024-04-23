@@ -8,6 +8,13 @@ rsync --dry-run -avz /mnt/nextcloud-data/ jay@myserver.mydomain.com:/mnt/backup-
 split -l 4 index.txt split_file
 https://www.linuxjournal.com/content/mastering-split-command-linux-effective-file-splitting-techniques
 
+#Bulk rename
+for name in xx*
+do
+    new="$(echo $name | sed 's/xx/yy/')"
+    mv $name $new
+done
+
 
 -------------------------------------------------------------
 *exclude from copy
