@@ -34,9 +34,22 @@ tr '\001' '|'
 cat -v file | sed 's/\^A/\t/g' > out
 
 
-
 #Chain commands
 sed  's/XYZ_//g' ;s/123_//g' ;s/ZSX_//g' IN.FILE > OUT.FILE
+
+##Smart Quote fixer
+#!/bin/sh
+
+SED=$(which sed)
+SDQUO=$(echo -ne '\u2018\u2019')
+RDQUO=$(echo -ne '\u201C\u201D')
+$SED -i -e "s/[$SDQUO]/\'/g" -e "s/[$RDQUO]/\"/g" "${1}"
+
+Save this script as fixquotes.sh and then create a separate test file containing smart quotes:
+
+‘Single quote’
+“Double quote”
+
 
 --------------------------------------------------------------------------------------
 We're interested in words here not phrases, so we can get words starting from 3 letters to more with:
