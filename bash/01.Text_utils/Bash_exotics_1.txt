@@ -1,4 +1,8 @@
 
+When to Use Awk vs. Sed
+
+    Use awk when dealing with tasks that require filtering, data extraction, or arithmetic operations.
+    Opt for sed for straightforward text transformations like substitutions, deletions, or insertions.
 
 
 ===============================
@@ -45,13 +49,7 @@ awk 'BEGIN{for(i=32;i<127;i++) printf("%3d  0x%02x  %c",i,i,i)'|pr -t6 -w78
 
 
 ---------------------------------------------------
-*Translate separator
 
-sed -i 's/\x01/|/g' file
-tr '\001' '|'
-
---cat -v would replace the SOH character with ^A, which would then be matched and replaced in sed.
-cat -v file | sed 's/\^A/\t/g' > out
 
 
 ---------------------------------------------------

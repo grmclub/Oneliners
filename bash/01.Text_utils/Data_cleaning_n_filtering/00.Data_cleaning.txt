@@ -11,20 +11,29 @@ Tools:
 text processors like grep, cut, paste, sort, uniq, tr, and awk
 
 --------------------------------------------------------------------------------------
-#quote cleanup
+##quote cleanup
 sed -i 's/"//g' with-quotes.txt
 
-#Cleanup strings and numbers wrapped in brackets
+##Cleanup strings and numbers wrapped in brackets
 sed 's/\[[^]]*\]//g' file.csv > cleaned.csv
 
-#delete BOTH leading and trailing whitespace from each line
+##delete BOTH leading and trailing whitespace from each line
 sed 's/^[ \t]*//;s/[ \t]*$//'
 
-#Delete Empty Lines
+##Delete Empty Lines
 sed -i '/^$/d' <filename>
 
-#Deleting Lines Containing Just Whitespace Characters
+##Deleting Lines Containing Just Whitespace Characters
 sed -i '/^\s*$/d' <filename>
+
+##Translate separator
+sed -i 's/\x01/|/g' file
+tr '\001' '|'
+
+#cat -v would replace the SOH character with ^A, which would then be matched and replaced in sed.
+cat -v file | sed 's/\^A/\t/g' > out
+
+
 
 #Chain commands
 sed  's/XYZ_//g' ;s/123_//g' ;s/ZSX_//g' IN.FILE > OUT.FILE
