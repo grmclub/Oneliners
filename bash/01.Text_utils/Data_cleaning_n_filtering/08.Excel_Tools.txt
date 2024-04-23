@@ -5,6 +5,11 @@ https://www.ablebits.com/office-addins-blog/excel-compare-two-columns-matches-di
 --------------------------------------------------------------------------------------
 ##Matches and differences
 
+=IF(logical_test, value_if_true, value_if_false)
+Example: 
+=IF(A1>50, “Above 50”, “Below or equal to 50”)
+
+
 =IF(A2=B2,"Match","No match")
 Or
 =IF(A2<>B2,"No match","Match")
@@ -32,7 +37,9 @@ If your table has three or more columns and you want to find rows that have the 
 
 
 --------------------------------------------------------------------------------------
+Q. How do you use the ‘VLOOKUP’ function in Excel? 
 
+A. The ‘VLOOKUP’ function in Excel is used to search for a value in the first column of a range and return a value in the same row from another column. The syntax is: `=VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])`. For example, `=VLOOKUP(“Apples”, A1:B10, 2, FALSE)` looks for “Apples” in column A and returns the corresponding value from column B.
 
 
 
