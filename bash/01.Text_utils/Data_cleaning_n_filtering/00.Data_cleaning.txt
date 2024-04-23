@@ -1,0 +1,62 @@
+
+
+- broken records spread over several lines because data items had embedded line breaks
+- records with truncated data items, often because very long strings were shoehorned into fields with 50- or 100-character limits
+- data items in one field disagreeing with data items in another field, in the same record
+- character encoding failures producing the gibberish known as mojibake
+- invisible control characters, some of which can cause data processing errors
+- replacement characters and mysterious question marks inserted by the last program that failed to understand the data's character encoding
+
+Tools:
+text processors like grep, cut, paste, sort, uniq, tr, and awk
+
+--------------------------------------------------------------------------------------
+#quote cleanup
+sed -i 's/"//g' with-quotes.txt
+
+#Cleanup strings and numbers wrapped in brackets
+sed 's/\[[^]]*\]//g' file.csv > cleaned.csv
+
+#delete BOTH leading and trailing whitespace from each line
+sed 's/^[ \t]*//;s/[ \t]*$//'
+
+#Delete Empty Lines
+sed -i '/^$/d' <filename>
+
+#Deleting Lines Containing Just Whitespace Characters
+sed -i '/^\s*$/d' <filename>
+
+#Chain commands
+sed  's/XYZ_//g' ;s/123_//g' ;s/ZSX_//g' IN.FILE > OUT.FILE
+
+--------------------------------------------------------------------------------------
+We're interested in words here not phrases, so we can get words starting from 3 letters to more with:
+
+$ head clickbait_data | grep -oE '\w{3,}'
+
+$ cat clickbait_data | tr '[:upper:]' '[:lower:]'| grep -oE '\w{3,}' \
+| sort | uniq -c | sort -nr | head
+--------------------------------------------------------------------------------------
+# print section of file between two regular expressions (inclusive)
+ sed -n '/Iowa/,/Montana/p'             # case sensitive
+
+SELECTIVE DELETION OF CERTAIN LINES:
+
+ # print all of file EXCEPT section between 2 regular expressions
+ sed '/Iowa/,/Montana/d'
+--------------------------------------------------------------------------------------
+##Encoding conversions
+for f in *.csv; do iconv -f UTF-16 -t UTF-8 "$f" > "$f.new"; done
+
+##cut command to pull out only the columns I needed:
+for f in *.csv; do cut -d, -f 1-3,5,7,9,11,13,15,17,19 "$f" > "$f.new"; done
+
+
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
