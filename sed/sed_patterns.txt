@@ -29,7 +29,24 @@ https://unix.stackexchange.com/questions/446436/parsing-fix-messages-for-further
 cat output.txt | sed -n '/0: jdbc:drill/, /0: jdbc:drill/p' | grep -v closing | grep -v "rows selected"
 cat output.txt | sed -n '/0: jdbc:drill/, /0: jdbc:drill/p' | grep -Ev "closing|rows selected"
 -------------------------------------------------------------
+##Substituting Text
 
+One of the most common operations in sed is text substitution. This is done using the s command. For example, to replace the first instance of a pattern abc with another pattern def, use:
+
+sed s/abc/def/ ik.txt
+
+Here, only the first instance of abc in each line is substituted with def. If you want to replace the third instance of a pattern, you can use:
+
+sed s/abc/z/3 ik.txt
+Global Substitutions
+
+In a global substitution, all instances of a pattern are replaced. This is achieved by appending g to the substitute command. To replace all instances of abc with XYZ, use:
+
+sed s/abc/XYZ/g ik.txt
+
+You can also start the global replacement from the nth instance of the pattern by using /ng. For example, to replace all instances of abc with XYZ, starting from the third instance, use:
+
+sed s/abc/XYZ/3g ik.txt
 -------------------------------------------------------------
 
 -------------------------------------------------------------
