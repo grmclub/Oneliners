@@ -34,6 +34,16 @@ done
 
 
 --------------------------------------------------------------------------------------
+##make csv fields same size
+for file in $(find . -name “xx.dat”);do cut -f1-10 -d$’\x01’ ${file} > ${file}.mod;done
+for file in $(find . -name “xx.dat”);do mv ${file}.mod. ${file};done
+
+
+##replace field
+for file in $(find . -name “xx.dat”);do sed -i ‘s/HXX/HXX\x01YY/’ $file;done
+
+##count fields
+find . -name xx| xargs cat|awk -F’\001’ { print NF}’|sort -u
 
 --------------------------------------------------------------------------------------
 
