@@ -4,6 +4,35 @@ When to Use Awk vs. Sed
     Use awk when dealing with tasks that require filtering, data extraction, or arithmetic operations.
     Opt for sed for straightforward text transformations like substitutions, deletions, or insertions.
 
+===============================
+## Bash strings
+https://catonmat.net/bash-one-liners-explained-part-one
+https://catonmat.net/bash-one-liners-explained-part-two
+https://catonmat.net/books
+
+##Split a string on a given character
+$ IFS=- read -r x y z <<< "$str"
+
+##split fields and put them in an array:
+$ IFS=- read -ra parts <<< "foo-bar-baz"
+
+##Process a string character by character
+
+$ while IFS= read -rn1 c; do
+    # do something with $c
+done <<< "$str"
+
+##Produce 10 copies of the same string
+$ echo foo{,,,,,,,,,,}
+
+Extract a substring from a string
+
+$ str="hello world"
+$ echo ${str:6}
+
+Find the length of the string
+
+$ echo ${#str}
 
 ===============================
 *Sort uniq
