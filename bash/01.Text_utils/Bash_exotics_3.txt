@@ -49,6 +49,14 @@ done
 -------------------------------------
 *lsof
 
+--network connectins
+lsof -i -a -p $(pidof firefox | sed 's/ /,/g')
+lsof -i TCP
+
+
+ss -nap | grep $(pidof firefox)
+strace -p $PID -f -e trace=network -s 10000
+
 -open files by user
 #lsof -u tecmint
 
