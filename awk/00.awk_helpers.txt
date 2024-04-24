@@ -6,6 +6,9 @@ https://riptutorial.com/awk/topic/2284/string-manipulation-functions
 -------------------------------------------------------------
 ##Useful oneliners
 
+-Extract specific XML tags from an XML file:
+awk '/<tag>/,/<\/tag>/' data.xm
+
 -Summing a specific field in a log file:
 $ awk '{sum+=$1} END{print sum}' /var/log/syslog
 
