@@ -1,0 +1,45 @@
+
+--------------------------------------------------------------------------------------
+##speedup processing by dropping unicode support
+$ LC_ALL=C awk '{ groups[$0]++ }'
+
+##extract uniq lines without sort
+$ awk '!seen[$0]++'
+
+##print duplicates (without sort):
+$ awk '++seen[$0] == 2'
+Print the 2nd time you see a string.
+
+##Group counts or sums
+$ awk '{ groups[$0]++ }     END { for (k in groups) print groups[k], k }' # count
+$ awk '{ groups[$1] += $2 } END { for (k in groups) print groups[k], k }' # sum
+
+##Set operations: union, intersection, difference
+
+##Union
+$cat all the files and use the “uniq without sort” recipe from above
+
+##Intersection
+For both intersection and difference, you need to accumulate from one file and process the other file.
+$ awk 'NR == FNR {lut[$0] = 1; next} $0 in lut {print}' FILE1 FILE2
+
+##Difference
+$ awk 'NR == FNR {lut[$0] = 1; next} !($0 in lut) {print}' FILE1 FILE2
+
+This operation isn’t symmetrical: you’re removing the entries from FILE1 from FILE2. Switch the files around to get the other set difference.
+
+
+--------------------------------------------------------------------------------------
+##Misc Ref
+https://linuxhandbook.com/awk-command-tutorial/
+https://github.com/freznicek/awesome-awk
+https://catonmat.net/ten-awk-tips-tricks-and-pitfalls
+https://backreference.org/2010/04/17/csv-parsing-with-awk/
+
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------

@@ -1,0 +1,85 @@
+##Practical Use Cases
+https://kaliex.co/harnessing-the-full-potential-of-awk-a-complete-guide-to-text-processing/
+
+1. Data Extraction: AWK excels at extracting specific data from files. By defining patterns and actions, you can selectively extract records or fields based on specific criteria.
+
+2. Data Transformation: AWK enables you to modify and transform data effortlessly. You can perform calculations, reformat text, aggregate data, or generate reports using AWK’s powerful features.
+    
+3. Log Analysis: AWK is commonly used for log analysis tasks. With its ability to filter and process large volumes of log data, AWK helps identify patterns, extract relevant information, and generate reports for troubleshooting and monitoring.
+
+4. Text Formatting: AWK provides a convenient way to format text data. Whether it’s aligning columns, removing duplicates, or converting data to a different format, AWK simplifies these tasks with its concise syntax.
+	
+--------------------------------------------------------------------------------------
+## Print Specific Columns:
+extract specific columns from a file. For example, to print the first and third columns of a space-separated file:
+awk '{ print $1, $3 }' file.txt
+
+##Filter Data Based on a Condition:
+filter data based on specific conditions. To print only the lines where the second column is greater than 10:
+awk '$2 > 10 { print }' file.txt
+
+##Calculate Column Sum:
+To calculate the sum of the third column in a file:
+awk '{ sum += $3 } END { print sum }' file.txt
+
+##Print Lines Matching a Pattern:
+AWK supports regular expressions for pattern matching. To print lines containing the word “error”:
+awk '/error/ { print }' file.txt
+
+##Conditional Action:
+to print “OK” if the second column is greater than 10 and “Fail” otherwise:
+awk '{ if ($2 > 10) print "OK"; else print "Fail" }' file.txt
+
+##Count the Number of Lines:
+awk 'END { print NR }' file.txt
+
+##Field and Record Separators:
+process a file with a comma-separated format (CSV):
+awk -F ',' '{ print $1, $3 }' file.csv
+
+AWK Scripts: AWK scripts can be written in separate files for more complex tasks. For example, this is a script that processes a log file, counts 500 errors, and organizes them in a CSV file:
+
+#!/usr/bin/awk -f
+
+BEGIN {
+    FS = " "   # Set the field separator to a space
+    OFS = ","  # Set the output field separator to a comma
+    count = 0  # Initialize the error count
+}
+
+/error 500/ {
+    count++            # Increment the error count
+    csv[count] = $0    # Store the error line in the CSV array
+}
+
+END {
+    print "Error Count,Log Line"  # Print the header line in the CSV file
+
+    # Loop through the CSV array and print error count and log line
+    for (i = 1; i <= count; i++) {
+        print i, csv[i]
+    }
+}
+
+To run the script use this command :
+
+awk -f script.awk errors.log
+
+##String Manipulation:
+To convert all lowercase letters in the first column to uppercase:
+awk '{ $1 = toupper($1) } { print }' file.txt
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+	

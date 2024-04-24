@@ -1,0 +1,27 @@
+-------------------------------------------------------------
+--insert dat into sqllite
+https://stackoverflow.com/questions/78190193/best-method-to-improve-awk-speed-in-writing-to-sqlite3-db
+
+#!/bin/awk -f
+# proprietary code that sets the mux config
+BEGIN {
+  TICKCOUNT = 0
+  db = "path/to/pulseCount.db"
+  commandSQL = "sqlite3 -noheader " db " \"%s\";"
+
+  while(1) {
+    # more proprietary code that reads the mux and dumps value to DIN variable
+    if (DIN == '1') {
+      TICKCOUNT++
+      querySQL = "update pulseCount set pulses=" TICKCOUNT ";"
+      system(sprintf(commandSQL, querySQL))
+    }
+  }
+}
+END {
+}
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------------------------------------------------
