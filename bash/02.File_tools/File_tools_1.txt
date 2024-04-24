@@ -15,6 +15,9 @@ do
     mv $name $new
 done
 
+##remove file by inode
+ls -li
+find . -maxdepth 1 -type f -inum 1234 -delete
 
 -------------------------------------------------------------
 *exclude from copy
