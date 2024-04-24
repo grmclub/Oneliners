@@ -1,17 +1,22 @@
 
 ---------------------------------------------------
+#grep exactly 4 digits
+grep -P ‘\d{4}’
+grep -E ‘[0-9]{4}’
+
 * insert a space every 4 charecters
 echo "foobarbazzz"|sed 's/.\{4\}/&/g'
+
+*Extract before and after a pattern
+grep -oE '.{5}cde.{5}' file.txt
+
+#merge every 3 lines
+paste -d’ ‘ - - - < file
 
 echo "foobarbazzz"|fold -w4|paste -sd' ' -
 
 *Join without spaces
 :s/$\n//
-
-
-*Extract before and after a pattern
-grep -oE '.{5}cde.{5}' file.txt
-
 
 *Insert text at beginning of file
 sed '1s/^/header text\n/' file1

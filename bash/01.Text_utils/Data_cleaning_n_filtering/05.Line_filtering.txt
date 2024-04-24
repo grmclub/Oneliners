@@ -4,7 +4,7 @@ https://askubuntu.com/questions/1206110/sed-extract-lines-from-text
 ##Extract particular lines
 awk 'NR==1 || NR==5 || NR==1010' "file"
 
-sed -n -e 1p -e 3p -e 5p
+sed -n -e 1p -e 3p -e  5p
 
 --generate a range
 $ for i in {1..100..2}; do echo -n " -e ${i}p"; done

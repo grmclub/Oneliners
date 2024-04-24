@@ -27,6 +27,11 @@ https://mywiki.wooledge.org/BashFAQ/067
 --------------------------------------------------------------------------------------
 * Remove / Delete All Leading Blank Spaces / Tabs ( whitespace ) From Each Line
 
+#Remove leading spaces
+:’<,’>s/^\s*//
+
+:%s=\s\+$==
+
 ##To delete trailing whitespace from end of each line, enter:
 cat input.txt | sed 's/[ \t]*$//' > output.txt
 
