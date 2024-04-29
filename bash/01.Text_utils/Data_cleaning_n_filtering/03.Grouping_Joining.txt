@@ -15,12 +15,15 @@ https://developer.ibm.com/?q=Linux
 https://dev.to/amalshehu/advanced-data-processing-with-awk-and-sed-4f2b
 -------------------------------------------------------------
 ##Group on a single field
-cat xx|awk -F'.' -vOFS=’,'  '{s[$1]+=$2;} END{ for(i in s){ print i,s[I]}}’
+cat xx|awk -F'.' -vOFS=',' '{s[$1]+=$2;} END{ for(i in s) print i,s[i];}'
 
-##Extracting Specific Fields and Summarizing Data 
+##Group multiple fields and aggregate data
+awk -F',' -vOFS=',' 'NR>1{ s[$1","$6] +=$3;} END{ for(I in s){ print i, s[i]}}'| sort -t',' -k1
+
+##Summarizing Data of Specific Fields
 awk -F, '$2 == "Product123" {total += $3 * $4} END {print "Total Sales for Product123: ", total}' sales.log
 
-##group multiple fields and aggregate data
+##Ex: Grouping data from multiple
 https://unix.stackexchange.com/questions/336144/group-a-files-contents-by-two-fields-and-sum-a-third-field
 
 awk -F'~' 'BEGIN { SUBSEP = OFS = FS } { s[$1,$2] += $3; ++c[$1,$2] } END { for (i in s) { print i, s[i], c[i] } }' file
@@ -33,14 +36,6 @@ $ datamash -t '~' -s groupby 1,2 sum 3 count 3 <file
 AAA~111~6~3
 AAA~222~2~1
 BBB~111~2~1
-
-
--------------
-##Use Case: Extract from aggregate selection of multiple fields
-awk -F',' -vOFS=',' 'NR>1{ s[$1","$6] +=$3;} END{ for(I in s){ print i, s[i]}}'| sort -t',' -k1
-
-------
-
 
 -------------------------------------------------------------
 #buy sell sum - Aggregation of a single column
