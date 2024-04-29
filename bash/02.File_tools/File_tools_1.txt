@@ -46,6 +46,16 @@ Where:
 
 
 -------------------------------------------------------------
+##nc filetransfer
+https://github.com/pshashipreetham/File-Transfer-Using-TCP-Socket-in-C-Socket-Programming
+
+sender# nc -w 2 172.31.200.52 9899 < sample_file_transfer.iso
+receiver# nc -l 9899 > sample_file_transfer.iso
+
+nc -l -p PORT_NUMBER > OUTPUT_FILE
+nc -N RECEIVER_IP PORT_NUMBER < INPUT_FILE
+
+
 -------------------------------------------------------------
 
 -------------------------------------------------------------
