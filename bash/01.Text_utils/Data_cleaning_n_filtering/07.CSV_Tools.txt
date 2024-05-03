@@ -15,7 +15,6 @@ $ awk -F, '{print > (NF>3 ? "bad" : "good")}' file
 
 --------------------------------------------------------------------------------------
 #Count number of columns in CSV files and rename if less than 11 columns
-
 for file in *.csv; do
     cols=$( awk -F, 'NR == 1 {print NF; exit}' "$file" )
     if [[ "$cols" -lt 11 ]]; then
@@ -35,14 +34,14 @@ done
 
 --------------------------------------------------------------------------------------
 ##make csv fields same size
-for file in $(find . -name “xx.dat”);do cut -f1-10 -d$’\x01’ ${file} > ${file}.mod;done
-for file in $(find . -name “xx.dat”);do mv ${file}.mod. ${file};done
+for file in $(find . -name "xx.dat");do cut -f1-10 -d$'\x01' ${file} > ${file}.mod;done
+for file in $(find . -name "xx.dat");do mv ${file}.mod. ${file};done
 
 ##replace field
-for file in $(find . -name “xx.dat”);do sed -i ‘s/HXX/HXX\x01YY/’ $file;done
+for file in $(find . -name "xx.dat");do sed -i 's/HXX/HXX\x01YY/' $file;done
 
 ##count fields
-find . -name xx| xargs cat|awk -F’\001’ { print NF}’|sort -u
+find . -name xx| xargs cat|awk -F'\001' '{ print NF}'|sort -u
 
 --------------------------------------------------------------------------------------
 
