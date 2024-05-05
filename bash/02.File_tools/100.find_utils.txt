@@ -1,6 +1,6 @@
---------------------------------------------------------------------------------------
+----------------------------------------------------------------
 
---------------------------------------------------------------------------------------
+----------------------------------------------------------------
 *Clean up Files
 
 ##Delete Files
@@ -11,7 +11,31 @@ find "${storepath}/" -maxdepth 1 -type f -delete
 
 -Delete files over 1 year old
 find . -maxdepth 1 -type d -mtime +365| xargs -n1 rm -rf
+----------------------------------------------------------------
+##Find files between
+touch --date "2012-10-01" /tmp/begin
+touch --date "2012-11-01" /tmp/end
 
+taskset -c 3,5 find . -name "*_XX*" -newer /tmp/begin  ! -newer /tmp/end  -exec cp -v {} ../../tx  \;
+taskset -c 5 find . -name "201301_XX*" -exec cp -v {} ../../tx  \;
+
+touch --date "2010-01-05" /tmp/foo
+taskset -c 5 find . -name "*_XX*" -newer /tmp/foo -exec cp -v {} ../../tick3  \;
+
+##Find files in a date range
+find . -type f -newermt "3 years ago" ! -newermt "2 years ago" or find . -type f -newermt "last monday"
+find . -type f -newermt "2010-01-01" ! -newermt "2010-06-01"
+
+##Find Files Modified On Specific Date
+find /path/to/dir -newermt "date"
+find /path/to/dir -newermt "Feb 07"
+find /path/to/dir -newermt "yyyy-mm-dd"
+
+## List all files modified on given date
+find /path/to/dir -newermt yyyy-mm-dd ! -newermt yyyy-mm-dd -ls
+### print all *.pl ###
+find /path/to/dir -newermt "yyyy-mm-dd" -print -type f -iname "*.pl"
+----------------------------------------------------------------
 -Find by size
 find / -size 10M
 
@@ -28,7 +52,64 @@ find / -empty
 #ls -l | egrep -v "*.(csh|sh)"
 #ls -l | grep -Ev "*.(csh|sh)"
 
+##Find File by permission
 
---------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------
+## Find executable files
+find . -perm /u=x,g=x,o=x
+find . -executable
+find Test/ -type f -perm /u=x,g=x,o=x -exec ls -l {} \;
+
+Actually -executable is not an equivalent of -perm /u=x,g=x,o=x. You might have files that is executable only by the group or others, which will not be displayed. So, depends on your purpose, if you want files executable only by you, that's okay to use -executable.
+
+find . -type f -perm /u=x,g=x,o=x
+find . -type f -perm /u=x,g=x,o=x -not -name "*.sh"
+find . -type f -perm /u=x,g=x,o=x \! \( -name "*.sh" -o -name "*.py" \)
+find . -perm /u=x,g=x,o=x -name ".git" -exec rm -rf {} +
+
+* Find symbolic links
+find -L /var/www/ -xtype l
+ls -lR /path/to/folder | grep ^l
+
+* Find dead symlinks
+find . -type l -! -exec test -e {} \; -print
+----------------------------------------------------------------
+##Find if all symlinks are ok
+
+##Find all ok links
+find . -type l -not -xtype l
+
+##Find broken links
+find . -type l -xtype l -ls
+
+##Bash solution 1
+find . -type l -exec test ! -e {} \; -print
+find -L <path> -type l 2>/dev/null | mail -s "Broken symlinks detected" xx@example.com
+
+##Bash solution 2
+find . -type l -print | while read src
+do
+    [[ -e "$src" ]] && echo $src
+done
+----------------------------------------------------------------
+* Find files filtered by multiple extensions
+
+	#find . -type f \( -name "*.shtml" -or -name "*.css" \)
+	#find -type f -regex ".*/.*\.\(shtml\|css\)"
+
+    #find data/ -maxdepth 1 \( -name "*.csv" -or -name "*.zip" \)
+
+
+
+* Replace in multiple types of files
+
+	Below command will search for either txt or log files and replace the source string with the target string.
+	#find . -name "*.txt" -o -name "*.log"|xargs perl -pe 's/source/target/g'
+
+	you can do the replace ment by adding an -i in the perl statement as below:
+	#find . -name "*.txt" -o -name "*.log"|xargs perl -pi -e 's/source/target/g'
+----------------------------------------------------------------
+----------------------------------------------------------------
+
+----------------------------------------------------------------
+
+----------------------------------------------------------------
