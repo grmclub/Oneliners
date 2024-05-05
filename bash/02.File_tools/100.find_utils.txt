@@ -72,6 +72,65 @@ ls -lR /path/to/folder | grep ^l
 
 * Find dead symlinks
 find . -type l -! -exec test -e {} \; -print
+
+-iname option is used to mention ignore the case sensitivity of a file.
+find /home –iname test.txt
+
+##Search based on permissions
+    #find / -perm 775 –name test.txt
+
+    Example7: How about searcing files with SUID bit set and file permissions are 755?
+    #find / -perm 4755
+
+    Example8:How can i find SGID bit set files with 644 permissions?
+    #find / -perm 2644
+
+    Example9: How can i find Sticky bit set files in my system with permissions 551?
+    #find / -perm 1551
+
+    Example10:Search for all the files whose SUID bit is set
+    #find / -perm /u=s
+
+    Example11: Search for all the files whose SGID bit is set
+    #find / -perm /g+s
+
+    Example12: Search for all the files  whose StickyBit is set
+    find / -perm /o=t
+
+    Example13: Search for all the files whose owener permissions is read only.
+    find / -perm /u=r
+
+    Example14:Search for all the files which have user, group and others with executable permissions
+    find / -perm /a=x
+
+    #Remove all executable files
+    find . -type f -perm /a=x -exec rm {} \;
+
+##Search by user, group
+
+    find / -user SSS –name test.txt
+
+Example16: find all the files whos name is test.txt and owned by a group called redcluster
+    find / -group redcluster –name test.txt
+
+**Search by Size
+    find / -perm 775 –name test.txt
+
+    Example7: How about searcing files with SUID bit set and file permissions are 755?
+    find / -perm 4755
+
+    Example8:How can i find SGID bit set files with 644 permissions?
+    find / -perm 2644
+
+    Example9: How can i find Sticky bit set files in my system with permissions 551?
+    find / -perm 1551
+
+    Example10:Search for all the files whose SUID bit is set
+    find / -perm /u=s
+
+    Example11: Search for all the files whose SGID bit is set
+    find / -perm /g+s
+
 ----------------------------------------------------------------
 ##Find if all symlinks are ok
 
