@@ -78,7 +78,16 @@ awk 'BEGIN{for(i=32;i<127;i++) printf("%3d  0x%02x  %c",i,i,i)'|pr -t6 -w78
 
 
 ---------------------------------------------------
-
+end_of_wait=$(date +%s -d "5 minutes")
+ssh $host bash <<EOF
+    set -ex
+    cd /var/xj/logs
+    while ! grep "System_Ready" App*.log
+    do
+        [[ \$(date +%s) -le ${end_of_wait} ]]
+        sleep 5
+    done
+EOF
 
 
 ---------------------------------------------------
