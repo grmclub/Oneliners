@@ -11,9 +11,12 @@ https://www.linuxjournal.com/content/mastering-split-command-linux-effective-fil
 #Bulk rename
 for name in xx*
 do
-    new="$(echo $name | sed 's/xx/yy/')"
+    new="$(echo $name|sed 's/xx/yy/g')"
     mv $name $new
 done
+
+##multi move oneliner
+for file in *;do new=$(echo $file|sed 's/xx/yy/g'); mv $file $new;done
 
 ##remove file by inode
 ls -li
