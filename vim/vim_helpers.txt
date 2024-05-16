@@ -7,10 +7,42 @@ Convert tabs to spaces	:set expandtab :%retab!
 --Configure editor
 :set ts=4 et sw=4
 --------------------------------------------------------------------------------------
+##Find trailing spaces
+find . -name "*.php" -type f | xargs awk '/[ \t]+$/ {print FILENAME;print NR; print;}'
 
---------------------------------------------------------------------------------------
+##Replace trailing spaces
+find . -name "*.php" -type f | xargs sed -i 's/[ \t]*$//'
+find . -type f -exec sed -i 's/[ \t]*$//' {} +
 
+##Clear Shared Memory
+ipcs -m | egrep "0x[0-9a-f]+ [0-9]+" | cut -f1 -d' '| awk ' { print "ipcrm -M "$1 }'
+ipcs -s | egrep "0x[0-9a-f]+ [0-9]+" | cut -f1 -d' '| awk ' { print "ipcrm -S "$1 }'|sh
+
+
+##Conert delimeter
+cat xx |sed 's/\x01/|/g' |sed 's/8=FIX\./\n&/g' | grep -v "35=0"
 --------------------------------------------------------------------------------------
+##Compress Multiple spaces
+	%s/[ ]\+/ /g
+	
+##Remove Lines matching a pattern
+    :g/pdouch*/d
+    :g/pattern/d
+
+##Remove lines not matching pattern
+    :g!/pdouch*/d
+    :v/pattern/d	
+	
+##Match & replace blank line after/before pattern
+	:%s/,/&\r/g
+	:%s/,/\r&/g	
+	
+	
+--------------------------------------------------------------------------------------
+##replace spaces in filenames with underscoress
+    for file in *;do mv $file ${file// /_};done
+    for file in *.pdf; do mv -v "$file" $(echo $file | tr ' ' '_') ;done
+
 --------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------
 
