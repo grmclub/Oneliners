@@ -1,0 +1,44 @@
+
+
+----------------------------- -----------------------------
+1. Open Shift-jis encoded files
+
+    : set encoding=sjis
+
+    and reopen file again
+
+    : e
+
+    2. Change encoding shortcut method
+
+    :e ++enc=sjis
+    :e ++enc=euc-jp
+
+    Strictly speaking, you’re opening for editing (:e = :edit) the same
+    file (as none was specified) and overriding the default “fileencodings”
+    values by using the ++enc option.
+
+
+    add "set fileencodings=iso-2022-jp,euc-jp,cp932,utf8,default,latin1"  to your ~/.vimrc
+
+----------------------------
+3. Convert Encodings
+
+    #cat gb2312.txt  | iconv -f gb2312 -t big5
+    #iconv -f "sjis" -t utf-8 pts_symbol_master-20110301.csv
+    #iconv -f old-encoding -t new-encoding file.txt > newfile.txt
+
+
+--Convert from sjis to utf8
+cat ?û?À.txt | iconv -f sjis -t utf8
+
+in vim: set enc=sjis tenc=utf8
+
+
+
+----------------------------- -----------------------------
+
+
+
+
+----------------------------- -----------------------------
