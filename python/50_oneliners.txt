@@ -1,0 +1,273 @@
+https://github.com/Allwin12/python-one-liners
+
+1. Anagram
+
+from collections import Counter
+
+s1 = 'below'
+s2 = 'elbow'
+
+print('anagram') if Counter(s1) == Counter(s2) else print('not an anagram')
+
+or we can also do this using the sorted() method like this.
+
+print('anagram') if sorted(s1) == sorted(s2) else print('not an anagram')
+
+2. Binary to decimal
+
+decimal = int('1010', 2)
+print(decimal) #10
+
+3. Converting string to lower case
+
+"Hi my name is Allwin".lower()
+# 'hi my name is allwin'
+"Hi my name is Allwin".casefold()
+# 'hi my name is allwin'
+
+4. Converting string to upper case
+
+"hi my name is Allwin".upper()
+# 'HI MY NAME IS ALLWIN'
+
+5. Converting string to byte
+
+"convert string to bytes using encode method".encode()
+# b'convert string to bytes using encode method'
+
+6. Copy files
+
+import shutil; shutil.copyfile('source.txt', 'dest.txt')
+
+7. Quicksort
+
+qsort = lambda l : l if len(l)<=1 else qsort([x for x in l[1:] if x < l[0]]) + [l[0]] + qsort([x for x in l[1:] if x >= l[0]])
+
+8. Sum of n consecutive numbers
+
+sum(range(0, n+1))
+
+This is not efficient and we can do the same using the below formula.
+
+sum_n = n*(n+1)//2
+
+9. Swap two values
+
+a,b = b,a
+
+10. Fibonacci series
+
+lambda x: x if x<=1 else fib(x-1) + fib(x-2)]
+
+11. Combine nested lists to a single list
+
+[item for sublist in main_list for item in sublist]
+
+12. Run an HTTP server
+
+python3 -m http.server 8000
+
+13. Reverse a list
+
+numbers[::-1]
+
+14. Factorial of a number
+
+import math; fact_5 = math.factorial(5)
+
+15. List comprehension using “for” and “if”
+
+even_list = [number for number in [1, 2, 3, 4] if number % 2 == 0]
+# [2, 4]
+
+16. Longest string from a list
+
+# words = ['This', 'is', 'a', 'list', 'of', 'words']max(words, key=len)# 'words'
+
+17. List comprehension
+
+li = [num for num in range(0,100)]
+# this will create a list of numbers from 0 to 99
+
+18. Set comprehension
+
+num_set = { num for num in range(0,100)}
+# this will create a set of numbers from 0 to 99
+
+19. Dictionary comprehension
+
+dict_numbers = {x:x*x for x in range(1,5) }
+# {1: 1, 2: 4, 3: 9, 4: 16}
+
+20. if-else
+
+print("even") if 4%2==0 else print("odd")
+
+21. Infinite while loop
+
+while 1:0
+
+22. Check the data type
+
+isinstance(2, int)
+isinstance("allwin", str)
+isinstance([3,4,1997], list)
+
+23. While loop
+
+a=5
+while a > 0: a = a - 1; print(a)
+
+24. Write to a file using the print statement
+
+print("Hello, World!", file=open('file.txt', 'w'))
+
+25. Count the frequency of a character in a string
+
+print("umbrella".count('l'))# 2
+
+26. Merge two lists
+
+list1.extend(list2)# contents of list 2 will be added to the list1
+
+27. Merge two dictionaries
+
+dict1.update(dict2)
+# contents of dictionary 2 will be added to the dictionary 1
+
+28. Merge two sets
+
+set1.update(set2)
+# contents of set2 will be copied to the set1
+
+29. Timestamp
+
+import time; print(time.time())
+
+30. Most frequent element
+
+numbers = [9, 4, 5, 4, 4, 5, 9, 5, 4]
+most_frequent_element = max(set(test_list), key=test_list.count)
+# 4
+
+However, this is not efficient and we can do the same using the collections module in a more efficient way like this.
+
+numbers = [9, 4, 5, 4, 4, 5, 9, 5, 4]
+
+from collections import Counter
+print(Counter(numbers).most_common()[0][0])# 4
+
+31. Nested list comprehension
+
+numbers = [[num] for num in range(10)]
+# [[0], [1], [2], [3], [4], [5], [6], [7], [8], [9]]
+
+32. Octal to decimal
+
+print(int('30', 8)) 
+# 24
+
+33. Convert key-value pair to dictionary
+
+dict(name='allwin', age=23)
+
+34. Get quotient and remainder
+
+quotient, remainder = divmod(4,5)
+
+35. Remove duplicate elements from a list
+
+list(set([4, 4, 5, 5, 6]))
+
+36. Sort list in ascending order
+
+First, let us sort the list using the sorted() method. The sorted method will return the sorted list.
+
+sorted([5, 2, 9, 1])# [1, 2, 5, 9]
+
+Next, let us sort this using the sort() method. The sort() method will sort the original list and not return anything.
+
+li = [5, 2, 9, 1]
+li.sort()
+
+print(li)
+# 1, 2, 5, 9
+
+37. Sort list in descending order
+
+sorted([5, 2, 9, 1], reverse=True)# [9, 5, 2, 1]
+
+38. Get a string of lower-case alphabets
+
+import string; print(string.ascii_lowercase)
+# abcdefghijklmnopqrstuvwxyz
+
+39. Get a string of upper case alphabets
+
+import string; print(string.ascii_uppercase)
+# ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+40. Get a string of digits from 0 to 9
+
+import string; print(string.digits)
+# 0123456789
+
+41. Hexadecimal to decimal
+
+print(int('da9', 16))
+# 3497
+
+42. Human readable DateTime
+
+import time; print(time.ctime())
+# Thu Aug 13 20:16:23 2020
+
+43. Convert a list of strings to integers
+
+list(map(int, ['1', '2', '3']))
+# [1, 2, 3]
+
+44. Sort dictionary with keys
+
+# {'one': 1, 'four': 4, 'eight': 8}
+{key:d[key] for key in sorted(d.keys())}
+# {'eight': 8, 'four': 4, 'one': 1}
+
+45. Sort dictionary with values
+
+# x = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}
+{k: v for k, v in sorted(x.items(), key=lambda item: item[1])}
+# {0: 0, 2: 1, 1: 2, 4: 3, 3: 4}
+
+46. Rotate a list
+
+# li = [1,2,3,4,5]# right to left
+li[n:] + li[:n] # n is the no of rotations
+li[2:] + li[:2]
+[3, 4, 5, 1, 2]# left to right
+li[-n:] + li[:-n]
+li[-1:] + li[:-1] 
+[5, 1, 2, 3, 4]
+
+47. Remove numbers from a string
+
+''.join(list(filter(lambda x: x.isalpha(), 'abc123def4fg56vcg2')))
+# abcdeffgvcg
+
+48. Transpose matrix
+
+list(list(x) for x in zip(*old_list))
+# old_list = [[1, 2, 3], [3, 4, 6], [5, 6, 7]]
+# [[1, 3, 5], [2, 4, 6], [3, 6, 7]]
+
+49. Filter even numbers from a list
+
+list(filter(lambda x: x%2 == 0, [1, 2, 3, 4, 5, 6] ))
+# [2, 4, 6]
+
+50. Unpacking values
+
+a, *b, c = [1, 2, 3, 4, 5]
+print(a) # 1
+print(b) # [2, 3, 4]
+print(c) # 5
