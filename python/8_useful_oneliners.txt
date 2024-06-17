@@ -1,0 +1,168 @@
+
+1. List, Set, Dictionary Comprehension
+
+List comprehension is a Pythonic way to create lists with a single line of code. It offers a concise alternative to traditional loops, enabling you to generate lists quickly and efficiently.
+
+    List Comprehension
+
+# Traditional way
+squared_numbers = []
+for i in range(10):
+  squared_numbers.append(i ** 2)
+print(squared_numbers)
+
+# Using List comprehension
+squared_numbers = [i ** 2 for i in range(10)]
+print(squared_numbers)
+
+    Set, Dictionary Comprehension
+
+# Set Comprehension
+myset = { num for num in range(0, 5) }
+
+print(myset) # {0, 1, 2, 3, 4}
+
+# Dictionary Comprehension
+mydict = { x: x*x for x in range(1, 5) }
+
+print(mydict) # {1: 1, 2: 4, 3: 9, 4: 16}
+
+2. Lambda Functions
+
+Lambda functions, also known as anonymous functions, allow you to create small, throwaway functions without explicitly defining them with def. They are particularly useful in scenarios where a function is needed for a short operation.
+
+# Using def
+def add_numbers(x, y):
+  return x + y
+print(add_numbers(2, 3))
+
+# Using Lambda function
+add = lambda x, y: x + y
+print(add(2, 3))
+
+3. Map, Filter and Reduce
+
+The map, filter and reduce functions are powerful tools for working with iterables, allowing concise manipulation and filtering of data.
+
+# Traditional way
+fruits = ['apple', 'banana', 'cherry']
+upper_cased_fruits = []
+a_contained_fruits = []
+total_length = 0
+
+for fruit in fruits:
+  upper_cased_fruits.append(fruit.upper())
+print(upper_cased_fruits)
+
+for fruit in fruits:
+  if 'a' in fruit:
+    a_contained_fruits.append(fruit)
+print(a_contained_fruits)
+
+for fruit in fruits:
+  total_length += len(fruit)
+print(total_length)
+
+# Using Map
+upper_cased_fruits = list(map(lambda x: x.upper(), fruits))
+print(upper_cased_fruits)
+
+# Using Filter
+a_contained_fruits = list(filter(lambda x: 'a' in x, fruits))
+print(a_contained_fruits)
+
+# Using Map
+from functools import reduce
+
+total_length = reduce(lambda acc, fruit: acc + len(fruit), fruits, 0)
+print(total_length)
+
+4. Ternary Operator
+
+The ternary operator provides a condensed way to write conditional statements in a single line, enhancing code readability.
+
+# Traditional way
+result = None
+num = 5
+if num % 2 == 0:
+  result = 'Even'
+else:
+  result = 'Odd'
+
+# Using Ternary Operator
+num = 5
+result = 'Even' if num % 2 == 0 else 'Odd'
+
+5. Walrus Operator
+
+The walrus operator (:=) allows the user to create a variable as well as assign a value to it in the middle of an expression.
+
+# Traditional way
+review = 'good'
+n = len(review)
+if n < 10:
+  print('Minimum 10 characters required')
+
+# Using Walrus operator
+review = 'good'
+if (n:= len(review)) < 10:
+  print('Minimum 10 characters required')
+
+6. Iterable or Value Unpacking
+
+Python’s unpacking feature allows for efficient assignment of elements from iterables to variables.
+
+# Traditional way
+numbers = [1, 2, 3]
+a = numbers[0]
+b = numbers[1]
+c = numbers[2]
+
+print(a, b, c)
+
+# Using Unpacking
+numbers = [1, 2, 3]
+a, b, c = numbers
+
+print(a, b, c)
+
+7. Zip Function
+
+The zip function enables you to combine multiple iterables element-wise, forming tuples of corresponding elements.
+
+# Traditional way
+students = ['Dilli', 'Vikram', 'Rolex', 'Leo']
+grades = [85, 92, 78, 88]
+
+student_grade_pairs = []
+for i in range(len(students)):
+    student_grade_pairs.append((students[i], grades[i]))
+
+print(student_grade_pairs)
+
+# Using Zip function
+students = ['Dilli', 'Vikram', 'Rolex', 'Leo']
+grades = [85, 92, 78, 88]
+
+student_grade_pairs = list(zip(students, grades))
+
+print(student_grade_pairs)
+
+8. String Join
+
+The join method is a clean way to concatenate strings from an iterable into a single string.
+
+# Traditional way
+words = ['Python', 'is', 'awesome', 'and', 'powerful']
+
+sentence = ''
+for word in words:
+    sentence += word + ' '
+
+print(sentence.strip())  # Strip to remove the trailing space
+
+# Using String join
+words = ['Python', 'is', 'awesome', 'and', 'powerful']
+
+sentence = ' '.join(words)
+print(sentence)
