@@ -24,6 +24,7 @@ cat xx |sed 's/\x01/|/g' |sed 's/8=FIX\./\n&/g' | grep -v "35=0"
 --------------------------------------------------------------------------------------
 ##Compress Multiple spaces
 	%s/[ ]\+/ /g
+	%s/\s\+/ /g
 	
 ##Remove Lines matching a pattern
     :g/pdouch*/d
