@@ -48,6 +48,8 @@ You can also start the global replacement from the nth instance of the pattern b
 
 sed s/abc/XYZ/3g ik.txt
 -------------------------------------------------------------
+##Remove text between patterns
+sed -i '/^XYZ/,/ZZZZZ/d' filename
 
 -------------------------------------------------------------
 
