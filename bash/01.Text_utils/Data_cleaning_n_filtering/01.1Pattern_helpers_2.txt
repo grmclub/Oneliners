@@ -1,6 +1,8 @@
 
 https://www.gnu.org/software/sed/manual/html_node/BRE-syntax.html
 https://learnbyexample.github.io/learn_gnused/breere-regular-expressions.html
+https://pubs.opengroup.org/onlinepubs/9699919799.2013edition/basedefs/V1_chap09.html
+
 -------------------------------------------------------------
 ##extract numbers from a string
 --Replaces all non numbers with spaces: 
