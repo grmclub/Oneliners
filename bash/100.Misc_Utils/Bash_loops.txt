@@ -1,0 +1,57 @@
+
+-------------------------------------------------------------
+https://linuxconfig.org/mastering-bash-script-loops
+
+#!/bin/bash
+
+# Ask the user for the file name and search term
+read -p "Enter file name: " file_name
+read -p "Enter search term: " search_term
+
+# Check if the file exists
+if [ ! -f $file_name ]; then
+    echo "File not found"
+    exit 1
+fi
+
+# Loop through the file and replace the search term with a new value
+while read line
+do
+    if [[ $line == *"$search_term"* ]]; then
+        # Replace the search term with a new value
+        new_line=${line//$search_term/new_value}
+        echo $new_line
+    else
+        echo $line
+    fi
+done < $file_name
+
+-------------------------------------------------------------
+for file in *.txt; do
+  mv "$file" "${file%.txt}.doc"
+done
+
+while ps -p 1234 >/dev/null; do
+    sleep 1
+done
+
+until ping -c 1 google.com; do
+  sleep 5
+done
+
+In this example, the until loop continues to execute the ping command until an Internet connection is established.
+
+--replaces
+for file in *.txt; do
+  sed -i 's/search/replace/g' "$file"
+done
+
+for file in *.txt; do
+  awk '{ print $1 }' "$file" > "$file.out"
+done
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------------------------------------------------

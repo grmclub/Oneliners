@@ -1,0 +1,45 @@
+
+https://www.gnu.org/software/sed/manual/html_node/BRE-syntax.html
+
+-------------------------------------------------------------
+##extract numbers from a string
+--Replaces all non numbers with spaces: 
+sed -e 's/[^0-9]/ /g'
+$ NUMBER=$(echo "The store is 12 miles away." | sed 's/[^0-9]*//g') ; echo $NUMBER
+
+echo ${string} | grep -o -E "[0-9]+"
+
+--use tr to delete all of the non-digit characters, like so:
+echo toto.titi.12.tata.2.abc.def | tr -d -c 0-9
+cat x.txt | tr -cd '[:digit:]' > y.txt
+$ NUMBER=$(echo "The store is 12 miles away." | tr -dc '0-9') ; echo $NUMBER
+12
+$ NUMBER=$(echo "The store is 12 miles away." | awk -F'[^0-9]*' '$0=$2') ; echo $NUMBER
+
+
+--Parameter expansion
+$ string="toto.titi.12.tata.2.abc.def"
+$ read num1 num2 <<<${string//[^0-9]/ }
+$ echo "$num1 / $num2"
+12 / 2
+$ STRING="The store is 12 miles away." ; echo "${STRING//[!0-9]/}"
+12
+
+-------------------------------------------------------------
+##remove numbers from string
+tr -d 0-9 <old.txt >new.txt
+tr -d '[:digit:]' <old.txt >new.txt
+sed -e 's/[0-9]//g' <old.txt >new.txt
+
+Bash expansion:
+VARIABLE=${VARIABLE//[0-9]/}
+$ printf '%s\n' "${VARIABLE//[[:digit:]]/}"
+-------------------------------------------------------------
+
+
+
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------------------------------------------------
