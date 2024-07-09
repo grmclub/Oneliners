@@ -3,7 +3,7 @@
 
 List comprehension is a Pythonic way to create lists with a single line of code. It offers a concise alternative to traditional loops, enabling you to generate lists quickly and efficiently.
 
-    List Comprehension
+## List Comprehension
 
 # Traditional way
 squared_numbers = []
