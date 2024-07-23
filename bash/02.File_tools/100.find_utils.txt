@@ -170,6 +170,36 @@ done
 	you can do the replace ment by adding an -i in the perl statement as below:
 	#find . -name "*.txt" -o -name "*.log"|xargs perl -pi -e 's/source/target/g'
 ----------------------------------------------------------------
+## File Size Searches
+
+--Exactly Sized Files:
+find . -size 6M
+$ find . -size 1024c
+
+--Files Larger Than a Threshold: Search for files exceeding 2 Gigabytes in size.
+$ find . -size +2G
+
+--Finding Smaller Files: Locate all files under 10 Kilobytes.
+$ find . -size -10k
+
+--Size Range Search: Discover files greater than 10MB yet smaller than 20MB.
+$ find . -size +10M -size -20M
+
+--List and File Size Display: Search /etc for files over 5MB and list them with sizes.
+$ find /etc -size +5M -exec ls -sh {} +
+
+--Top Three Largest Files: Identify the three largest documents in your directory, ranked by size.
+$ find . -type f -exec ls -s {} + | sort -n -r | head -3
+
+--Find Empty Files: Search for files that are completely empty.
+$ find . -type f -size 0b
+
+--Small File Permission Changes: Amend permissions for files lesser than 5KB.
+$ find . -size -5k -exec chmod 644 {} \;
+
+--Large File count: Count all files in your directory over 500MB.
+$ find . -type f -size +500M | wc -l
+
 ----------------------------------------------------------------
 
 ----------------------------------------------------------------
