@@ -1,0 +1,137 @@
+https://phoenixnap.com/kb/guide-linux-find-command
+
+
+---------------------------------------------------
+–Find string in files
+grep -irn "text string" /path/to/directory
+-r performs a recursive search within subdirectories.
+-n displays the line number containing the pattern.
+-i ignores the case of the text string.
+
+grep -rli "text string" /path/to/directory
+-l prints only the names of the files containing the pattern.
+
+find /path/to/directory -type f -exec grep -l "text string" {} \;
+
+---------------------------------------------------
+find . -type f -exec du -a {} + | sort - nr |head
+
+find . -type f -executable
+
+find -path ‘./.*’ -name ‘.*’ -empty -printf %P\\n
+
+---------------------------------------------------
+https://www.redhat.com/sysadmin/linux-find-command
+
+1. Find a single file by name
+
+	Use 2>/dev/null to silence permission errors (or use sudo to gain all permissions).
+
+	$ find / -name "Foo.txt" 2>/dev/null
+	/home/seth/Documents/Foo.txt
+
+2. Find a single file by approximate name
+
+	$ find / -iname "*foo*txt" 2>/dev/null
+	/home/seth/Documents/Foo.txt
+	/home/seth/Documents/foo.txt
+	/home/seth/Documents/foobar.txt
+
+3. Find contents of a directory recursively
+
+	$ find ~/Documents -ls
+	3554235 0 drwxr-xr-x [...] 05:36 /home/seth/Documents/
+	3554224 0 -rw-rw-r-- [...] 05:36 /home/seth/Documents/Foo
+	3766411 0 -rw-rw-r-- [...] 05:36 /home/seth/Documents/Foo/foo.txt
+	3766416 0 -rw-rw-r-- [...] 05:36 /home/seth/Documents/Foo/foobar.txt
+
+
+4. Find by content
+
+	$ find ~/Documents/ -name "*txt" -exec grep -Hi penguin {} \;
+	/home/seth/Documents/Foo.txt:I like penguins.
+	/home/seth/Documents/foo.txt:Penguins are fun.
+
+5. Find files by type
+
+	You can display files, directories, symlinks, named pipes, sockets, and more using the -type option.
+
+	$ find ~ -type f
+	/home/seth/.bash_logout
+	/home/seth/.bash_profile
+	/home/seth/.bashrc
+	/home/seth/.emacs
+	/home/seth/.local/share/keyrings/login.keyring
+	/home/seth/.local/share/keyrings/user.keystore
+	/home/seth/.local/share/gnome-shell/gnome-overrides-migrated
+	[...]
+
+	As long as you're using the GNU version of find, you can include multiple file types in your search results:
+
+	$ find ~ -type f,l -name "notebook*"
+	/home/seth/notebook.org
+	/home/seth/Documents/notebook-alias.org
+
+6. List just directories
+
+	$ find ~/Public -type d
+	find ~/Public/ -type d
+	/home/seth/Public/
+	/home/seth/Public/example.com
+	/home/seth/Public/example.com/www
+	/home/seth/Public/example.com/www/img
+	/home/seth/Public/example.com/www/font
+	/home/seth/Public/example.com/www/style
+
+7. Limit listing results
+
+	$ find ~/Public/ -maxdepth 1 -type d
+	/home/seth/Public/
+	/home/seth/Public/example.com
+
+8. Find empty files
+
+	$ find ~ -type f -empty
+	random.idea.txt
+
+9. Find files by age
+	$ find /var/log -iname "*~" -o -iname "*log*" -mtime +30
+
+	The + before the -mtime matches a value greater than 24 times 30. In other words, the sample code finds log files that haven't been modified in a month or more.
+
+	To find log files modified within the past week, you can use the - conditional:
+
+	$ find /var/log -iname "*~" -o -iname "*log*" -mtime -7
+	/var/log/tallylog
+	/var/log/cups/error_log
+	/var/log/cups/access_log
+	/var/log/cups/page_log
+	/var/log/anaconda/anaconda.log
+	/var/log/anaconda/syslog
+	/var/log/anaconda/X.log
+	[...]
+
+	You already know about the -ls flag, so you can combine that with these commands for clarity:
+
+	$ find /var/log -iname "*~" -o -iname "*log*" -mtime -7 -ls
+	-rw-------  1 root root            0 Jun  9 18:20 /var/log/tallylog
+	-rw-------  1 root lp      332 Aug 11 15:05 /var/log/cups/error_log
+	-rw-------  1 root lp      332 Aug 11 15:05 /var/log/cups/access_log
+	-rw-------  1 root lp      332 Aug 11 15:05 /var/log/cups/page_log
+	-rw-------  1 root root  53733 Jun  9 18:24 /var/log/anaconda/anaconda.log
+	-rw-------  1 root root 835513 Jun  9 18:24 /var/log/anaconda/syslog
+	-rw-------  1 root root  21131 Jun  9 18:24 /var/log/anaconda/X.log
+	[...]
+
+10. Search a path
+
+	Sometimes you know the directory structure leading up to a file you need; you just don't know where the directory structure is located within the system. To search within a path string, you can use the -ipath option, which treats dots and slashes not as regex characters but as dots and slashes.
+
+	$ find / -type d -name 'img' -ipath "*public_html/example.com*" 2>/dev/null
+	/home/tux/Public/public_html/example.com/font
+
+---------------------------------------------------
+
+---------------------------------------------------
+
+---------------------------------------------------
