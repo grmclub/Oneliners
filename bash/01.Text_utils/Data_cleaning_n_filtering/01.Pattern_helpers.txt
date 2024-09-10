@@ -5,7 +5,7 @@ grep -P ‘\d{4}’
 grep -E ‘[0-9]{4}’
 
 * insert a space every 4 charecters
-echo "foobarbazzz"|sed 's/.\{4\}/&/g'
+echo "foobarbazzz"|sed 's/.\{4\}/& /g'
 
 *Extract before and after a pattern
 grep -oE '.{5}cde.{5}' file.txt
