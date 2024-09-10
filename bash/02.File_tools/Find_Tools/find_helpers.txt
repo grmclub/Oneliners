@@ -19,7 +19,7 @@ find . -type f -exec du -a {} + | sort - nr |head
 find . -type f -executable
 
 find -path ‘./.*’ -name ‘.*’ -empty -printf %P\\n
-
+find . -type f -size +2k -exec ls -sh {} \;
 ---------------------------------------------------
 https://www.redhat.com/sysadmin/linux-find-command
 
