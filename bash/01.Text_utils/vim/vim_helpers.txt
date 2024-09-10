@@ -17,8 +17,22 @@ find . -type f -exec sed -i 's/[ \t]*$//' {} +
 ##Clear Shared Memory
 ipcs -m | egrep "0x[0-9a-f]+ [0-9]+" | cut -f1 -d' '| awk ' { print "ipcrm -M "$1 }'
 ipcs -s | egrep "0x[0-9a-f]+ [0-9]+" | cut -f1 -d' '| awk ' { print "ipcrm -S "$1 }'|sh
+--------------------------------------------------------------------------------------
+Vim_set_2
 
+:%j!  #gets rid of space
 
+#group every 3 lines
+:%g/$/j3
+:%! paste -d ‘,’ - - -
+
+##split lines
+:%s/\s\+/\r/g
+
+##clear trailing space
+:%s=\s\+$==
+
+--------------------------------------------------------------------------------------
 ##Conert delimeter
 cat xx |sed 's/\x01/|/g' |sed 's/8=FIX\./\n&/g' | grep -v "35=0"
 --------------------------------------------------------------------------------------
