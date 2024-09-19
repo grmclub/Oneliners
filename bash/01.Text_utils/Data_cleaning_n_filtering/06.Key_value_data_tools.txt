@@ -73,6 +73,60 @@
 		
 		
 -------------------------------------------------------------
+--Extract value from xml
+https://www.baeldung.com/linux/xml-tag-extract-value
+https://www.baeldung.com/linux/pretty-print-xml
+https://www.fosslinux.com/114195/ways-to-parse-an-xml-file-on-linux.htm
+
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Component configuration file -->
+<Component>
+   <Name>install_env</Name>
+   <HelpString>install_env Com</HelpString>
+   <Version>1.10.3</Version>
+</Component>
+
+use --xpath argument to get the value of the name tag:
+
+user$ test=$(xmllint --xpath "//Component/Name/text()" testfile) 
+user$ echo $test
+install_env
+
+========================
+xmllint --xpath 'string(/item/title)' rss.xml
+xmllint --xpath "//name" sample.xml
+
+sed 's/<.*>\(.*\)<.*>/\1/'
+If you need to eliminate the indentation add \s* at the beginning like this:
+
+sed 's/\s*<.*>\(.*\)<.*>/\1/'
+grep -o '<a href=.*<\/a>'
+========================
+ For example xml person file as below
+
+    <person>
+      <sex>Male</sex>
+      <firstname>Huu</firstname>
+      <lastname>Phan</lastname>
+      <sex>female</sex>
+      <firstname>Miranda</firstname>
+      <lastname>Kerr</lastname>
+    </person>
+
+How to extract value between <firstname> </firstname>
+
+Use grep command
+$ grep -oP '(?<=<firstname>).*(?=</firstname)' person.xml
+
+Use awk command
+$ awk -F "[><]" '/firstname/{print $3}' person.xml
+
+Use sed command
+$ sed -n '/firstname/{s/.*<firstname>//;s/<\/firstname.*//;p;}' person.xml 
+
+========================
+
 -------------------------------------------------------------
 -------------------------------------------------------------
 -------------------------------------------------------------
