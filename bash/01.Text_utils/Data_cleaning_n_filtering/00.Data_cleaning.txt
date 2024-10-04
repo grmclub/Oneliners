@@ -26,6 +26,9 @@ sed -i '/^$/d' <filename>
 ##Deleting Lines Containing Just Whitespace Characters
 sed -i '/^\s*$/d' <filename>
 
+#Remove both empty and blank lines
+sed -i 's/  //g;s/^$/d' filename
+
 ##Translate separator
 sed -i 's/\x01/|/g' file
 tr '\001' '|'
