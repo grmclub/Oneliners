@@ -36,7 +36,8 @@ sed -e 's/[0-9]//g' <old.txt >new.txt
 Bash expansion:
 VARIABLE=${VARIABLE//[0-9]/}
 $ printf '%s\n' "${VARIABLE//[[:digit:]]/}"
--------------------------------------------------------------#Html tag filter
+-------------------------------------------------------------
+##Html tag filter
 sed -e ‘s/<[^>]*>//g
 
 
