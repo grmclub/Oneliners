@@ -32,6 +32,13 @@ https://mywiki.wooledge.org/BashFAQ/067
 
 :%s=\s\+$==
 
+#Leading spaces
+sed 's/^\s\+//g'
+
+#Trailing spaces
+sed 's/\s\+$//g'
+
+
 ##To delete trailing whitespace from end of each line, enter:
 cat input.txt | sed 's/[ \t]*$//' > output.txt
 
