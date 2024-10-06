@@ -42,8 +42,90 @@ BBB~111~2~1
 cat file.in|awk '{ ($3 == "1" ? sum_b +=$5 : sum_s +=$5); } END{ print sum_b, sum_s; }' 
 
 
--------------------------------------------------------------Join files
+-------------------------------------------------------------
+##Join files
 join -a1 -e0 -t’,’ -o 1.1,2.2,2.3 x y 
+
+https://linux.die.net/man/1/join
+* Commonly used parameters
+    -a Includes unpairable lines from file
+    -v Displays unpairable lines
+	
+	This will include lines from file1.txt that do not have a matching line in file2.txt.	
+	join -a 1 file1.txt file2.txt	
+	join -v 1 file1.txt file2.txt
+
+* Other supported parameters
+
+    1 FIELD Join on this FIELD number for file 1
+    2 FIELD Join on this FIELD number for file 2
+    e STRING Replace missing input fields with STRING
+    i Ignore case differences
+    t CHAR Use CHAR as input and output field separator
+
+## Sort Files & join examples 	
+join -t'|' -12 <(sort -t'|' -k2 file1) file2	
+join -j 1 <(sort file1.txt) <(sort file2.txt)
+
+##Outer joins
+
+--right outer join -a2
+join -t '|'  file1 file2 -a2
+
+Options used:
+
+t: Delimiter.
+a: Decides the file number from which the unpaired lines have to be printed.
+
+##join with bash tools
+cat file2 | while read line; do
+    grep $line file1 # or whatever you want to do with the $line variable
+done
+
+===================
+--sample data
+
+File 1:
+01|a|jack|d
+02|b|ron|c
+03|d|tom|e
+
+File 2:
+01|a|nemesis|f
+02|b|brave|d
+04|d|gorr|h
+
+output:
+01|a|jack|d|nemesis|f
+02|b|ron|c|brave|d
+03|d|tom|e||
+===================
+
+## left outer join -a1
+
+--format data
+sed 's/|/:/2' file1 | sort -t: >file1.tmp
+sed 's/|/:/2' file2 | sort -t: >file2.tmp
+join -t':' file1.tmp file2.tmp -a1 -e'|' -o'0,1.2,2.2' | tr ':' '|'
+
+'s/|/:/2' replaces the second occurrence of pipe with colon on each line in file.
+
+file1.tmp
+
+01|a:jack|d
+02|b:ron|c
+03|d:tom|e
+
+file2.tmp
+
+01|a:nemesis|f
+02|b:brave|d
+04|d:gorr|h
+
+output file
+01|a|jack|d|nemesis|f
+02|b|ron|c|brave|d
+03|d|tom|e||
 
 
 -------------------------------------------------------------
