@@ -19,7 +19,9 @@ https://karandeepsingh.ca/post/advanced-string-operations-in-bash-building-custo
 # between fields
 awk 'ORS=NR%5?",":"\n"' file
  
- 
+## Extract multiline records
+awk ‘BEGIN { RS=”text”; FS=’\n’; OFS=’,’ } NR>1 {$1=RS;NF–;print}’
+-------------------------------------------------------------
 # Billing for Books
 
 $ cat bookdetails.txt
