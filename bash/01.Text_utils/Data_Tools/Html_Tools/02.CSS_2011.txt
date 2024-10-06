@@ -1,0 +1,527 @@
+
+-------------------------------------------------------------------
+CSS_2010
+=========
+
+-CSS Box Model
+  Margin
+  Border
+  Padding
+  Content
+
+  Ex:
+		width:220px;
+		padding:10px;
+		border:5px solid gray;
+		margin:0px;
+
+-Style add Options
+	External Style Sheet
+	<link rel="stylesheet" type="text/css" href="mystyle.css" />
+
+	Internal Syle Sheet
+		<head>
+		<style type="text/css">
+		body {background-color:yellow}
+		p {color:blue}
+		</style>
+		</head>
+
+	Inline Style Sheet
+	<p style="color:blue;margin-left:20px">This is a paragraph.</p>
+
+1. How To Add ScrollBar Around The Table in HTML
+   <div style="overflow:auto; height:556px;width:564px;">
+   </div>
+-------------------------------------------------------------------
+2. Fixed Header Table
+http://blog.oxagile.com/2009/10/26/scrollable-html-table-with-fixed-header-for-ie-7-ie-8-firefox-35-chrome/
+http://www.cssplay.co.uk/menu/tablescroll.html
+
+
+And the CSS:
+
+.scroller tbody {
+  height: 400px; /* Set an absolute height */
+  overflow-y: scroll;
+}
+
+
+<table cellpading="0" cellspacing="0" class="scroller">
+  <thead>
+    <tr>
+      <th>Column 1</th>
+      <th>Column 2</th>
+    </tr>
+  </thead>
+  <!-- tfoot must go before tbody -->
+  <tfoot>
+    <tr>
+      <td>note 1</td>
+      <td>note 2</td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <tr>
+      <td>Data 1</td>
+      <td>Data 2</td>
+    <tr>
+    ... snip ...
+  </tbody>
+</table>
+
+
+
+-------------------------------------------------------------------
+3. Include html
+<iframe src="test.html" width="200" height="100"></iframe>
+-------------------------------------------------------------------
+4. Excel Tips
+	ALT + ENTER for a line feed.
+	ALT + 0149, more text etc.
+
+-------------------------------------------------------------------
+5.Element Padding
+
+	padding-top:25px;
+	padding-bottom:25px;
+	padding-right:50px;
+	padding-left:50px;
+
+The padding property can have from one to four values.
+
+    * padding:25px 50px 75px 100px;
+          o top padding is 25px
+          o right padding is 50px
+          o bottom padding is 75px
+          o left padding is 100px
+
+    * padding:25px 50px 75px;
+          o top padding is 25px
+          o right and left paddings are 50px
+          o bottom padding is 75px
+
+    * padding:25px 50px;
+          o top and bottom paddings are 25px
+          o right and left paddings are 50px
+
+    * padding:25px;
+          o all four paddings are 25px
+
+
+-------------------------------------------------------------------
+6. Submitting Forms with Links
+
+-------------------------------------------------------------------
+* Make a submit button look like a link
+-------------------------------------------------------------------
+	 <style type="text/css">
+
+	  .submitLink {
+	   color: #00f;
+	   background-color: transparent;
+	   text-decoration: underline;
+	   border: none;
+	   cursor: pointer;
+	   cursor: hand;
+	  }
+
+	</style>
+
+
+	<form action="/mon/stats/index" method="POST"
+	<input type="submit" class="submitLink" value="Submit Form">
+	</form>
+
+------------
+Alternative:
+------------
+ <a href="javascript:document.formName.submit();">Submit Form</a>
+
+---------------------------------
+Use An Image to Submit Your Form
+---------------------------------
+
+	<INPUT TYPE="image" SRC="hgbutt.gif" HEIGHT="24" WIDTH="129" BORDER=0 ALT="picture button">
+	The simplest way is to use an image as a submit button employing the <input> HTML form tag.
+	<input type="image" src="butup.gif" alt="Submit button">
+
+
+	When using this tag, you should remember some important differences between Netscape and Internet Explorer and how they handle this tag.
+	Netscape ignores the alt attribute.
+	Netscape gives no indication that this image can be used to submit a form. In Internet Explorer, the mouse cursor changes to a hand.
+	Netscape ignores any JavaScript event handlers attached to this tag. Thus, client-side form validation is not possible using this
+    tag in Netscape.
+
+	To overcome such browser incompatibility, I generally use a linked image and a little JavaScript code. The image when clicked
+    submits the form through onclick() JavaScript event handler. Let me share this piece of code with you.
+
+
+	<a href="javascript:document.myform.submit()"
+	onmouseover="document.myform.sub_but.src='butdown.gif'"
+	onmouseout="document.myform.sub_but.src='butup.gif'"
+	onclick="return val_form_this_page()">
+
+	<img src="butup.gif"
+	width="143" height="39" border="0" alt="Submit this form"
+	name="sub_but" />
+
+	</a>
+
+
+
+
+
+===================
+AHref Link Styling
+===================
+<A STYLE="text-decoration:none" HREF="link.html">
+This is an unusual link, it has no underline</A>
+
+<style type=”text/css”>
+
+<!—
+a:link {
+color: #333333;
+}
+a:visited {
+color: #FFFFFF;
+}
+a:hover {
+color: #CCCCCC;
+background-color: #333333;
+text-decoration: none;
+}
+a:active {
+color: #333333;
+}
+–>
+
+</style>
+
+====
+A:link
+Defines the style for normal unvisited links.
+
+A:visited
+Defines the style for visited links.
+
+A:active
+Defines the style for active links.
+A link becomes active once you click on it.
+
+A:hover
+Defines the style for hovered links.
+A link is hovered when the mouse moves over it.
+Note: Not supported by Netscape browsers prior to version 6.
+
+====
+<style type="text/css">
+A:link {text-decoration: none}
+A:visited {text-decoration: none}
+A:active {text-decoration: none}
+A:hover {text-decoration: underline; color: red;}
+</style>
+
+=====
+<style type="text/css">
+A:link {text-decoration: none}
+A:visited {text-decoration: none}
+A:active {text-decoration: none}
+A:hover {font-size:24; font-weight:bold; color: red;}
+</style>
+
+======
+
+
+***For No Underlines
+<A STYLE="text-decoration:none" HREF="link.html">
+This is an unusual link, it has no underline</A>
+
+
+
+--------------------------------------------------------------------
+
+7. Efficient Alternating Table Row Colors
+==========================================
+
+To produce the same effect with less code, instead define two types of TR classes. Then, use inheritance to the TD tag. Read the example and the explanation will follow.
+
+<style type="text/css">
+tr.d0 td {
+	background-color: #CC9999; color: black;
+}
+tr.d1 td {
+	background-color: #9999CC; color: black;
+}
+</style>
+<table>
+<tr class="d0"><td>One</td><td>Fish</td></tr>
+<tr class="d1"><td>Two</td><td>Fish</td></tr>
+<tr class="d0"><td>Red</td><td>Fish</td></tr>
+<tr class="d1"><td>Blue</td><td>Fish</td></tr>
+</table>
+
+--------------------------------------------------------------------
+.FixedTableHead tr.alt td {
+    background: #F5FAFA;
+    color: #797268;
+
+}
+
+
+Text Decoration
+
+##Text Shadow
+text-shadow:2px 2px 2px #888888
+text-shadow:2px 2px 2px #888888
+
+text-shadow: 2px 2px 2px #000;
+
+##Emboss
+Generally the rule for lighter text on a darker gradient is as follows, use a text-shadow of -1px on
+the y axis, with the shadow as a dark color. In the example below, I have used a dark blue to reflect a
+similar shade of blue as the gradient behind it:
+
+text-shadow: 0px -1px 0px #374683;
+
+So to do the opposite, we flip everything on its head. The text-shadow is now a positive value at
+1px on the x axis, with the text-shadow color being light, or pretty much white in this case:
+
+text-shadow: 0px 1px 0px #e5e5ee;
+
+
+##3D Text
+color:#F2B405;
+text-shadow: 2px 2px #F27405,
+3px 3px #F27405,
+4px 4px #F27405,
+5px 5px #F27405
+--------------------------------------------------------------------
+Center An Image
+==============
+This is also the way to center an image: make it into block of its own and apply the margin properties to it. For example:
+IMG.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto; }
+
+Centering lines of text
+
+The most common and (therefore) easiest type of centering is that of lines of text in a paragraph or in a heading.
+CSS has the property 'text-align' for that:
+P { text-align: center }
+H2 { text-align: center }
+
+renders each line in a P or in a H2 centered between its margins, like this:
+
+The lines in this paragraph are all centered between the paragraph's margins, thanks to the value 'center' of the CSS property 'text-align'.
+Centering a block or image
+
+Sometimes it is not the text that needs to be centered, but the block as a whole. Or, phrased differently: we want the left
+and right margin to be equal. The way to do that is to set the margins to 'auto'. This is normally used with a block of fixed width,
+because if the block itself is flexible, it will simply take up all the available width. Here is an example:
+P.blocktext {
+    margin-left: auto;
+    margin-right: auto;
+    width: 6em
+}
+..
+
+
+--------------------------------------------------------------------
+Borders Only Inside Table
+
+
+table {
+    border-collapse: collapse;
+    border-style: hidden;
+}
+
+table td, table th {
+    border: 1px solid black;
+}
+
+
+--------------------------------------------------------------------
+1. Make Div's same size
+
+$(".sidebar").height($(".content").height());
+
+<script language="javascript">
+    $("#vol").height($("#topstocks").height());
+    //$("#rep").height($("#news").height());
+</script>
+
+2. Table Align text to top
+    <table style="width:100%;">
+    <tr style="vertical-align: top;">
+
+
+--------------------------------------------------------------------
+
+
+.pdf {
+background:url(images/pdf-icon.gif) center right no-repeat;
+padding:0 16px 0 0;
+white-space:nowrap;
+}
+
+
+-------------
+##Show Hide Div
+
+<div href="#" class="showhim">HOVER ME<div class="showme">hai</div></div>
+
+and
+.showme{
+display: none;
+}
+.showhim:hover .showme{
+display : block;
+}
+
+------------
+div is a block element, which always takes up its own line.
+use the span tag instead
+
+You should use a span element instead, which is inline.
+If you really want to use div, add style="display: inline". (You can also put that in a CSS rule)
+
+Only display: inline contradicts what the DIV is for, so please don't do it! Use the span instead.
+
+-----------
+    print "<script type=\"text/javascript\">";
+    print "document.getElementById(\"t_msg\").style.height=\"800px\";";
+    print "</script>";
+--------------------------------------------------------------------
+Rounded Corners
+===============
+
+.rounded-corners {
+     -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -khtml-border-radius: 20px;
+    border-radius: 20px;
+}
+
+----------------------
+Rounded Corners in IE
+----------------------
+.rounded-corners {
+    behavior: url(/css/border-radius.htc);
+    border-radius: 20px;
+}
+
+
+--------------------------------------------------------------------
+* Table Align with CSS
+
+
+1. Align center
+
+div.centered
+{
+    text-align: center;
+}
+div.centered table
+{
+    margin: 0 auto;
+    text-align: left;
+}
+
+
+<div class="centered">
+    <table>
+    …
+    </table>
+</div>
+
+
+
+--------------------------------------------------------------------
+<div style="margin: 10px -8px; padding: 8px; border: solid 3px red; border-radius: 10px; font-size: 120%;">
+   Our office will move as of May 7, 2014. The new address is as follows:<br/>
+   Nurihiko South Building 8F, Kyobashi 2-10-2, Chuo-ku, Tokyo 104-0031
+</div>
+
+
+
+--------------------------------------------------------------------
+* How to align footer (div) to the bottom of the page?
+
+http://stackoverflow.com/questions/3525581/how-to-align-footer-div-to-the-bottom-of-the-page
+
+
+Is this what you mean?
+
+http://ryanfait.com/sticky-footer/
+
+This method uses only 15 lines of CSS and hardly any HTML markup. Even better, it's completely valid CSS, and it works in all major browsers. Internet Explorer 5 and up, Firefox, Safari, Opera and more.
+
+This footer will stay at the bottom of the page permanently. This means that if the content is more than the height of the browser window, you will need to scroll down to see the footer... but if the content is less than the height of the browser window, the footer will stick to the bottom of the browser window instead of floating up in the middle of the page.
+
+Here's another, perhaps better, solution:
+
+http://www.cssstickyfooter.com/
+
+Let me know if you need help with the implementation. I hope this helps.
+
+----------------- ---------------
+http://matthewjamestaylor.com/blog/keeping-footers-at-the-bottom-of-the-page
+
+
+Your title and comments imply that you weren't looking for a sticky footer (stuck to the bottom of the window as content scrolls below it). I assume you were looking for a footer that would be forced to the bottom of the window if the content does not fill the window, and push down to the bottom of the content if the content exceeds the window boundary.
+
+You can accomplish this with the following.
+<style>
+html,
+body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+#container {
+    min-height:100%;
+    position:relative;
+}
+#header {
+    background:#ff0;
+    padding:10px;
+}
+#body {
+    padding:10px;
+    padding-bottom:60px;   /* Height of the footer */
+}
+#footer {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:60px;   /* Height of the footer */
+    background:#6cf;
+}
+</style>
+
+<div id="container">
+    <div id="header">header</div>
+    <div id="body">body</div>
+    <div id="footer">footer</div>
+</div>
+
+--------------------------------------------------------------------
+
+
+
+
+
+
+--------------------------------------------------------------------
+
+
+
+
+
+
+
+
+

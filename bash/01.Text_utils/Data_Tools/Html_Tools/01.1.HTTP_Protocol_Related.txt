@@ -1,0 +1,258 @@
+
+ --------------------------------------
+ Links
+ =====
+
+http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html
+http://developer.yahoo.com/performance/rules.html
+
+
+--------------------------------------
+HTTP Error Codes
+=================
+
+  200 OK
+    Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request,
+    the response will contain an entity corresponding to the requested resource. In a POST request the response will contain
+    an entity describing or containing the result of the action.
+
+    301 Moved Permanently
+    This and all future requests should be directed to the given URI.
+
+    400 Bad Request
+    The request contains bad syntax or cannot be fulfilled.
+
+    401 Unauthorized
+    Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided.
+    The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource.
+
+    403 Forbidden
+    The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response,
+    authenticating will make no difference.
+
+    404 Not Found
+    The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible.
+
+    500 Internal Server Error
+    A generic error message, given when no more specific message is suitable.
+--------------------------------------
+1 1xx Informational
+2 2xx Success
+3 3xx Redirection
+4 4xx Client Error
+5 5xx Server Error
+
+
+http://www.websitepulse.com/kb/4xx_http_status_codes.html
+http://en.wikipedia.org/wiki/HTTP_404
+http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+
+------------------------------------------------------------------------------------------------------------------
+
+HTTP Protocol
+=============
+HTTP has a vocabulary of operations called request methods, most notably:
+
+GET
+POST
+PUT
+DELETE
+
+
+HTTP Request Methods:
+
+1) GET Method: The Get method is used to getting the data from the server.
+               Get method appends the parameters passed as query string to a URL, in the form of key- value pairs.
+               for example, if a parameter is name = Williams, then this string will be appended in the URL. By default the method is Get.
+
+2) POST Method: The post method is used for sending data to the server.
+                In post method the query string is appended along the request object, they do not get appended in the URL,
+                so parameters transfer in hidden form.
+
+3) HEAD Method:  When a user wants to know about the headers, like MIME types, charset,
+                 Content- Length then we use Head method. With this no body content is returned.
+
+    These three are commonly used methods of jsp while Get and Post methods are most widely used.
+    There are more methods of http protocols which are rarely used by they have been given here for your knowledge.
+
+4) TRACE Method: Trace on the jsp resource returns the content of the resource.
+                 Asks for a loopback of the request message, so that the use can see what is being recieved on the other side.
+
+5) DELETE Method: It is used for delete the resources, files at the requested URL
+
+6) OPTIONS Method: It lists the Http methods to which the thing at the requested URL can respond.
+
+7) PUT Method: It put the enclosed information at the requestedURL.
+
+8) CONNECT Method: It connects for the purpose of tunneling.
+
+------------------------------------------------------------------------------------------------------------------
+1) An HTTP client initiates a request by establishing a Transmission Control Protocol (TCP) connection to a
+   particular port on a server (typically port 80;
+
+2) Upon receiving the request, the server sends back a status line, such as "HTTP/1.1 200 OK",
+   and a message of its own, the body of which is perhaps the requested resource, an error message, or some other information.
+
+3)  The request message consists of the following:
+    Request line, such as GET /images/logo.png HTTP/1.1, which requests a resource called /images/logo.png from server
+    Headers, such as Accept-Language: en
+    An empty line.
+    An optional message body.
+
+
+--------------------------
+The format of the request and response messages are similar, and English-oriented. Both kinds of messages consist of:
+
+1. an initial line,
+2. zero or more header lines,
+3. a blank line (i.e. a CRLF by itself), and
+4. an optional message body (e.g. a file, or query data, or query output).
+
+*Initial Request Line
+    GET /path/to/file/index.html HTTP/1.0
+
+    GET [PATH] PROTOCOL
+
+*Initial Response Line (Status Line)
+
+    HTTP/1.0 200 OK
+    or
+    HTTP/1.0 404 Not Found
+
+    [Protocol] [Ret Code] [Status]
+
+-------------------------
+
+------------------------------------------------------------------------------------------------------------------
+View Http headers :    http://www.ericgiguere.com/tools/http-header-viewer.html
+
+ host	localhost:8177
+
+accept	text/html, application/xml;q=0.9, application/xhtml+xml, image/png, image/webp, image/jpeg, image/gif, image/x-xbitmap, */*;q=0.1
+
+accept-encoding	gzip, deflate
+
+accept-language	en-US,en;q=0.9
+
+cache-control	max-age=259200
+
+referer	http://stackoverflow.com/questions/1826603/how-to-set-language-of-web-page-determined-by-visitor-language
+
+user-agent	Opera/9.80 (X11; Linux x86_64; U; en) Presto/2.10.229 Version/11.60
+
+x-forwarded-for	61.125.130.90
+
+x-forwarded-host	www.ericgiguere.com
+
+x-forwarded-server	www.ericgiguere.com
+
+connection	close
+
+
+##Http Redirect according to browsers setting
+
+http://tech-blog.borychowski.com/index.php/2009/03/htaccess/redirect-according-to-browser-language-mod-rewrite-and-http_accept_language/
+
+
+
+------------------------------------------------------------------------------------------------------------------
+==========================================
+sample HTTP session using the "nc" command
+==========================================
+
+One such protocol is the Hyper Text Transfer Protocol (HTTP) used
+to send and receive Web pages over the Internet.  It is documented
+in RFC2616:
+
+    http://www.faqs.org/rfcs/rfc2616.html
+
+My input is marked by "*" in the examples below.  Note the blank line
+used to signal the end of my input to the server.
+
+  * $ nc -v www.microsoft.com http
+    Warning: inverse host lookup failed for 207.46.18.30: Unknown host
+    Warning: inverse host lookup failed for 207.46.19.30: Unknown host
+    Warning: inverse host lookup failed for 207.46.19.60: Unknown host
+    Warning: inverse host lookup failed for 207.46.20.30: Unknown host
+    Warning: inverse host lookup failed for 207.46.20.60: Unknown host
+    Warning: inverse host lookup failed for 207.46.198.60: Unknown host
+    Warning: inverse host lookup failed for 207.46.199.60: Unknown host
+    Warning: inverse host lookup failed for 207.46.225.60: Unknown host
+    lb1.www.ms.akadns.net [207.46.18.30] 80 (http) open
+  * HEAD / HTTP/1.0
+  *
+    HTTP/1.1 200 OK
+    Connection: close
+    Date: Thu, 02 Feb 2006 08:29:31 GMT
+    Server: Microsoft-IIS/6.0
+    P3P: CP="ALL IND DSP COR ADM CONo CUR CUSo IVAo IVDo PSA PSD TAI TELo OUR SAMo CNT COM INT NAV ONL PHY PRE PUR UNI"
+    X-Powered-By: ASP.NET
+    X-AspNet-Version: 2.0.50727
+    Cache-Control: private
+    Content-Type: text/html; charset=utf-8
+    Content-Length: 22874
+
+You can also use "GET" instead of "HEAD" to fetch an entire raw web page.
+The server below requires the "Host" subcommand (typed after the "GET"
+command) to choose the correct virtual web server on the shared machine
+that has multiple domains:
+
+  * $ nc -v teaching.idallen.com http
+    DNS fwd/rev mismatch: idallen.com != server20.tchmachines.com
+    idallen.com [216.180.243.122] 80 (http) open
+  * GET /net2003/06w/notes/README.txt HTTP/1.0
+  * Host: teaching.idallen.com
+  *
+    HTTP/1.1 200 OK
+    Date: Thu, 02 Feb 2006 08:33:32 GMT
+    Server: Apache/1.3.34 (Unix) mod_auth_passthrough/1.8 mod_log_bytes/1.2 mod_bwlimited/1.4 FrontPage/5.0.2.2635 mod_ssl/2.8.25 OpenSSL/0.9.6b
+    Last-Modified: Sat, 10 Dec 2005 03:57:42 GMT
+    ETag: "39298c-1a7-439a5236"
+    Accept-Ranges: bytes
+    Content-Length: 423
+    Connection: close
+    Content-Type: text/plain
+
+
+
+
+------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

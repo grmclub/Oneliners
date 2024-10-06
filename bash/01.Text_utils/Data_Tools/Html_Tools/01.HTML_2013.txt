@@ -1,0 +1,697 @@
+﻿HTML
+=====
+* In HTML 4.0 all formatting can be removed from the HTML document, and stored in a style sheet.
+* To validate an HTML document, a doctype declaration must be added.
+
+The doctype declaration is not an HTML tag; it is an instruction to the web browser about what version
+of the markup language the page is written in.
+
+The doctype declaration refers to a Document Type Definition (DTD).
+The DTD specifies the rules for the markup language, so that the browsers can render the content correctly.
+The doctype declaration should be the very first thing in an HTML document, before the <html> tag.
+HTML 4.01 Strict
+
+i)This DTD contains all HTML elements and attributes, but does NOT INCLUDE presentational or
+  deprecated elements (like font).
+  Framesets are not allowed:
+
+	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+	"http://www.w3.org/TR/html4/strict.dtd">
+
+ii) HTML 4.01 Transitional
+
+	This DTD contains all HTML elements and attributes, INCLUDING presentational and
+	deprecated elements (like font). Framesets are not allowed:
+
+	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+
+iii) HTML 4.01 Frameset
+
+	This DTD is equal to HTML 4.01 Transitional, but allows the use of frameset content:
+	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
+	"http://www.w3.org/TR/html4/frameset.dtd">
+
+iv) Validate Your HTML With W3C's Validator
+	http://validator.w3.org/check?uri=60.32.71.28
+
+v) XHTML 1.0 Transitional
+
+	This DTD contains all HTML elements and attributes, INCLUDING presentational and deprecated elements
+	(like font). Framesets are not allowed. The markup must also be written as well-formed XML.
+
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+
+
+vi)  The title attribute
+
+Here's the idea: HTML 4 supports a "title" attribute that can be inserted inside any HTML tag. Inserting this attribute effectively gives the element a tooltip that pops up when the mouse moves over it. Are you prepared to give a text link a tooltip? Here goes:
+
+<a href="http://www.dynamicdrive.com" title="Free DHTML and JavaScripts">Dynamic Drive</a>
+
+<form>
+<input type="text" size=25 title="Enter your email address here">
+<input type="button" value="Submit">
+</form>
+
+vii) HTML Headers
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+</body>
+</html>
+
+------------------------------------------
+Transitioning to XHTML Strict in 10 Steps : http://expression.microsoft.com/en-us/dd439540
+
+
+------------------------------------------
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP" />
+<title>XX Japan</title>
+<meta name="Keywords" content="OS, Java,Php, XX, XX Japan, Windows, www.XX.co.jp, Web構築" />
+<meta name="Description" content="システム用の開発" />
+<!-- InstanceEndEditable -->
+
+<meta name="author" content="XX Japan" />
+<meta name="copyright" content="Copyright(c) XX Japan" />
+<meta name="Keywords" content="XX, XX Japan,Java, PHP" />
+<meta name="Description" content="www.XX.co.jp is a Web Site for XX Japan" />
+<link rev="made" href="mailto:webmaster@XX.co.jp" />
+<link rel="shortcut icon" href=" images/favicon.ico" type="image/x-icon"/>
+
+<link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
+<link href="css/navi.css" rel="stylesheet" type="text/css" media="screen,tv" />
+<link href="css/tb0.css" rel="stylesheet" type="text/css" media="screen,tv" />
+<link href="css/print.css" rel="stylesheet" type="text/css" media="print" />
+<link rel="stylesheet" type="text/css" href="js/sdmenu/sdmenu.css" />
+<script language="javascript" type="text/javascript" src="js/tb1.js"></script>
+
+</head>
+
+========
+Favicon
+========
+<link rel="shortcut icon" href=" images/favicon.ico" type="image/x-icon"/>
+<link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
+
+Form
+=====
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+<form action="/mon/stats/index" method="POST" >
+
+
+------------------------------------------
+01) Form Elements
+
+		HTML Form Tags
+		Tag 		Description
+		<form> 		Defines an HTML form for user input
+		<input /> 	Defines an input control
+		<textarea> 	Defines a multi-line text input control
+		<label> 	Defines a label for an input element
+		<fieldset> 	Defines a border around elements in a form
+		<legend> 	Defines a caption for a fieldset element
+		<select> 	Defines a select list (drop-down list)
+		<optgroup> 	Defines a group of related options in a select list
+		<option> 	Defines an option in a select list
+		<button> 	Defines a push button
+
+    i) Text
+		<label for="symbol">Symbol:</label>
+		<input type="text" name="symbol" size="10" maxlength="6" />
+
+		<input readonly="readonly" />
+		<input disabled="disabled" />
+
+
+
+		------
+		READONLY locks the field: the user cannot change the value. DISABLED does the same thing but takes it further:
+		the user cannot use the field in any way, not to highlight the text for copying, not to select the
+		checkbox, not to submit the form.
+
+		In fact, a disabled field is not even sent if the form is submitted.
+		-------
+
+		TextArea
+		<textarea rows="10" cols="30"> The cat was playing in the garden. </textarea>
+
+		<textarea rows="3" cols="25" readonly="readonly">
+		<textarea name=mytextarea cols=5 rows=5 readonly>
+
+		<textarea cols="20" rows="5" wrap="hard">
+		* soft
+		* hard
+		* off
+	------------
+	Soft forces the words to wrap once inside the text area but when the form is submitted, the words will no longer
+	appear as such (Line breaks will not be added).
+
+	Hard wraps the words inside the text box and places line breaks at the end of each line so that when the form is submitted
+	it appears exactly as it does in the text box.
+
+	Off sets a textarea to ignore all wrapping and places the text into one ongoing line.
+	-----------
+
+
+-------------------------------------------
+    ii) Password
+		Password: <input type="password" name="pwd" />
+
+-------------------------------------------
+	iii) Radio Buttons
+			<input type="radio" name="sex" value="male" /> Male<br />
+			<input type="radio" name="sex" value="female" /> Female
+
+			<input type="radio" name=myradio value="2" checked>two
+			<input type="radio" name=myradio value="1" disabled>one
+
+
+			"checked='checked'"
+
+-------------------------------------------
+	iv) Checkbox
+			<input type="checkbox" name="vehicle[]" value="Bike" /> I have a bike<br />
+			<input type="checkbox" name="vehicle[]" value="Car" /> I have a car
+
+			<input type="checkbox" name="mybox[]" value="1" checked>one
+			<input type="checkbox" name="mybox[]" value="1" disabled>one
+
+			<INPUT NAME="mushrooms" TYPE=CHECKBOX READONLY>mushrooms<BR>
+
+----------------
+        <input type="checkbox" name="vehicle" value="Car" checked="checked">
+
+-------------------------------------------
+	v) Select/Combo Box
+
+		<select>
+		  <option>Volvo</option>
+		  <option>Saab</option>
+		  <option>Mercedes</option>
+		  <option>Audi</option>
+		</select>
+
+<select size="1" name="msg_type" >
+		<option value='X'>--All--</option>
+		<option value='B'>Business_Msg [D,F,G,8,9]</option>
+		<option value='C'>Admin_Msg [1,2,3,4,A,5]</option>
+		<option value='h'>Trading Sess Status</option>
+		<option value='8'>Executions</option>
+		<option value='0'>Heartbeat</option>
+		<option value='1'>Test Request</option>
+		<option value='2'>Resend Request</option>
+		<option value='4'>Sequence Reset</option>
+		<option value='3'>Reject</option>
+		<option value='A5'>Logon/Logout</option>
+</select>
+
+
+
+		Parameters
+		<option value="fiat" selected="selected">Fiat</option>
+
+		<select name=mytextarea size=2>
+		<select name=mytextarea size=3 multiple>
+		<option name=three value=three selected> three </option>
+
+-------------------------------------------
+	vi) Button
+		<input type="button" value="Hello world!">
+
+
+
+-------------------------------------------
+    vii) Submit Reset
+		<input type="submit" value="Submit" />
+
+		<button class="btn" style="float:right" type="submit" value="advanced_search" name="advanced_search">
+			<img src="img/lens.gif" width="18" height="18" alt=""/>Advanced Search
+		</button>
+
+-------------------------------------------
+	ix) Form Declaration
+    	<form name="input" action="html_form_action.php" method="get">
+			Username: <input type="text" name="user" />
+			<input type="submit" value="Submit" />
+		</form>
+-------------------------------------------
+	x)	Fieldset
+		<fieldset>
+		<legend>Personalia:</legend>
+		Name: <input type="text" size="30" /><br />
+		E-mail: <input type="text" size="30" /><br />
+		Date of birth: <input type="text" size="10" />
+		</fieldset>
+-------------------------------------------
+	xi) A Href Link
+
+        Open in seperate window
+        <a href="http://japan.zdnet.com/" target="_blank">ZDNet日本</a>
+
+        A Href Link Submit Form
+
+	    <form action="/mon/stats/index" method="POST" >
+        <input type='hidden' name= 'error'  value='1003'>
+        <input type='submit' class='submitLink' name='fix_sessid' value='N11635A'>
+        </form>
+
+		.submitLink {
+			color: #C75F3E;
+			background-color: transparent;
+			text-decoration: underline;
+			border: none;
+			cursor: pointer;
+			cursor: hand;
+		}
+
+
+
+	x) Create an Upload-File Form
+
+		To allow users to upload files from a form can be very useful.
+
+		Look at the following HTML form for uploading files:
+		<html>
+		<body>
+
+		<form action="upload_file.php" method="post"
+		enctype="multipart/form-data">
+		<label for="file">Filename:</label>
+		<input type="file" name="file" id="file" />
+		<br />
+		<input type="submit" name="submit" value="Submit" />
+		</form>
+
+		</body>
+		</html>
+
+====================================================================
+Under the HTML5 umbrella, however, forms are getting a makeover. The new input types are:
+
+search
+tel
+url
+email
+datetime, date, month, week, time, and datetime-local
+number
+range
+color
+
+
+====================================================================
+
+
+-------------------------------------------
+02. Email Form
+		<h3>Send e-mail to someone@example.com:</h3>
+
+		<form action="MAILTO:someone@example.com" method="post" enctype="text/plain">
+		Name:<br />
+		<input type="text" name="name" value="your name" /><br />
+		E-mail:<br />
+		<input type="text" name="mail" value="your email" /><br />
+		Comment:<br />
+		<input type="text" name="comment" value="your comment" size="50" />
+		<br /><br />
+		<input type="submit" value="Send">
+		<input type="reset" value="Reset">
+
+		</form>
+
+--------------------------------------------
+03. HTML Frames
+
+	<frameset> 	 Defines a set of frames
+	<frame /> 	Defines a sub window (a frame)
+	<noframes> 	Defines a noframe section for browsers that do not handle frames
+	<iframe> 	Defines an inline sub window (frame)
+
+	<frameset cols="25%,75%">
+	   <frame src="frame_a.htm" />
+	   <frame src="frame_b.htm" />
+	</frameset>
+
+	Nested Frames
+	<frameset rows="50%,50%">
+
+	  <frame src="frame_a.htm" />
+	  <frameset cols="25%,75%">
+		<frame src="frame_b.htm" />
+		<frame src="frame_c.htm" />
+	  </frameset>
+
+	</frameset>
+
+--------------------------------------------
+04. Main HTML Elements
+	i)Headings
+		<h1>Largest Heading</h1>
+		<h2> . . . </h2>
+		<h3> . . . </h3>
+		<h4> . . . </h4>
+		<h5> . . . </h5>
+		<h6>Smallest Heading</h6>
+
+	ii)Text Elements
+		<p>This is a paragraph</p>
+		<br /> (line break)
+		<hr /> (horizontal rule)
+		<pre>This text is preformatted</pre>
+		Logical Styles
+		<em>This text is emphasized</em>
+		<strong>This text is strong</strong>
+		<code>This is some computer code</code>
+		Physical Styles
+		<b>This text is bold</b>
+		<i>This text is italic</i>
+
+	iii) Links
+			Ordinary link: <a href="http://www.example.com/">Link-text goes here</a>
+			Image-link: <a href="http://www.example.com/"><img src="URL" alt="Alternate Text" /></a>
+			Mailto link: <a href="mailto:webmaster@example.com">Send e-mail</a>
+
+			A named anchor:
+			<a name="tips">Tips Section</a>
+			<a href="#tips">Jump to the Tips Section</a>
+
+	iv) Lists
+		Unordered list
+		<ul>
+		  <li>Item</li>
+		  <li>Item</li>
+		</ul>
+
+		Ordered list
+		<ol>
+		  <li>First item</li>
+		  <li>Second item</li>
+		</ol>
+
+		Definition list
+		<dl>
+		  <dt>First term</dt>
+			<dd>Definition</dd>
+		  <dt>Next term</dt>
+			<dd>Definition</dd>
+		</dl>
+
+    v)	Tables,Frames,Forms
+
+	vi) Other Entities
+			&lt; is the same as <
+			&gt; is the same as >
+			&#169; is the same as c
+
+		Other Elements
+			<!-- This is a comment -->
+
+			<blockquote>
+			Text quoted from a source.
+			</blockquote>
+
+			<address>
+			Written by W3Schools.com<br />
+			<a href="mailto:us@example.org">Email us</a><br />
+			Address: Box 564, Disneyland<br />
+			Phone: +12 34 56 78
+			</address>
+
+
+--------------------------------------------
+05.HTML head Elements
+	Tag 	Description
+	<head> 	Defines information about the document
+	<title> 	Defines the title of a document
+	<base /> 	Defines a default address or a default target for all links on a page
+	<link /> 	Defines the relationship between a document and an external resource
+	<meta /> 	Defines metadata about an HTML document
+	<script> 	Defines a client-side script
+	<style> 	Defines style information for a document
+
+---------------------------------------------
+06. Base Tag
+	<head>
+	<base href="http://www.w3schools.com/images/" />
+	<base target="_blank" />
+	</head>
+
+	<body>
+	<img src="stickman.gif" />
+	<a href="http://www.w3schools.com">W3Schools</a>
+	</body>
+
+
+
+--------------------------------------------
+07.  Base HTML File
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF8" />
+<title>Test</title>
+<meta name="Keywords" content="Test" />
+<meta name="Description" content="Test" />
+<meta name="author" content="NNN" />
+<meta name="copyright" content="Copyright(c) NNN" />
+<meta name="Keywords" content="NNN,NN" />
+<meta name="Description" content="x.y.z is a Web Site for NJ" />
+<link rel="shortcut icon" href=" images/favicon.ico" type="image/x-icon"/>
+<link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
+
+<link href="css/navi.css" rel="stylesheet" type="text/css" media="screen,tv" />
+
+<script language="javascript" type="text/javascript" src="js/tb1.js"></script>
+
+
+
+<html>
+<head>
+<title> </title>
+</head>
+<body>
+</body>
+</html>
+
+
+
+--------------------------------------------
+08. Embed Youtube Videos
+
+<object width="320" height="265">
+  <param name="movie" value="http://www.youtube.com/v/MzfAvHlIVjE&hl=en&fs=1&rel=0&color1=0x3a3a3a&color2=0x999999"></param>
+  <param name="allowFullScreen" value="true"></param>
+  <param name="allowscriptaccess" value="always"></param>
+  <embed src="http://www.youtube.com/v/MzfAvHlIVjE&hl=en&fs=1&rel=0&color1=0x3a3a3a&color2=0x999999" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="320" height="265"></embed>
+</object>
+
+
+If you dun like the popup just get rid of it:
+function play(id)
+    {
+       var html  = '';
+
+       html += '<object >';
+       html += '<param name="movie" value="http://www.youtube.com/v/'+id+'"></param>';
+       html += '<param name="autoplay" value="1">';
+       html += '<param name="wmode" value="transparent"></param>';
+       html += '<embed src="http://www.youtube.com/v/'+id+'&autoplay=1" type="application/x-shockwave-flash" wmode="transparent" ></embed>';
+       html += '</object>';
+
+       return html;
+    };
+
+<div id="button1" />
+<div id="playvideo" />
+
+$("#button1").click(function() { $("#playvideo").html(play("YOURVIDEOID")); });
+--------------------------------------------
+09. Table Alignment
+
+    <td align="left" valign="top">
+
+-------Align vertical--------
+    <table  style="width:100%;">
+    <tr style="vertical-align: top;">
+    <td style="width:50%;">
+
+
+----------------------------------------
+10. Auto Refresh Tags
+
+http://en.wikipedia.org/wiki/Meta_refresh
+
+
+<meta http-equiv =Refresh content="10">
+<meta http-equiv="refresh" content="600">
+content="600" - This is the amount of time, in seconds, until the browser should reload the current page.
+
+Redirecting to a New Page with the Meta Refresh Tag
+
+To redirect to a new page, the syntax is nearly the same:
+<meta http-equiv="refresh" content="2;url=http://webdesign.about.com/">
+
+10.1 Meta Tags Ex
+
+<head>
+<meta name="description" content="Free Web tutorials" />
+<meta name="keywords" content="HTML,CSS,XML,JavaScript" />
+<meta name="author" content="Hege Refsnes" />
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+</head>
+
+------------------------------------------------------------------------------------------------------------------------
+11. Subscript & Superscript
+
+11.1 Representing Fractions
+    <sup>1</sup>&frasl;<sub>10</sub>
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+Image Map
+
+<map name=”fruitImageMap” id=”fruitImageMap”>
+<area href=”/apple_info.html” shape=”circle” coords=”251,146,31”
+title=”Nutritional Data for Apples”
+alt=”Nutritional Data for Apples” />
+
+
+
+onsubmit=”this.submitButtonName.disabled=true”
+
+------------------------------------------------------------------------------------------------------------------------
+<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+
+Now it'll try IE9 mode first, IE8, then IE7. You can even set IE=EDGE so it'll use the highest mode possible.
+
+-------------------------------
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="Japannext PTS based in Tokyo, Japan" />
+
+<title>SBI Japannext- Redeye : Session Control Interface</title>
+<link rel="stylesheet" type="text/css" href="/redeye/css/style.css" media="screen" />
+<link rel="shortcut icon" href="/redeye/img/re.png" />
+
+
+------------------------------
+There's no tab entity defined in ISO-8859-1 HTML - but there are a couple of whitespace characters other than &nbsp; such as &thinsp;, &ensp;,and &emsp;.
+
+In ASCII, &#09; is a tab.
+
+------------------------------
+
+------------------------------------------------------------------------------------------------------------------------
+Embed tag
+=========
+<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" width="600" height="400">
+<embed src="https://data.japannext.co.jp/public/JnxSeasonsGreetings_2012_L8.swf"
+       type="application/x-shockwave-flash"
+       autoplay="true" loop="true"
+       wmode="transparent" width="600" height="400">
+</object>
+
+Attributes of Embed Tag:
+
+    SRC: This attribute takes the video/movie to the source URL.
+
+    WIDTH and HEIGHT: It specifies the dimensions of the plug-ins.
+
+    AUTOPLAY: Its value can be either TRUE or false
+    TRUE: Movie plays when page loads
+    FALSE: Waits for the user to click the play button in window media player.
+
+    LOOP: Setting this to TRUE will play the media file continuously. A FALSE value will play the media only once.
+
+    CONTROLLER: Display controls. Can be set to TRUE or FALSE.
+
+
+Adding video using Object Tag:
+
+Video files can also be inserted into the webpage or html pages using the standard object tag. Object
+element works in both IE and netscape browsers. For some types, like QuickTime document, adding the classid
+attribute will load the controls.
+
+Example Code:
+<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" width="320" height="240">
+<param name="src" value="data/intro.wmv" >
+<param name="controller" value="true" >
+<param name="autoplay" value="false">
+<object type="video/quicktime" data="data/intro.wmv" width="320" height="240">
+<param name="controller" value="true" >
+<param name="autoplay" value="false">
+alt : <a href="intro.wmv">test movie</a>
+</object>
+</object>
+
+---------------------------------
+http://perishablepress.com/embed-flash-and-video-via-the-object-tag/
+http://www.ehow.com/how_12120920_embed-video-thunderbird.html
+http://www.ehow.com/how_5962035_embed-flash-movies-email.html
+
+
+
+
+---------------------------------------------------------------------
+<meta http-equiv="refresh" content="5;URL= <?php echo "'/". $page ."'" ; ?>" />
+
+<script type="text/javascript">
+<!--
+function Redirect()
+{
+    window.location= <?php echo '"/'. $page .'"' ; ?>;
+}
+
+//setTimeout('Redirect()', 5000);
+//-->
+</script>
+
+---------------------------------------------------------------------
+<html>
+  <head>
+    <title>IU Webmaster redirect</title>
+    <META http-equiv="refresh" content="5;URL=http://www.indiana.edu/~account/new-directory">
+  </head>
+  <body bgcolor="#ffffff">
+    <center>The contents you are looking for have moved. You will be redirected to the new location automatically in 5 seconds. Please bookmark the correct page at <a href="http://www.indiana.edu/~wmhelp/new-directory"> http://www.indiana.edu/~wmhelp/new-directory</a>
+    </center>
+  </body>
+</html>
+
+redirect 301 /old-page.php http://www.yoursite.com/new-page.php
+
+---------------------------------------------------------------------
+
+
+
+---------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
