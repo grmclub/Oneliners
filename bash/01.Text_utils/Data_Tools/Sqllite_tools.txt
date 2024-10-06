@@ -1,0 +1,41 @@
+
+https://www.sqlite.org/cli.html
+-------------------------------------------------------------
+##Convert csv input into html
+
+.import --csv input.csv tmp
+.mode html
+.output output.html
+select * from tmp;
+
+You may need to add something to the resulting HTML file, e.g.
+<!doctype html>
+<table>
+so that it is recognized by browsers.
+
+#!/bin/bash
+TMP=`mktemp csv.XXXXX`
+trap "rm -f $TMP" EXIT
+(echo .import "$1" tmp; echo .mode html; echo .output "$TMP"; echo 'select * from tmp;' ) | sqlite3
+awk 'BEGIN{print "<!doctype html><table>"};{print}' < "$TMP" > "$2"
+
+-------------------------------------------------------------
+##import and join csv files
+
+ sqlite> .mode csv
+ sqlite> .import all_combined.csv my_new_table
+
+find . -type f -name '*.csv' | xargs -I% sqlite3 database.db ".mode csv" ".import % new_table" ".exit"
+
+find prints out the file names and the -I% parameter to xargs causes the command after it to be run once for each line, with % replaced by a name of a csv file.
+
+
+
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
