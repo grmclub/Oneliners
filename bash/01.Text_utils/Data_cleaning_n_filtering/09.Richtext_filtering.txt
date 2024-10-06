@@ -1,0 +1,50 @@
+-------------------------------------------------------------
+##html report
+
+$ cat string.awk
+BEGIN{
+title="AWK";
+print "<html>\n<title>"title"</title><body bgcolor=\"#ffffff\">\n<table border=1><th  colspan=2 align=centre>Student Details</th>";
+
+}
+{
+name=$1;
+rollno=$2;
+print "<tr><td>"name"</td><td>"rollno"</td></tr>";
+   
+}
+END {
+    print "</table></body>\n</html>";
+}
+-------------------------------------------------------------
+##convert html input to csv
+sed -e ‘s/<[^>]*>//g’
+xmllint –c14n xx xml| grep ‘<tag>’|sed ‘s/<.*>\(.*\)</.*>/\1/g’
+
+-------------------------------------------------------------
+##Convert csv to html table
+https://gist.github.com/jschaub30/c67cf9e214d83accd4db
+CSV_FN=$1
+if [[ $# -eq 2 ]]; then
+    echo "<table border=\"$2\">"
+else
+    echo '<table>'
+fi
+
+head -n 1 "$CSV_FN" | \
+    sed -e 's/^/<tr><th>/' -e 's/,/<\/th><th>/g' -e 's/$/<\/th><\/tr>/'
+tail -n +2 "$CSV_FN" | \
+    sed -e 's/^/<tr><td>/' -e 's/,/<\/td><td>/g' -e 's/$/<\/td><\/tr>/'
+echo "</table>"
+
+
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
+
+-------------------------------------------------------------
