@@ -78,20 +78,16 @@ or
 
 -------------------------------------------------------------
 * last match as delimiter :
-
 tac animals.txt | sed -e '/dog 123 4335/q' | tac
 
 * All lines after the last match
-
 tac infile | sed '/string match/,$d' | tac
 
 * All lines before the last match
-
 tac infile | sed '1,/string match/d' | tac
 
 
 * awk solution:
-
 $ awk 'FNR==NR{if(/match/)x=NR; next}; FNR>x' input.txt{,}
 string log 5
 string log 6
