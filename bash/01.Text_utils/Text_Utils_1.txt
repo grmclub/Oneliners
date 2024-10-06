@@ -20,8 +20,26 @@ Convert tabs to spaces	:set expandtab :%retab!
 ##Replace trailing spaces
 find . -name "*.php" -type f | xargs sed -i 's/[ \t]*$//'
 find . -name "*.php" -type f | xargs awk '/[ \t]+$/ {print FILENAME;print NR; print;}'
-
-
+--------------------------------------------------------------------------------------
+#### Multiple variable assignment
+   
+   - grab date fields : IFS='-' read y m d <<< $(date -I)
+   - read -r a b c <<<$(echo 1 2 3) ; echo "$a|$b|$c"
+   
+   - Transform & read
+   ```
+      symbol=$(echo $symbol | tr " " "_")
+      IFS='.' read -r a b c d <<<"$symbol"
+   ```
+   - read & split values in a csv file
+```
+    cat $file | while read line
+    do
+        IFS=',' read -r a b <<< "$line"
+        #echo $line
+        #echo "$a -- $b"
+    done
+ ```
 --------------------------------------------------------------------------------------
 
 https://www.gnu.org/software/sed/manual/html_node/Addresses.html

@@ -1,6 +1,9 @@
 https://developer.ibm.com/articles/au-unixtext/
 
 -------------------------------------------------------------
+##parallel unzip
+find . -name '*.bz2' -print0 | xargs -0 -I {} -P 6 bunzip2 {}
+
 #Simple process parallelism
 
 #!/bin/bash
