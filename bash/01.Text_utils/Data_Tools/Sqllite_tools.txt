@@ -29,10 +29,32 @@ find . -type f -name '*.csv' | xargs -I% sqlite3 database.db ".mode csv" ".impor
 
 find prints out the file names and the -I% parameter to xargs causes the command after it to be run once for each line, with % replaced by a name of a csv file.
 
-
+--quick usage
+sqlite3 mybase.db ".mode csv" ".import table1.csv table1" ".exit"
 
 
 -------------------------------------------------------------
+https://www.sqlet.com/
+./sqlet.py -d',' -A file1.txt -B file2.txt 'select A3,B2,B3,A1,A2 from A LEFT JOIN B ON A3=B1;' | sqlite3
+This requires that you remove the headers from the two files. The sqlet script must be extracted in the same folder where those two files are or modified accordingly.
+
+=======================
+--sample data
+
+Objects File:
+IP,MASK,DESCRIPTION
+10.10.3.94,255.255.255.255,Rob
+10.10.3.95,255.255.255.255,Mark
+10.10.3.96,255.255.255.255,John
+
+Services File:
+DESCRIPTION,OrgIP,Service
+Rob,1.1.1.1,Purple
+John,2.2.2.2,Green
+Mark,3.3.3.3,Yellow
+======================
+
+
 
 -------------------------------------------------------------
 
