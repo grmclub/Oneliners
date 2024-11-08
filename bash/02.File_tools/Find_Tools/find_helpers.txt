@@ -22,7 +22,16 @@ find -path ‘./.*’ -name ‘.*’ -empty -printf %P\\n
 
 find $dir -size 0 ! -name "*.xml"
 
+find /path/to/dir -size 0 -type f \( -iname \*.css -o -iname \*.js \)
+
 find . -type f -size +2k -exec ls -sh {} \;
+
+##Find files between
+touch --date "2012-10-01" /tmp/begin
+touch --date "2012-11-01" /tmp/end
+
+taskset -c 3,5 find . -name "*_XX*" -newer /tmp/begin  ! -newer /tmp/end  -exec cp -v {} ../tx  \;
+taskset -c 5 find . -name "201301_XX*" -exec cp -v {} ../tx  \;
 ---------------------------------------------------
 https://www.redhat.com/sysadmin/linux-find-command
 
