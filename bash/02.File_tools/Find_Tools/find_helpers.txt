@@ -19,6 +19,9 @@ find . -type f -exec du -a {} + | sort - nr |head
 find . -type f -executable
 
 find -path ‘./.*’ -name ‘.*’ -empty -printf %P\\n
+
+find $dir -size 0 ! -name "*.xml"
+
 find . -type f -size +2k -exec ls -sh {} \;
 ---------------------------------------------------
 https://www.redhat.com/sysadmin/linux-find-command
@@ -93,6 +96,10 @@ https://www.redhat.com/sysadmin/linux-find-command
 
 	$ find ~ -type f -empty
 	random.idea.txt
+	
+	--zero byte file listing
+	find . -size 0 -ls
+	ls -l | awk -F " " '{if ($5 == 0) print $9}'
 
 9. Find files by age
 	$ find /var/log -iname "*~" -o -iname "*log*" -mtime +30
