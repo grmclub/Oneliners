@@ -1,5 +1,5 @@
 https://phoenixnap.com/kb/guide-linux-find-command
-
+https://pubs.opengroup.org/onlinepubs/009695399/utilities/find.html
 
 ---------------------------------------------------
 –Find string in files
