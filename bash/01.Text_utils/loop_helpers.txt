@@ -37,7 +37,16 @@ do
 done
 
 ---------------------------------------------------
-
+sweep_hosts()
+{
+    input_file="$1"
+    while IFS="," read -r HOST
+    do
+      echo "Host:$HOST"
+      ssh $HOST "$HW_INFO;$CPU_INFO;$MEM_INFO;$OS_INFO;$NET_INFO;$GCC_INFO" < /dev/null
+      echo "==========="
+    done < $input_file
+}
 ---------------------------------------------------
 
 ---------------------------------------------------
