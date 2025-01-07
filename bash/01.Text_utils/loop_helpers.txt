@@ -47,6 +47,19 @@ sweep_hosts()
       echo "==========="
     done < $input_file
 }
+
+#Split csv string
+IFS=':' read -r host process <<<"$str"
+
+    while IFS="," read -r HOST
+    do
+      echo "Host:$HOST"
+      ssh $HOST "$HW_INFO;$CPU_INFO;$MEM_INFO;$OS_INFO;$NET_INFO;$GCC_INFO" < /dev/null
+      echo "==========="
+    done <<(cat xx)
+
+
+
 ---------------------------------------------------
 
 ---------------------------------------------------
