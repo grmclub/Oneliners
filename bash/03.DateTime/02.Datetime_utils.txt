@@ -26,7 +26,7 @@ $date "+%Y-%m-%d"
 %d is keyword for two digit date
 
 --------------- -------------
-* Get future or past daate
+* Get future or past date
 
 prog_end_date=`date '+%C%y%m%d' -d "$end_date+10 days"`
 So if $end_date=20131001, $prog_end_date=20131011
