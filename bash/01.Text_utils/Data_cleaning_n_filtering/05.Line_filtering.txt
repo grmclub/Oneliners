@@ -48,6 +48,47 @@ $ awk 'NR>=10 && NR<=20 {print}' file.txt
 #processing on match
  awk '/regex/{print x};{x=$0}'
 --------------------------------------------------------------------------------------
+## Line Range extraction
+sed -n '100,200p;200q' filename > newfile
+head -16482 in.sql | tail -258 > out.sql
+awk 'NR>=16224&&NR<=16482' in.sql > out.sql
+vim: :16224,16482w!/tmp/some-file
+perl -ne 'print if 16224..16482' file.txt > new_file.txt
+
+If the file is huge, it can be good to exit after reading the last desired line. This way, it won't read the following lines unnecessarily:
+awk 'NR==16224, NR==16482-1; NR==16482 {print; exit}' file
+
+--Extract range plus extra lines
+sed -n -e 1p -e 101,200p file.csv > newfile.csv
+
+--Extract range plus fields
+sed -n '10,50p' file.csv | awk -F ';' '{print $3 $4}'
+
+--------------------------------------------------------------------------------------
+##Add Header & Trailer
+awk -v head="$Bus_date" 'BEGIN { print head } { print } END { print "EOF" NR-1 }'
+awk 'BEGIN{print "START"}; {print}; END{print "END"}'
+
+start reading from the given file, by the BEGIN block.
+The { print } block ensures that the given file is passed through as is, without modification.
+The END block uses the built-in variable NR which holds the number of records (lines) read so far. In the END block, NR will be the number of lines in the file that was read.
+
+--Add after each line
+awk '{print "START";print;print "END"}'
+
+--Add with sed
+sed -e '1s/.*/START\n&/g' -e '$s/.*/&\nEND/g' filename
+
+--Inplace header
+sed -i '1i red|blue|green|orange|yellow' file
+--------------------------------------------------------------------------------------
+## split file
+split -l 1000 file
+
+
+## Extract all keys from file
+grep -aFf key_file masterfile
+
 
 --------------------------------------------------------------------------------------
 
