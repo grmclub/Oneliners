@@ -65,9 +65,11 @@ sed -n -e 1p -e 101,200p file.csv > newfile.csv
 sed -n '10,50p' file.csv | awk -F ';' '{print $3 $4}'
 
 --------------------------------------------------------------------------------------
-##Add Header & Trailer
+## Add Header & Trailer
 awk -v head="$Bus_date" 'BEGIN { print head } { print } END { print "EOF" NR-1 }'
 awk 'BEGIN{print "START"}; {print}; END{print "END"}'
+awk 'BEGIN {print "Header Text"} {print $0} END {print "Footer Text"}' test.txt
+awk -v header="Header: $(date)" -v footer="Footer: $(hostname)" 'BEGIN {print header} {print $0} END {print footer}' test.txt
 
 start reading from the given file, by the BEGIN block.
 The { print } block ensures that the given file is passed through as is, without modification.
@@ -78,9 +80,15 @@ awk '{print "START";print;print "END"}'
 
 --Add with sed
 sed -e '1s/.*/START\n&/g' -e '$s/.*/&\nEND/g' filename
+sed -e '1i Header Text' -e '$a Footer Text' test.txt
+sed -i '1i Header Text' DataFile.dat
 
 --Inplace header
 sed -i '1i red|blue|green|orange|yellow' file
+
+--dynamic header & footers
+sed -e "1i Header: $(date)" -e "$ a Footer: $(hostname)" test.txt
+
 --------------------------------------------------------------------------------------
 ## split file
 split -l 1000 file
@@ -88,8 +96,31 @@ split -l 1000 file
 
 ## Extract all keys from file
 grep -aFf key_file masterfile
+grep -Ff ids.txt urls.log
+grep -F -f keys textfile
+
+https://stackoverflow.com/questions/19380925/grep-a-large-list-against-a-large-file/42711996#42711996
+
+
+## Include & exclude patterns
+grep -Ff ids.txt urls.log | grep -v /$ > result.txt
+
+
+## validate field length
+awk -F'#' 'NR>1{split($3, a, " ")} length(a[1])>6{print $3}' file
+
+
+--------------------------------------------------------------------------------------
+##Extract values from config file
+git config --file /etc/applications.cfg --get APPN.stopScript
+git config --file /etc/applications.cfg --list
+
+--------------------------------------------------------------------------------------
+
 
 
 --------------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------------
+
+
