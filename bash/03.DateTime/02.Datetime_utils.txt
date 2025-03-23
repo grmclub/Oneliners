@@ -122,4 +122,52 @@ function isdaytime
 
 isdaytime ; daytime=$?
 --------------------------------------------------------------------------------------
+##Generating a List of Dates in a Range
+
+start_date="2023-08-01"
+end_date="2023-08-07"
+
+while [[ "$start_date" != "$end_date" ]]; do
+    echo "$start_date"
+    start_date=$(date --date "$start_date + 1 day" +"%Y-%m-%d")
+done
+
+$ start_date_epoch=$(date --date "$start_date" +%s)
+$ echo $start_date_epoch
+1690848000
+$ end_date_epoch=$(date --date "$end_date" +%s)
+$ echo $end_date_epoch
+1691366400
+
+for (( sec=0; sec <= end_date_epoch - start_date_epoch; sec+=86400 )); do
+    echo "$(date --date "$start_date + $sec seconds" +"%Y-%m-%d")"
+done
+
+current_date_epoch=$(date -d "$start_date" +%s)
+end_date_epoch=$(date -d "$end_date" +%s)
+
+while [[ "$current_date_epoch" -le "$end_date_epoch" ]]; do
+    printf "%(%Y-%m-%d)T\n" "$current_date_epoch"
+    current_date_epoch=$((current_date_epoch + 86400))
+done
+
+seq  $(date -d "$start_date" +%s) 86400 $(date -d "$end_date" +%s)
+$ seq  $(date -d "$start_date" +%s) 86400 $(date -d "$end_date" +%s) |
+while read -r epoch; do
+    date --date "@$epoch" +"%Y-%m-%d"
+done
+
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+
+
+
+
+
 
