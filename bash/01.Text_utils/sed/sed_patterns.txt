@@ -52,8 +52,52 @@ sed s/abc/XYZ/3g ik.txt
 sed -i '/^XYZ/,/ZZZZZ/d' filename
 
 -------------------------------------------------------------
+##multiple replacements
 
+01. Sequential Substitutions Using the -e Flag
+sed -e 's/^[[:space:]]*//g' -e 's:/usr/bin/:/usr/local/bin/:g' -e 's/http/https/g' input_file
+
+02. Substitution Separators
+sed 's/^[[:space:]]*//g; s:/usr/bin/:/usr/local/bin/:g; s/http/https/g' input_file
+
+03. Newline Separator
+$ sed 's/^[[:space:]]*//g
+>      s:/usr/bin/:/usr/local/bin/:g
+>      s/http/https/g' input_file
+
+04. Script File and the -f Flag
+	$ cat script.sed
+	s/^[[:space:]]*//g
+	s:/usr/bin/:/usr/local/bin/:g
+	s/http/https/g
+
+	$ sed -f script.sed input_file
+	
+05. Script File With Shebang	
+	cat script.sed
+	#!/usr/bin/sed -f
+	s/^[[:space:]]*//g
+	s:/usr/bin/:/usr/local/bin/:g
+	s/http/https/g
+
+	$ chmod u+x script.sed
+	$ ./script.sed input_file
+
+	
 -------------------------------------------------------------
+https://www.baeldung.com/linux/sed-editor
+
+##Ignore the First Line in a Data File
+
+gnuplot> plot 'data.txt' skip 1 using 1:2 with lines
+sed '1d' data.txt | gnuplot -p -e "plot '-' using 1:2 with lines"
+head -n +2 data.txt | gnuplot -p -e "plot '-' using 1:2 with lines"
+
+Gnuplot can handle data in various ways, including using the every modifier to skip the first line:
+
+gnuplot> set xrange [0:4]
+gnuplot> set yrange [0:40]
+gnuplot> plot 'data.txt' every 1::1 using 1:2 with lines
 
 -------------------------------------------------------------
 
