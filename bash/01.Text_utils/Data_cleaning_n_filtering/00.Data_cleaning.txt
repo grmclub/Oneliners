@@ -79,6 +79,21 @@ for f in *.csv; do cut -d, -f 1-3,5,7,9,11,13,15,17,19 "$f" > "$f.new"; done
 
 
 --------------------------------------------------------------------------------------
+## How to Remove All Special Characters
+
+tr -cd '[:alnum:]' < sample_text.txt > cleaned_sample_text
+-c  instructs tr to target characters not specified, in this case, anything other than alphanumerics
+-d deletes the targeted characters
+
+sed 's/[^a-zA-Z0-9]//g' sample_text.txt > cleaned_sample_text.txt
+awk '{gsub(/[^a-zA-Z0-9]/, ""); print}' sample_text.txt > cleaned_sample_text.txt
+perl -pe 's/[^a-zA-Z0-9]//g' sample_text.txt > cleaned_sample_text.txt
+grep -o '[a-zA-Z0-9]*' sample_text.txt
+
+
+## Check for null fields in csv file
+sed -n '/^,\|,,\|,$/p' data.csv
+awk '/^,|,|,,/{print}' data.csv
 
 --------------------------------------------------------------------------------------
 
