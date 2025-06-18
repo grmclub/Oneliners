@@ -37,7 +37,7 @@ sed '1d; n; d' infile > outfile
 cat output.txt | sed -n '/10:00/, /10:30/p'
 
 -Extract range use comma “,” to separate the range
-$awk ‘/Joel/, /Marlene/ {print $3}’ testFile.txt
+$awk '/Joel/, /Marlene/ {print $3}' testFile.txt
 
 -print section of file between two regular expressions (inclusive)
 awk '/Iowa/,/Montana/'        
@@ -116,11 +116,7 @@ git config --file /etc/applications.cfg --get APPN.stopScript
 git config --file /etc/applications.cfg --list
 
 --------------------------------------------------------------------------------------
-
-
-
 --------------------------------------------------------------------------------------
-
 --------------------------------------------------------------------------------------
 
 
