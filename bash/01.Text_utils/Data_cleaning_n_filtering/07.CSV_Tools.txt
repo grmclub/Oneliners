@@ -44,7 +44,26 @@ for file in $(find . -name "xx.dat");do sed -i 's/HXX/HXX\x01YY/' $file;done
 find . -name xx| xargs cat|awk -F'\001' '{ print NF}'|sort -u
 
 --------------------------------------------------------------------------------------
+sweep_hosts()
+{
+    input_file="$1"
+    while IFS="," read -r HOST
+    do
+      echo "Host:$HOST"
+      ssh $HOST "$HW_INFO;$CPU_INFO;$MEM_INFO;$OS_INFO;$NET_INFO;$GCC_INFO" < /dev/null
+      echo "==========="
+    done < $input_file
+}
 
+#Split csv string
+IFS=':' read -r host process <<<"$str"
+
+    while IFS="," read -r HOST
+    do
+      echo "Host:$HOST"
+      ssh $HOST "$HW_INFO;$CPU_INFO;$MEM_INFO;$OS_INFO;$NET_INFO;$GCC_INFO" < /dev/null
+      echo "==========="
+    done <<(cat xx)
 --------------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------------
