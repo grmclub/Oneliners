@@ -1,8 +1,8 @@
 
 ---------------------------------------------------
 * Grep exactly 4 digits
-	grep -P ‘\d{4}’
-	grep -E ‘[0-9]{4}’
+	grep -P '\d{4}'
+	grep -E '[0-9]{4}'
 
 * Insert a space every 4 charecters
 	echo "foobarbazzz"|sed 's/.\{4\}/& /g'
@@ -11,7 +11,7 @@
 	grep -oE '.{5}cde.{5}' file.txt
 
 * Merge every 3 lines
-	paste -d’ ‘ - - - < file
+	paste -d' ' - - - < file
 	echo "foobarbazzz"|fold -w4|paste -sd' ' -
 
 * Join without spaces
@@ -241,7 +241,6 @@ Note that x will default to 512 byte blocks.
 
 -------------------------------------------------------------
 -------------------------------------------------------------
-
 -------------------------------------------------------------
 
 
