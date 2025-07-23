@@ -1,0 +1,129 @@
+
+
+
+10 Python One-Liners for JSON Parsing and Processing
+https://www.kdnuggets.com/10-python-one-liners-for-json-parsing-and-processing
+
+# Sample product catalog
+products = [
+    {"id": 1, "name": "Laptop", "price": 999.99, "category": "Electronics", "stock": 25, "rating": 4.5},
+    {"id": 2, "name": "Coffee Maker", "price": 79.99, "category": "Appliances", "stock": 15, "rating": 4.2},
+    {"id": 3, "name": "Smartphone", "price": 699.99, "category": "Electronics", "stock": 50, "rating": 4.7},
+    {"id": 4, "name": "Desk Chair", "price": 159.99, "category": "Furniture", "stock": 8, "rating": 4.1},
+    {"id": 5, "name": "Headphones", "price": 199.99, "category": "Electronics", "stock": 30, "rating": 4.6}
+]
+
+# Sample employee data
+employees = [
+    {"name": "Alice Johnson", "department": "Engineering", "salary": 95000, "projects": ["API", "Database"]},
+    {"name": "Bob Smith", "department": "Marketing", "salary": 65000, "projects": ["Campaign", "Analytics"]},
+    {"name": "Carol Davis", "department": "Engineering", "salary": 105000, "projects": ["Frontend", "Testing"]},
+    {"name": "David Wilson", "department": "Sales", "salary": 75000, "projects": ["Outreach", "CRM"]}
+]
+
+# Sample nested API response
+api_response = {
+    "status": "success",
+    "data": {
+        "orders": [
+            {"id": "ORD001", "customer": {"name": "John Doe", "email": "john@example.com"}, "items": [{"product": "Laptop", "quantity": 1}]},
+            {"id": "ORD002", "customer": {"name": "Jane Smith", "email": "jane@example.com"}, "items": [{"product": "Mouse", "quantity": 2}]}
+        ],
+        "total_orders": 2
+    }
+}
+--------------------------------------------------------------------------------------
+# 1. Extracting All Values for a Specific Key
+ product_names = [item['name'] for item in products]
+
+# 2. Filtering JSON Objects by Condition
+expensive_products = [item for item in products if item['price'] > 200]
+ 
+# 3. Grouping JSON Objects by Field Value
+products_by_category = {k: [item for item in products if item['category'] == k] for k in set(item['category'] for item in products)}
+ 
+# 4. Calculating Aggregate Statistics from JSON
+price_stats = {'min': min(item['price'] for item in products), 'max': max(item['price'] for item in products), 'avg': sum(item['price'] for item in products) / len(products)}
+ 
+# 5. Transforming JSON Structure
+simplified_products = [{'title': item['name'], 'cost': item['price'], 'available': item['stock'] > 0} for item in products]
+ 
+# 6. Extracting Nested Values Safely
+customer_emails = [order.get('customer', {}).get('email', 'N/A') for order in api_response['data']['orders']]
+
+# 7. Counting Occurrences of Field Values
+category_counts = Counter(item['category'] for item in products)
+ 
+# 8. Merging Multiple JSON Objects
+enhanced_products = [{**product, 'total_value': product['price'] * product['stock']} for product in products]
+ 
+# 9. Finding Objects with Maximum/Minimum Values
+highest_rated = max(products, key=lambda x: x['rating'])
+ 
+# 10. Flattening Nested JSON Arrays
+projects_list = [project for employee in employees for project in employee['projects']]
+  
+ 
+--------------------------------------------------------------------------------------
+#Converting a Python Dictionary to a JSON String 
+
+import json
+
+books = [
+	{
+    	"title": "The Great Gatsby",
+    	"author": "F. Scott Fitzgerald",
+    	"publication_year": 1925,
+    	"genre": "Fiction"
+	},
+	{
+    	"title": "To Kill a Mockingbird",
+    	"author": "Harper Lee",
+    	"publication_year": 1960,
+    	"genre": "Fiction"
+	},
+	{
+    	"title": "1984",
+    	"author": "George Orwell",
+    	"publication_year": 1949,
+    	"genre": "Fiction"
+	}
+]
+
+# Convert dictionary to JSON string
+json_string = json.dumps(books, indent=4)
+print(json_string)
+
+#Sorting Keys When Converting a Python Dictionary to JSON
+import json
+
+person = {
+	"name": "John Doe",
+	"age": 30,
+	"email": "john@example.com",
+	"address": {
+    	"city": "New York",
+    	"zipcode": "10001",
+    	"street": "123 Main Street"
+	}
+}
+
+# Convert dictionary to a JSON string with sorted keys
+json_string = json.dumps(person, sort_keys=True, indent=4)
+print(json_string)
+
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+
+
