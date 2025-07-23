@@ -113,7 +113,71 @@ json_string = json.dumps(person, sort_keys=True, indent=4)
 print(json_string)
 
 --------------------------------------------------------------------------------------
+##Convert JSON Data into a DataFrame with Pandas
+
+--Method 1: Using the json.load() and pd.DataFrame() functions
+	import json
+	import pandas as pd
+
+	#Load the JSON data
+
+	with open('books.json','r') as f:
+	data = json.load(f)
+
+	#Create a DataFrame from the JSON data
+
+	df = pd.DataFrame(data['books'])
+	 
+--Method 2 (Recommended): Using the json_normalize() function
+	import pandas as pd
+	import json
+
+	#Load the JSON data
+
+	with open('books.json', 'r') as f:
+	data = json.load(f)
+
+	#Create the DataFrame using json_normalize()
+
+	df = pd.json_normalize(
+	data=data['books'],
+	meta=['title', 'author'],
+	record_path='reviews',
+	errors='raise'
+	)
+
 --------------------------------------------------------------------------------------
+##Converting a Python Dictionary to a JSON String
+https://github.com/balapriyac/python-basics/tree/main/dict-to-json
+
+import json
+
+books = [
+	{
+    	"title": "The Great Gatsby",
+    	"author": "F. Scott Fitzgerald",
+    	"publication_year": 1925,
+    	"genre": "Fiction"
+	},
+	{
+    	"title": "To Kill a Mockingbird",
+    	"author": "Harper Lee",
+    	"publication_year": 1960,
+    	"genre": "Fiction"
+	},
+	{
+    	"title": "1984",
+    	"author": "George Orwell",
+    	"publication_year": 1949,
+    	"genre": "Fiction"
+	}
+]
+
+# Convert dictionary to JSON string
+json_string = json.dumps(books, indent=4)
+print(json_string)
+
+
 --------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------
