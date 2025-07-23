@@ -1,0 +1,83 @@
+
+##Convert Bytes to String in Python
+
+**Convert Bytes to String Using the decode() Method
+	# Sample byte object
+	byte_data = b'Hello, World!'
+
+	#Converting bytes to string 
+	string_data = byte_data.decode('utf-8')
+	print(string_data)  
+
+**Handling Other Encodings
+	decode a byte string with UTF-16 encoding:
+
+	# Sample byte object 
+	byte_data_utf16 = b'\xff\xfeH\x00e\x00l\x00l\x00o\x00,\x00 \x00W\x00o\x00r\x00l\x00d\x00!\x00'
+
+	# Converting bytes to string 
+	string_data_utf16 = byte_data_utf16.decode('utf-16')
+	print(string_data_utf16) 
+
+--Ignoring Errors
+
+	To ignore invalid sequences when decoding, you can set the errors you can set errors to ignore in the decode() method call:
+
+	# Sample byte object with invalid sequence for UTF-8
+	byte_data_invalid = b'Hello, World!\xff'
+
+	# Converting bytes to string while ignoring errors
+	string_data = byte_data_invalid.decode('utf-8', errors='ignore')
+
+	print(string_data) 
+
+--Replacing Errors
+
+You can as well replace invalid sequences with the placeholder. To do this, you can set errors to replace as shown:
+
+		# Sample byte object with invalid sequence for UTF-8
+		byte_data_invalid = b'Hello, World!\xff'
+
+		# Converting bytes to string while replacing errors with a placeholder
+		string_data_replace = byte_data_invalid.decode('utf-8', errors='replace')
+
+		print(string_data_replace)  
+
+
+**Convert Bytes to String Using the str() Constructor
+	# Sample byte object
+	byte_data = b'Hello, World!'
+
+	# Converting bytes to string
+	string_data = str(byte_data,'utf-8')
+
+	print(string_data)
+ 
+**Convert Bytes to String Using the Codecs Module
+
+	import codecs
+
+	# Sample byte object
+	byte_data = b'Hello, World!'
+
+	# Converting bytes to string
+	string_data = codecs.decode(byte_data,'utf-8')
+
+	print(string_data)   
+
+
+
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
