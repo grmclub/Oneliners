@@ -3,5 +3,31 @@ https://opensource.com/article/18/7/sysadmin-guide-networking-commands
 
 
 --------------------------------------------------------------------------------------
+nc -l -p 12345 > received_file.txt
+nc 192.168.1.100 12345 < my_file.txt
 
+tar -cvzf - <directory_name> | nc <receiver_ip> 1234
+nc -l -p 1234 | tar -xvzf -
+
+sender# nc -w 2 172.31.200.52 9899 < sample_file_transfer.iso
+receiver# nc -l 9899 > sample_file_transfer.iso
+sender# md5sum sample_file_transfer.iso
+receiver# md5sum sample_file_transfer.iso
+
+On your server (A):
+nc -l -p 1234 -q 1 > something.zip < /dev/null
+
+On your client (B):
+cat something.zip | netcat server.ip.here 1234
+
+why the < /dev/null part? – 
+Because netcat both reads stdin and writes stdout simultaneously, sending anything read from stdin out to the network and printing anything received from the network on stdout. The </dev/null ensures that, when the received file has completed, netcat doesn't sit there indefinitely waiting for input from the console (which it shouldn't be reading anyway!) and also ensures that it doesn't gobble up any input that may be available from the terminal, such as you typing the next command you wanted to run.
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------
