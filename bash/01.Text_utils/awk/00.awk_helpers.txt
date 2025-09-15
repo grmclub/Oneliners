@@ -6,6 +6,10 @@ https://riptutorial.com/awk/topic/2284/string-manipulation-functions
 -------------------------------------------------------------
 ##Useful oneliners
 
+awk -F: '{gsub(/  /,"",$1); print $1,FS,$2}'
+awk '{sum+=$1} END{ print sum}'
+
+
 -Extract specific XML tags from an XML file:
 awk '/<tag>/,/<\/tag>/' data.xm
 
