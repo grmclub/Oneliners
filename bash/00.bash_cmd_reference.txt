@@ -39,11 +39,11 @@ Ctrl + z – suspend/stop the command
 Bash Bang (!)
 
 !! – run last command
-!blah – run the most recent command that starts with ‘blah’ (e.g. !ls)
+!blah – run the most recent command that starts with 'blah' (e.g. !ls)
 !blah:p – print out the command that !blah would run (also adds it as the latest command in the command history)
 !$ – the last word of the previous command (same as Alt + .)
 !$:p – print out the word that !$ would substitute
-!* – the previous command except for the last word (e.g. if you type ‘find some_file.txt /‘, then !* would give you ‘find some_file.txt‘)
+!* – the previous command except for the last word (e.g. if you type 'find some_file.txt /', then !* would give you 'find some_file.txt')
 !*:p – print out what !* would substitute
 !:- – Insert the last command without the last argument (bash)
 
@@ -52,15 +52,15 @@ Misc
 sudo !! – Run the last command as root
 ^foo^bar – Runs previous command but replacing
 ctrl-x e – Rapidly invoke an editor to write a long, complex, or tricky command
-‘ALT+.’ or ‘<ESC> .’ – Place the argument of the most recent command on the shell
+'ALT+.' or '<ESC> .' – Place the argument of the most recent command on the shell
 fc – Rapidly invoke an editor to write a long, complex, or tricky command
-bind -P | grep -v “is not” | sed -e ‘s/can be found on/:/’ | column -s: -t – List all bash shortcuts
+bind -P | grep -v “is not” | sed -e 's/can be found on/:/' | column -s: -t – List all bash shortcuts
 
 Advanced
 !:n – Get the Nth argument of the last command (handling spaces correctly)
 % screen -r someuser/ – Share a terminal screen with others
 ( ( sleep 2h; your-command your-args ) & ) – Schedule a script or command in x num hours, silently run in the background even if logged out
-( command & ) – A child process which survives the parent’s death (for sure)
+( command & ) – A child process which survives the parent's death (for sure)
 :> file – Empty a file
 <Esc> _ – Place the argument of the most recent command on the shell
 <Return>~. – Kill a broken ssh connection
@@ -74,35 +74,35 @@ MIN=10;for ((i=MIN*60;i>=0;i–));do echo -ne “\r$(date -d”0+$i sec” +%H:%
 
 
 apt-file find bin/programname – search ubuntu packages to find which package contains the executable program programname
-apt-get install `ssh root@host_you_want_to_clone “dpkg -l | grep ii” | awk ‘{print $2}’` – “Clone” a list of installed packages from one Debian/Ubuntu Server to another
-aptitude purge ‘~c’ – Purge configuration files of removed packages on debian based systems
+apt-get install `ssh root@host_you_want_to_clone “dpkg -l | grep ii” | awk '{print $2}'` – “Clone” a list of installed packages from one Debian/Ubuntu Server to another
+aptitude purge '~c' – Purge configuration files of removed packages on debian based systems
 arch – Check if system is 32bit or 64bit
-arecord -f dat | ssh -C user@host aplay -f dat – output your microphone to a remote computer’s speaker
+arecord -f dat | ssh -C user@host aplay -f dat – output your microphone to a remote computer's speaker
 arecord -q -f cd -r 44100 -c2 -t raw | lame -S -x -h -b 128 – `date +%Y%m%d%H%M`.mp3 – Record microphone input and output to date stamped mp3 file
-arp-scan -I eth0 192.168.1.0/24 – Find all active ip’s in a subnet
-autossh -M50000 -t server.example.com ‘screen -raAd mysession’ – Have an ssh session open forever
-awk ‘!x[$0]++’ <file> – Remove duplicate entries in a file without sorting.
-awk ‘/start_pattern/,/stop_pattern/’ file.txt – Display a block of text with AWK
+arp-scan -I eth0 192.168.1.0/24 – Find all active ip's in a subnet
+autossh -M50000 -t server.example.com 'screen -raAd mysession' – Have an ssh session open forever
+awk '!x[$0]++' <file> – Remove duplicate entries in a file without sorting.
+awk '/start_pattern/,/stop_pattern/' file.txt – Display a block of text with AWK
 bash -i 2>&1 | tee /dev/stderr | nc -l 5000 – – Broadcast your shell thru ports 5000, 5001, 5002
 cat /dev/urandom | hexdump -C | grep “ca fe” – just fucking awesome, does nothing, screensaver
 cat /etc/issue – Display which distro is installed
-cat ~/.ssh/id_rsa.pub | ssh user@machine “mkdir ~/.ssh; cat >> ~/.ssh/authorized_keys” – Copy your ssh public key to a server from a machine that doesn’t have ssh-copy-id
+cat ~/.ssh/id_rsa.pub | ssh user@machine “mkdir ~/.ssh; cat >> ~/.ssh/authorized_keys” – Copy your ssh public key to a server from a machine that doesn't have ssh-copy-id
 chattr -R +i dirname – Protect directory from an overzealous rm -rf *
 chmod –reference file1 file2 – Makes the permissions of file2 the same as file1
 cmp file1 file2 – Compare copies of a file with md5
 column -t /proc/mounts – currently mounted filesystems in nice layout
 cp file.txt{,.bak} – Create a quick back-up copy of a file
-curl -C – -o partially_downloaded_file ‘www.example.com/path/to/the/file’ – resume download using curl
+curl -C – -o partially_downloaded_file 'www.example.com/path/to/the/file' – resume download using curl
 curl -I http://localhost – Send an http HEAD request w/curl
 curl -u user:pass -d status=”Tweeting from the shell” http://twitter.com/statuses/update.xml – twitter via curl
 curl ifconfig.me – Get your external IP address
 curl wttr.in – Nice weather forecast on your shell
 
 date -d@1234567890 – Convert seconds to human-readable format
-dd if=/dev/dsp | ssh -c arcfour -C username@host dd of=/dev/dsp – output your microphone to a remote computer’s speaker
+dd if=/dev/dsp | ssh -c arcfour -C username@host dd of=/dev/dsp – output your microphone to a remote computer's speaker
 dd if=/path/to/file | ssh some@host dd of=/path/to/target ##poor mans scp/rsync: use where rsync and scp are disabled
 dd if=/dev/mem bs=1k skip=768 count=256 2>/dev/null | strings -n 8 – Display BIOS Information
-dd if=/dev/sda | ssh user@server ‘dd of=sda.img’ – Backup a local drive into a file on the remote host via ssh
+dd if=/dev/sda | ssh user@server 'dd of=sda.img' – Backup a local drive into a file on the remote host via ssh
 dd if=/dev/sda | tee >(dd of=/dev/sdb) | dd of=/dev/sdc – Duplicate several drives concurrently
 dd if=/dev/sda5 bs=2048 conv=noerror,sync | gzip -fc | lftp -u user,passwd domain.tld -e “put /dev/stdin -o backup-$(date +%Y%m%d%H%M).gz; quit” – Backup sda5 partition to ftp ( using pipes and gziped backup )
 dd if=/dev/zero of=/dev/null bs=1M count=32768 – Processor / memory bandwidthd? in GB/s
@@ -113,9 +113,9 @@ diff <(lsof -p <PID>) <(sleep 10; lsof -p <PID>) – snapshot of the open files 
 dig +short myip.opendns.com @resolver1.opendns.com – Get your external IP address
 disown -a && exit – Close shell keeping all subprocess running
 dmesg -xT -l err,crit,emerg – Show errors in the kernel ring buffer
-dmidecode -t 17 | awk -F”:” ‘/Speed/ { print $2 }’ – See your current RAM frequency
+dmidecode -t 17 | awk -F”:” '/Speed/ { print $2 }' – See your current RAM frequency
 dmidecode -t bios – Display BIOS Information
-dmidecode | grep Product – what model of computer I’m using ?
+dmidecode | grep Product – what model of computer I'm using ?
 du -hs */ | sort -hr | head – List 10 largest directories in current directory
 du -s * | sort -n | tail – Get the 10 biggest files/folders for the current direcotry
 echo $(shuf -i 1-49 | head -n6 | sort -n) – lotto generator
@@ -132,10 +132,10 @@ find -L /path/to/check -type l -delete – Find broken symlinks and delete them
 find -type f -exec mv {} . \; – Move items from subdirectories to current directory
 find . ! -name <FILENAME> -delete – Remove everything except that file
 find . -empty -type d -exec rmdir {} + – Recursively remove all empty directories
-find . -iname ‘*.jpg’ -exec echo ‘<img src=”{}”>’ \; > gallery.html – Quick HTML image gallery from folder contents
+find . -iname '*.jpg' -exec echo '<img src=”{}”>' \; > gallery.html – Quick HTML image gallery from folder contents
 find . -type d -empty -delete – Recursively remove all empty directories
 find . -type f -newermt “2010-01-01” ! -newermt “2010-06-01″ – find files in a date range
-find . -type f -printf ‘%TY-%Tm-%Td %TT %p\n’ | sort – Find the most recently changed files (recursively)
+find . -type f -printf '%TY-%Tm-%Td %TT %p\n' | sort – Find the most recently changed files (recursively)
 find ./ -type f -exec chmod 644 {} \; – Recursively change permissions on files, leave directories alone.
 find / -type f -size +500M -size -1G – Find all files larger than 500M and less than 1GB
 find / -type f -size +500M – find all file larger than 500M
@@ -143,7 +143,7 @@ find /path/to/dir -type f -print0 | xargs -0 rm – Optimal way of deleting huge
 find /proc -user myuser -maxdepth 1 -type d -mtime +7 -exec basename {} \; | xargs kill -9 – Kill processes that have been running for more than a week
 find directory/ -mtime 0 -type f – Find today created files
 find public_html/ -type d -exec chmod 755 {} +
-for I in $(mysql -e ‘show databases’ -s –skip-column-names); do mysqldump $I | gzip > “$I.sql.gz”; done – Backup all MySQL Databases to individual files
+for I in $(mysql -e 'show databases' -s –skip-column-names); do mysqldump $I | gzip > “$I.sql.gz”; done – Backup all MySQL Databases to individual files
 for h in host1 host2 host3 host4 ; { scp file user@$h:/destination_path/ ; } – Copy something to multiple SSH hosts with a Bash loop
 for i in *.html ; do mv $i ${i%.html}.htm ; done – change extension
 for i in `seq 0 100`;do timeout 6 dialog –gauge “Install…” 6 40 “$i”;done – pretend to be busy in office to enjoy a cup of coffee
@@ -156,19 +156,19 @@ grep -lir “some text” * – find files containing text
 grep . filename > newfilename – Remove blank lines from a file using grep and save output to new file
 grep ^Dirty /proc/meminfo – Find out how much data is waiting to be written to disk
 grep –color=auto -iRnH “$search_word” $directory – Grep for word in directory (recursive)
-grep ‘test’ somefile | grep -vE ‘(error|critical|warning)’ – grep -v with multiple patterns.
+grep 'test' somefile | grep -vE '(error|critical|warning)' – grep -v with multiple patterns.
 gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=OUTPUT.pdf -c .setpdfwrite -f INPUT.pdf – Remove security limitations from PDF documents using ghostscript
 hdparm -t /dev/sda – Testing hard disk reading speed
 history -d – delete a line from your shell history
-history | awk ‘{a[$2]++}END{for(i in a){print a[i] ” ” i}}’ | sort -rn | head – List of commands you use most often
+history | awk '{a[$2]++}END{for(i in a){print a[i] ” ” i}}' | sort -rn | head – List of commands you use most often
 hwinfo –block –short – Show all detected mountable Drives/Partitions/BlockDevices
 ifconfig | convert label:@- ip.png – save command output to image
-ip route | awk ‘/default/{print $3}’ – Find default gateway
+ip route | awk '/default/{print $3}' – Find default gateway
 iptables -t nat -A PREROUTING -p tcp –dport [port of your choosing] -j REDIRECT –to-ports 22 – Redirect incoming traffic to SSH, from a port of your choosing
 kill -9 -1 – kill all process that belongs to you
-kill -9 `ps -xaw -o state -o ppid | grep Z | grep -v PID | awk ‘{print $2}’` – Kill all Zombie processes (Guaranteed!)
+kill -9 `ps -xaw -o state -o ppid | grep Z | grep -v PID | awk '{print $2}'` – Kill all Zombie processes (Guaranteed!)
 killall -STOP/-CONT -m firefox – Manually Pause/Unpause Firefox Process with POSIX-Signals – Zero CPU load.
-less +F somelogfile – Make ‘less’ behave like ‘tail -f’
+less +F somelogfile – Make 'less' behave like 'tail -f'
 ln -nsf <TARGET> <LINK> – Repoint an existing symlink to a new location
 ls -1 /lib/modules – Lists installed kernels
 ls -1t | head -n10 – find the 10 latest (modified) files
@@ -176,7 +176,7 @@ ls -d */ – List only the directories
 ls -d */ – list directories only
 ls -hog – ls -hog –> a more compact ls -l
 lshw -html > hardware.html – Create a nifty overview of the hardware in your computer
-lsmac() { ifconfig -a | sed ‘/eth\|wl/!d;s/ Link.*HWaddr//’ ; } – List your MACs address
+lsmac() { ifconfig -a | sed '/eth\|wl/!d;s/ Link.*HWaddr//' ; } – List your MACs address
 lsof +p xxxx – List the files any process is using
 lsof -P -i -n | cut -f 1 -d ” “| uniq | tail -n +2 – Show apps that use internet connection at the moment.
 lsof -P -i -n – Show apps that use internet connection at the moment. (Multi-Language)
@@ -202,12 +202,12 @@ namei -m $(pwd) – Show permissions of current directory and all directories up
 nc -l -p 2000 -c “nc example.org 3000” – Create a single-use TCP (or UDP) proxy – Redirect the local port 2000 to the remote port 3000. The same but UDP: nc -u -l -p 2000 -c “nc -u example.org 3000”
 nc -v -l 80 < file.ext – Sharing file through http 80 port
 net rpc shutdown -I ipAddressOfWindowsPC -U username%password – Shutdown a Windows machine from Linux
-netstat -lantp | grep -i stab | awk -F/ ‘{print $2}’ | sort | uniq – Show apps that use internet connection at the moment.
-netstat -lantp | grep ESTABLISHED |awk ‘{print $5}’ | awk -F: ‘{print $1}’ | sort -u – All IP connected to my host
+netstat -lantp | grep -i stab | awk -F/ '{print $2}' | sort | uniq – Show apps that use internet connection at the moment.
+netstat -lantp | grep ESTABLISHED |awk '{print $5}' | awk -F: '{print $1}' | sort -u – All IP connected to my host
 netstat -ntauple – Watch Network Service Activity in Real-time
-netstat -ntu | awk ‘{print $5}’ | cut -d: -f1 | sort | uniq -c | sort -n – Number of open connections per ip.
+netstat -ntu | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -n – Number of open connections per ip.
 openssl enc -d -aes256 -in <file> | tar –extract –file – –gzip – Decrypt Encrypted archive with openssl and tar
-openssl rand -hex 6 | sed ‘s/\(..\)/\1:/g; s/.$//’ – Generate a Random MAC address
+openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//' – Generate a Random MAC address
 ping -i 60 -a IP_address – Set audible alarm when an IP address comes online
 pkill -KILL -u username – force a userid to log out of a Linux host, by killing all processes owned by the user, including login shells
 pkill -x firefox – kill process by name
@@ -217,29 +217,29 @@ ps aux | sort -nk +4 | tail – Display the top ten running processes – sorted
 ps aux –sort=%mem,%cpu – Sort all running processes by their memory & CPU usage
 ps awwfux | less -S – Show a 4-way scrollable process tree with full details.
 pushd /tmp – Push your present working directory to a stack that you can pop later – popd retreives it
-pv /dev/zero|ssh $host ‘cat > /dev/null’ – live ssh network throughput test
+pv /dev/zero|ssh $host `cat > /dev/null` – live ssh network throughput test
 pv sourcefile > destfile – Copy a file using pv and watch its progress
 pwgen -Bs 10 1 – generate random password
 read -s -p”Password: ” USER_PASSWORD_VARIABLE; echo – Ask for a password, the passwd-style
-rename ‘s/^/prefix/’ * – Add prefix onto filenames
-rename ‘s/foo/bar/g’ ./* – Rename all files which contain the sub-string ‘foo’, replacing it with ‘bar’
-rename ‘y/ /_/’ * – replace spaces in filenames with underscores
-rename ‘y/A-Z/a-z/’ * – convert filenames in current directory to lowercase
-rm !(*.foo|*.bar|*.baz) – Delete all files in a folder that don’t match a certain file extension
+rename 's/^/prefix/' * – Add prefix onto filenames
+rename 's/foo/bar/g' ./* – Rename all files which contain the sub-string 'foo', replacing it with 'bar'
+rename 'y/ /_/' * – replace spaces in filenames with underscores
+rename 'y/A-Z/a-z/' * – convert filenames in current directory to lowercase
+rm !(*.foo|*.bar|*.baz) – Delete all files in a folder that don't match a certain file extension
 rm -f !(survivior.txt) – Remove all but one specific file
 rsync -az /home/user/test user@sshServer:/tmp/ – move a lot of files over ssh
 rsync –partial –progress –rsh=ssh SOURCE DESTINATION – Resume aborted scp file transfers
-rsync –rsync-path ‘sudo rsync’ username@source:/folder/ /local/ – Rsync remote data as root using sudo
+rsync –rsync-path 'sudo rsync' username@source:/folder/ /local/ – Rsync remote data as root using sudo
 screen -D -R – Automatically find and re-attach to a detached screen session
 script -qf >(nc -ub 192.168.1.255 5000) – Broadcast your shell thru ports 5000, 5001, 5002
 script -qf | tee >(nc -kl 5000) >(nc -kl 5001) >(nc -kl 5002) – Broadcast your shell thru ports 5000, 5001, 5002 …
 script -qf | tee >(nc -l -p 5000) — Broadcast your shell thru ports 5000, 5001, 5002
-sed -i <file> -re ‘<start>,<end>d’ – Remove a range of lines from a file
-sed -i ‘/myexpression/d’ /path/to/file.txt – Remove lines that contain a specific pattern($1) from file($2).
+sed -i <file> -re '<start>,<end>d' – Remove a range of lines from a file
+sed -i '/myexpression/d' /path/to/file.txt – Remove lines that contain a specific pattern($1) from file($2).
 sed -n /start_pattern/,/stop_pattern/p file.txt – Display a block of text with AWK
 sed -n 5p <file> – To print a specific line from a file
-sed -n ‘4p’ – Print just line 4 from a textfile
-sed ‘999995,1000005!d’ < my_massive_file – Efficiently print a line deep in a huge log file
+sed -n '4p' – Print just line 4 from a textfile
+sed '999995,1000005!d' < my_massive_file – Efficiently print a line deep in a huge log file
 sl – pure fun
 some_very_long_and_complex_command # label – Easy and fast access to often executed commands that are very long and complex.
 split -b 19m file Nameforpart – Split File in parts – cat Nameforpartaa Nameforpartab Nameforpartac >> File
@@ -253,23 +253,23 @@ ssh -t remotebox “tail -f /var/log/remote.log” – tail a log over ssh
 ssh -t user@host screen -x <screen name> – ssh and attach to a screen in one line.
 ssh -t user@some.domain.com /usr/bin/screen -xRR – Attach screen over ssh
 ssh [user]@[address] “mpg321 -” < [file].mp3 – Stream audio over ssh
-ssh remotehost ‘dpkg –get-selections’ | dpkg –set-selections && dselect install – Tell local Debian machine to install packages used by remote Debian machine
+ssh remotehost 'dpkg –get-selections' | dpkg –set-selections && dselect install – Tell local Debian machine to install packages used by remote Debian machine
 ssh user@remote-host “DISPLAY=:0.0 import -window root -format png -“|display -format png – – Remote screenshot
 ssh-copy-id username@hostname – Copy your SSH public key on a remote machine for passwordless login – the easy way
 ssh-keygen -l -f ~/.ssh/known_hosts – View ~/.ssh/known_hosts key information
 sshfs name@server:/path/to/folder /path/to/mount/point – Mount folder/filesystem through SSH
-strace -e write=1,2 -p $PID 2>&1 | sed -un “/^ |/p” | sed -ue “s/^.\{9\}\(.\{50\}\).\+/\1/g” -e ‘s/ //g’ | xxd -r -p – intercept stdout/stderr of another process or disowned process
+strace -e write=1,2 -p $PID 2>&1 | sed -un “/^ |/p” | sed -ue “s/^.\{9\}\(.\{50\}\).\+/\1/g” -e 's/ //g' | xxd -r -p – intercept stdout/stderr of another process or disowned process
 strace -ff -e trace=write -e write=1,2 -p SOME_PID – intercept stdout/stderr of another process
-strace -ff -e write=1,2 -s 1024 -p PID 2>&1 | grep “^ |” | cut -c11-60 | sed -e ‘s/ //g’ | xxd -r -p – intercept stdout/stderr of another process
-strings /dev/urandom | grep -o ‘[[:alnum:]]’ | head -n 30 | tr -d ‘\n’; echo – Generate a random password 30 characters long
+strace -ff -e write=1,2 -s 1024 -p PID 2>&1 | grep “^ |” | cut -c11-60 | sed -e 's/ //g' | xxd -r -p – intercept stdout/stderr of another process
+strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 30 | tr -d '\n'; echo – Generate a random password 30 characters long
 su — user – Change user, assume environment, stay in current dir
-sudo aptitude purge `dpkg –get-selections | grep deinstall | awk ‘{print $1}’` – Purge configuration files of removed packages on debian based systems
+sudo aptitude purge `dpkg –get-selections | grep deinstall | awk '{print $1}'` – Purge configuration files of removed packages on debian based systems
 sudo chattr +i <file> – Make a file not writable / immutable by root
 sudo dd if=/dev/zero of=/swapfile bs=1024 count=1024000;sudo mkswap /swapfile; sudo swapon /swapfile – create an emergency swapfile when the existing swap space is getting tight
 sudo dmidecode –type 17 | more – Check Ram Speed and Type in Linux
 sudo find / -mmin 60 -type f – Find files that have been modified on your system in the past 60 minutes
-sudo tune2fs -l $(df -h / |(read; awk ‘{print $1; exit}’)) | grep -i created – Show how old your linux OS installtion is
-tail -10000 /var/log/nginx/access.log | awk ‘{print $1}’ | sort | uniq -c | sort -n | tail – Analyse an Apache access log for the most common IP addresses
+sudo tune2fs -l $(df -h / |(read; awk '{print $1; exit}')) | grep -i created – Show how old your linux OS installtion is
+tail -10000 /var/log/nginx/access.log | awk '{print $1}' | sort | uniq -c | sort -n | tail – Analyse an Apache access log for the most common IP addresses
 tail -fs 1 somefile – Tail -f at your own pace
 tar -tf <file.tar.gz> | xargs rm -r – Remove all files previously extracted from a tar(.gz) file.
 tar xfz filename.tar.gz -C PathToDirectory – Redirect tar extract to another directory
@@ -285,11 +285,11 @@ unset HISTFILE – disable history for current shell session
 until !!; do :; done – Retry the previous command until it exits successfully
 wall <<< “Broadcast This” – send a circular
 watch -n 1 mysqladmin –user=<user> –password=<password> processlist – Monitor the queries being run by MySQL
-watch -n 1 ‘echo “obase=2;`date +%s`” | bc’ – Binary Clock
+watch -n 1 'echo “obase=2;`date +%s`” | bc' – Binary Clock
 watch -n 1 “netstat -tpanl | grep ESTABLISHED” – Monitor TCP opened connections
 watch ifconfig eth0 – Watch Data Usage on eth0
 watch vmstat -sSM – monitor memory usage
-watch “ss -nat | awk ‘”‘{print $1}'”‘ | sort | uniq -c” – Monitor TCP opened connections
+watch “ss -nat | awk '”'{print $1}'”' | sort | uniq -c” – Monitor TCP opened connections
 wget -b http://dl.google.com/android/android-sdk_r14-linux.tgz – background a wget download
 wget -qO – “http://www.tarball.com/tarball.gz” | tar zxvf – – Extract tarball from internet without local saving
 wget -r -l1 –no-parent -nH -nd -P/tmp -A”.gif,.jpg” http://example.com/images – Download all images from a site
