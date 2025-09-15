@@ -11,6 +11,10 @@ awk '{sum+=$1} END{ print sum}'
 cat $file|awk -F',' -vOFS=',' {tno+=1;if($6==1)sumb+=1;else sums+=1;} END{ print sumb,sums,(sumb+sums),tno}'
 awk '/^[[:digit]]/' $file
 
+-Multiline records
+awk 'BEGIN{ RS="Record"; FS="\n";OFS=","} NR>1{$1=RS;NF–;print}'
+
+
 -Extract specific XML tags from an XML file:
 awk '/<tag>/,/<\/tag>/' data.xm
 
