@@ -61,6 +61,12 @@ IFS=':' read -r host process <<<"$str"
 
 
 ---------------------------------------------------
+while IFS="," read -r HOST INS SERVICE 
+do
+     echo "--$HOST:$INS:$SERVICE"
+     ssh $HOST "$cmd" < /dev/null
+
+done <<( cat xx))
 
 ---------------------------------------------------
 
