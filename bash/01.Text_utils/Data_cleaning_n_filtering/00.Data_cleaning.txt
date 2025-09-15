@@ -50,8 +50,8 @@ $SED -i -e "s/[$SDQUO]/\'/g" -e "s/[$RDQUO]/\"/g" "${1}"
 
 Save this script as fixquotes.sh and then create a separate test file containing smart quotes:
 
-‘Single quote’
-“Double quote”
+'Single quote'
+"Double quote"
 
 
 --------------------------------------------------------------------------------------
