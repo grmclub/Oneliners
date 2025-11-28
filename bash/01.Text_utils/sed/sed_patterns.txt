@@ -62,7 +62,7 @@ sed 's/pattern1/replacement1/g; s/pattern2/replacement2/g' filename
 sed 's/pattern1\|pattern2/replacement/g' filename
 sed -E 's/(pattern1|pattern2)/replacement/g' filename
 
-Note that the | needs to be escaped (\|) in basic regular expressions (BRE), which sed uses by default. For extended regular expressions (ERE), which can be enabled with the -r or -E option, the | does not need escaping.
+Note: that the | needs to be escaped (\|) in basic regular expressions (BRE), which sed uses by default. For extended regular expressions (ERE), which can be enabled with the -r or -E option, the | does not need escaping.
 ==============
 
 01. Sequential Substitutions Using the -e Flag
