@@ -18,7 +18,7 @@ https://dev.to/amalshehu/advanced-data-processing-with-awk-and-sed-4f2b
 cat xx|awk -F'.' -vOFS=',' '{s[$1]+=$2;} END{ for(i in s) print i,s[i];}'
 
 ##Group multiple fields and aggregate data
-awk -F',' -vOFS=',' 'NR>1{ s[$1","$6] +=$3;} END{ for(I in s){ print i, s[i]}}'| sort -t',' -k1
+awk -F',' -vOFS=',' 'NR>1{ s[$1","$6] +=$3;} END{ for(i in s){ print i, s[i]}}'| sort -t',' -k1
 
 ##Summarizing Data of Specific Fields
 awk -F, '$2 == "Product123" {total += $3 * $4} END {print "Total Sales for Product123: ", total}' sales.log
