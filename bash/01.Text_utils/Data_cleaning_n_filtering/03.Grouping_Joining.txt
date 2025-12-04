@@ -23,7 +23,7 @@ awk -F',' -vOFS=',' 'NR>1{ s[$1","$6] +=$3;} END{ for(i in s){ print i, s[i]}}'|
 ##Summarizing Data of Specific Fields
 awk -F, '$2 == "Product123" {total += $3 * $4} END {print "Total Sales for Product123: ", total}' sales.log
 
-##Ex: Grouping data from multiple
+##Ex: Grouping data from multiple fields
 https://unix.stackexchange.com/questions/336144/group-a-files-contents-by-two-fields-and-sum-a-third-field
 
 awk -F'~' 'BEGIN { SUBSEP = OFS = FS } { s[$1,$2] += $3; ++c[$1,$2] } END { for (i in s) { print i, s[i], c[i] } }' file
