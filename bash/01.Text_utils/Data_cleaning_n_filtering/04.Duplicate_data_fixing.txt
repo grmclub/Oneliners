@@ -67,8 +67,31 @@ Chair, 57, 2019-05-05
 Bed, 400, 2020-07-07
 Bed, 420, 2020-08-08
 -------------------------------------------------------------
+--Remove lines with duplicate values in the first field (space-separated file):
+awk '!seen[$1]++' filename
+
+--Remove lines with duplicate values in the second and third fields (comma-separated file):
+awk -F, '!seen[$2,$3]++' filename
+
+--Summary Table: Common Duplicate Operations
+==================================================================
+Goal             Command
+==================================================================
+Unique lines    awk '!seen[$0]++' file
+Unique by Col 1 awk '!seen[$1]++' file
+Mark duplicates awk '{if(a[$1]++) $1="REPEAT"; print}' file
+Unique in row   awk '{split($0,a); for(i in a)...}' (see above)
 
 -------------------------------------------------------------
+--Comparison of Methods
+==================================================================
+Operation        Purpose                       Example Key Command
+==================================================================
+Summing Totaling numeric data                  sum[$1] += $2
+Concatenating    Merging strings/text          seen[$1] = seen[$1] "," $2
+Counting         Finding frequency             count[$1]++
+Deduplicating    Keeping only first instance   !seen[$0]++
+
 
 -------------------------------------------------------------
 
