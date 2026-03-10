@@ -92,9 +92,10 @@ TEXT CONVERSION AND SUBSTITUTION:
  sed 's/\(.*\)foo\(.*foo\)/\1bar\2/' # replace the next-to-last case
  sed 's/\(.*\)foo/\1bar/'            # replace only the last case
 
+*****
  # substitute "foo" with "bar" ONLY for lines which contain "baz"
  sed '/baz/s/foo/bar/g'
-
+*****
  # substitute "foo" with "bar" EXCEPT for lines which contain "baz"
  sed '/baz/!s/foo/bar/g'
 
