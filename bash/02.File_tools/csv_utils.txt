@@ -37,14 +37,13 @@ done < "$INPUT_FILE"
 =================================================
 ##Read csv string
 
-csv_data="XXX,10/10/1972,111-555,8888-444,Yes
-YYY,12/01/1980,222-6666,8888-333,No"
 
-# Using a here-string (<<<) 
-while IFS=, read -r col1 col2 col3 col4 col5
+CSV_STRING="Name,Age,City\nJohn Doe,30,New York\nJane Doe,25,London"
+
+while IFS=, read -r name age city
 do
-  echo "Name: $col1, Phone 1: $col3, Opt-In: $col5"
-done <<< "$csv_data"
+  echo "Name: $name, Age: $age, City: $city"
+done <<< "$CSV_STRING"
 
 =================================================
 
