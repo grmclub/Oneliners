@@ -22,8 +22,30 @@ do
         exit 0
     fi
 done < tail -n +2 $FILE
+=================================================
+# Define the input file name
+INPUT_FILE="data.csv"
 
-exit 1
+# The core loop construct
+while IFS=, read -r field1 field2 field3 field4 field5
+do
+  # Process the fields inside the loop
+  echo "Field 1: $field1, Field 2: $field2"
+done < "$INPUT_FILE"
+
+
+=================================================
+##Read csv string
+
+csv_data="XXX,10/10/1972,111-555,8888-444,Yes
+YYY,12/01/1980,222-6666,8888-333,No"
+
+# Using a here-string (<<<) 
+while IFS=, read -r col1 col2 col3 col4 col5
+do
+  echo "Name: $col1, Phone 1: $col3, Opt-In: $col5"
+done <<< "$csv_data"
+
 =================================================
 
 -------------------------------------------------------------
