@@ -94,6 +94,8 @@ Deduplicating    Keeping only first instance   !seen[$0]++
 
 
 -------------------------------------------------------------
+##Join lines based on a field
+awk -F',' '{if (!seen[$1])t1[$1]=$3; else t2[$1]=$3;} END{ for(i in t1) print i,t1[i],t2[i];}'
 
 -------------------------------------------------------------
 
