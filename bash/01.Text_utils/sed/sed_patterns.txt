@@ -111,7 +111,15 @@ gnuplot> set yrange [0:40]
 gnuplot> plot 'data.txt' every 1::1 using 1:2 with lines
 
 -------------------------------------------------------------
+##Exclude patterns from a file
 
+# Step 1: Create the sed script file
+sed 's_.*_/\0/d_' patterns.txt > exclude.sed
+
+# Step 2: Run the script against your target file
+sed -f exclude.sed target.txt
+
+grep -v -f patterns.txt target.txt is much safer and significantly faster
 -------------------------------------------------------------
 
 -------------------------------------------------------------
