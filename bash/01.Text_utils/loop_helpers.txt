@@ -45,8 +45,59 @@ do
 done <<( cat xx))
 
 ---------------------------------------------------
+##Splitting a string into variables
+
+===========================
+##Method 1: Using IFS and read (Recommended)You can temporarily change IFS to your chosen delimiter and pass the string using a here-string (<<<)
+
+# Example string separated by colons
+input_string="John:Doe:30:New York"
+
+# Split directly into individual named variables
+IFS=":" read -r first_name last_name age city <<< "$input_string"
+
+# Verify the values
+echo "First Name: $first_name"
+echo "Last Name: $last_name"
+echo "Age: $age"
+echo "City: $city"
+===========================
+##Method 2: Splitting into a Bash ArrayIf you don't know the exact number of elements beforehand, you can extract the split values into a single array variable instead. Use the -a flag with read:
+
+input_string="apple,banana,orange,grape"
+
+# Split into an array named 'fruits'
+IFS="," read -r -a fruits <<< "$input_string"
+
+# Access variables individually using zero-based indexing
+echo "First fruit: ${fruits[0]}"
+echo "Second fruit: ${fruits[1]}"
+
+# Print all elements
+echo "All fruits: ${fruits[@]}"
+===========================
+##Method 3: Parameter Expansion (For Exactly Two Variables)
+If you only need to split a string into exactly two parts (a prefix and a suffix), you can use native string manipulation features to avoid messing with IFS:bashinput_string="username:password"
+
+# Extract everything before the first colon
+user="${input_string%%:*}"
+
+# Extract everything after the first colon
+pass="${input_string#*:}"
+
+echo "User: $user"
+echo "Pass: $pass"
 
 
+${variable%%:*}: Removes the longest match of a colon followed by anything from the end of the string.
+${variable#*:}: Removes the shortest match of anything followed by a colon from the beginning of the string.
+===========================
+STR=*ABCDE;123456;789"
+
+var1=$(echo $STR | cut -f1 -d\;)
+var2=$(echo $STR | cut -f2 -d\;)
+var3=$(echo $STR | cut -f3 -d\;)
+===========================
 ---------------------------------------------------
 
 ---------------------------------------------------
