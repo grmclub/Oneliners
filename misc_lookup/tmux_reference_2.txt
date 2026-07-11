@@ -3,6 +3,10 @@ https://hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/
 https://hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/
 https://tmuxai.dev/tmux-cheat-sheet/
 https://linuxize.com/cheatsheet/tmux/
+
+https://gist.github.com/MohamedAlaa/2961058
+https://www.hawkhost.com/blog/2010/06/28/tmux-the-terminal-multiplexer/
+https://www.hawkhost.com/blog/2010/07/02/tmux-the-terminal-multiplexer-part-2/
 -------------------------------------------------
 #create a new season 
 tmux new -s kz
@@ -22,6 +26,18 @@ setw synchronize- panes on
 %tmux-cssh web{1..4}
 
 -------------------------------------------------
+Ctrl-b c Create new window
+Ctrl-b d Detach current client
+Ctrl-b l Move to previously selected window
+Ctrl-b n Move to the next window
+Ctrl-b p Move to the previous window
+Ctrl-b & Kill the current window
+Ctrl-b , Rename the current window
+Ctrl-b % Split the current window into two panes
+Ctrl-b q Show pane numbers (used to switch between panes)
+Ctrl-b o Switch to the next pane
+Ctrl-b ? List all keybindings
+
 -------------------------------------------------
 -------------------------------------------------
 -------------------------------------------------
