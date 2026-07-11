@@ -1,6 +1,8 @@
 
 https://hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/
 https://hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/
+https://tmuxai.dev/tmux-cheat-sheet/
+https://linuxize.com/cheatsheet/tmux/
 -------------------------------------------------
 #create a new season 
 tmux new -s kz
@@ -18,8 +20,6 @@ Ctrl + b :
 setw synchronize- panes on
 
 %tmux-cssh web{1..4}
-
-
 
 -------------------------------------------------
 -------------------------------------------------
