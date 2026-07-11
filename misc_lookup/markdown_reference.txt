@@ -1,0 +1,59 @@
+
+https://www.markdownguide.org/cheat-sheet/
+https://github.com/adam-p/markdown-here/wiki/markdown-cheatsheet
+-------------------------------------------------
+Text Formatting
+    • Bold: **text** or __text__
+    • Italic: *text* or _text_
+    • Bold & Italic: ***text***
+    • Strikethrough: ~~text~~
+    • Inline Code: `code` 
+-------------------------------------------------
+Headings
+Always place a space between the # symbols and your text. 
+    • # Heading 1
+    • ## Heading 2
+    • ### Heading 3
+    • #### Heading 4
+    • ##### Heading 5
+    • ###### Heading 6 
+-------------------------------------------------
+Lists
+    • Unordered List: Start lines with -, *, or + followed by a space.
+    • Ordered List: Start lines with 1., 2., etc.
+    • Task List: Use - [ ] Todo item or - [x] Completed item.
+    • Nesting: Indent your sub-items by 2 or 4 spaces. 
+-------------------------------------------------
+Links & Images
+    • Hyperlink: [Anchor Text](https://url.com)
+    • Image: ![Alt Text](image-url.jpg)
+    • Linked Image: [![Alt Text](image-url.jpg)](https://url.com) 
+	
+* Inline Links (Standard)This is the most common format where the link text and the URL are kept together in the text.
+
+Syntax: [Link Text](URL)
+Optional Title: [Link Text](URL "Hover Title")
+
+
+[1]: https://google.com
+[2]: https://github.com
+-------------------------------------------------
+Blocks & Elements
+    • Blockquote: Begin lines with a >.
+    • Horizontal Rule: Type --- or *** on a blank line.
+    • Code Block: Enclose multiple lines using three backticks ``` before and after the block.
+    • Syntax Highlighting: Append the language name immediately after the opening backticks (e.g., ```python). 
+-------------------------------------------------
+Tables
+Use vertical pipes | to separate columns and hyphens - to construct column headers. 
+
+| Header 1 | Header 2 |
+| -------- | -------- |
+| Cell A1  | Cell A2  |
+| Cell B1  | Cell B2  |
+
+Escaping Syntax
+If you need to display a literal character that Markdown uses for formatting, prepend it with a backslash \. For example, \*literal asterisks\* will display as literal asterisks instead of creating italicized text. 
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
