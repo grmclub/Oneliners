@@ -39,5 +39,36 @@ Ctrl-b o Switch to the next pane
 Ctrl-b ? List all keybindings
 
 -------------------------------------------------
+##Master tmux with this quick-reference guide. All commands begin with the prefix key combination Ctrl+b
+
+Sessions
+    • Start new session: tmux
+    • Start named session: tmux new -s name
+    • Detach from session: Ctrl+b + d
+    • List sessions: tmux ls
+    • Attach to session: tmux attach -t name
+    • Kill session: tmux kill-session -t name
+
+Windows (Tabs)
+    • Create window: Ctrl+b + c
+    • Next window: Ctrl+b + n
+    • Previous window: Ctrl+b + p
+    • Jump to window N: Ctrl+b + 0-9
+    • Rename window: Ctrl+b + ,
+    • Close window: Ctrl+b + & 
+
+Panes (Splits)
+    • Vertical split: Ctrl+b + %
+    • Horizontal split: Ctrl+b + "
+    • Move to pane: Ctrl+b + arrows
+    • Resize pane: Ctrl+b + Ctrl + arrows
+    • Zoom pane (toggle): Ctrl+b + z
+    • Show pane numbers: Ctrl+b + q
+    • Close pane: Ctrl+b + x 
+
+Advanced/Misc
+    • Copy mode (scroll/copy): Ctrl+b + [ (press Enter to copy, Ctrl+b + ] to paste)
+    • Command prompt: Ctrl+b + :
+    • Help (List bindings): Ctrl+b + ?
 -------------------------------------------------
 -------------------------------------------------
