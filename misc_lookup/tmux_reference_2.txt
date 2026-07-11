@@ -1,0 +1,27 @@
+
+https://hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/
+https://hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/
+-------------------------------------------------
+#create a new season 
+tmux new -s kz
+
+#attach to a session 
+tmux a -t kz
+
+#kill existing session 
+tmux kill-session -t kz
+
+# check active sessions 
+tmux ls
+
+Ctrl + b : 
+setw synchronize- panes on
+
+%tmux-cssh web{1..4}
+
+
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
