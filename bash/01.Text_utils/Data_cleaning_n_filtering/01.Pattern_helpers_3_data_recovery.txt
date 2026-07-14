@@ -1,0 +1,93 @@
+
+-------------------------------------------------
+—------------
+##FIX recover tnx 11,41,17 fix
+cat xx|/tmp/extags -t11 |awk '{printf("s/%s%sg\n",$1,$1);}'|sed 's/19/AA/2' > sed.1
+
+cat xx|/tmp/extags -t17 |awk '{printf("s/%s%sg\n",$1,$1);}'|sed 's/19/BB/2' > sed.2
+
+sed -f sed.1 xx > xx.mod1
+sed -f sed.2 xx.mod1 >xx.mod2
+
+—------------
+##join lines based on seq no
+
+awk -F',' '{ if(!seen[$1]++){ first[$1]=$3} else { second[$1]=$3}} END { for(prefix in first){ if (second[prefix]){ print "'\''/" prefix "/s/" second[prefix] "/" first[prefix]"/'\'' filename }}}' / tmp/xx
+
+—------------
+##substitution and extraction
+
+cat xx|awk -F',' '{gsub(":","",$2);print}'
+echo "Programming" | awk '{ print substr($0, 1, 4) }'
+—------------
+## extract biz msg to process
+
+cat xx|grep "35=[DFG89]" |/tmp/extags -t 52,60,11>ext
+/tmp/dxx -f ext >d1;less d1
+cat d1|sort -nr -k4| head
+—------------
+
+-------------------------------------------------
+##substr() function use cases
+
+substr() function is used to extract a specific portion of a string
+—------------
+1. Extract to the End of a String
+If you omit the length argument, awk extracts everything from the start_position to the absolute end of the strin
+
+echo "Programming" | awk '{ print substr($0, 4) }'
+# Output: gramming
+—------------
+2. Extract a Specific Number of Characters
+Provide a third argument to control exactly how many characters are returned
+
+echo "Programming" | awk '{ print substr($0, 4, 4) }'
+# Output: gram
+—------------
+3. Parse Fixed-Width Columns
+The substr() function is the cleanest way to break up data lines that do not have delimiters like commas or tabs, but rely on strict character positions instead.
+
+# Input line has an ID (chars 1-4), Date (chars 5-12), and Status (chars 13+)
+echo "A98220260715ACTIVE" | awk '{
+    id = substr($0, 1, 4)
+    date = substr($0, 5, 8)
+    status = substr($0, 13)
+    print "ID:", id, "| Date:", date, "| Status:", status
+}'
+# Output: ID: A982 | Date: 20260715 | Status: ACTIVE
+—------------
+4. Filter Lines Based on Substring Matches
+You can use substr() inside a conditional statement to filter your input data. For example, processing a list of serial numbers and only printing lines where the code starts with "99"
+
+cat << 'EOF' > data.txt
+99XF23
+12AB88
+99MT11
+EOF
+
+awk 'substr($1, 1, 2) == "99"' data.txt
+# Output:
+# 99XF23
+# 99MT11
+—------------
+5. Combine with index() for Dynamic Boundaries
+When your text boundaries change dynamically, combine substr() with the index() function. index() finds the position of a specific character, which you can then pass into your substring formula.bash# Extract everything after the '@' symbol
+
+echo "user.name@example.com" | awk '{
+    at_pos = index($0, "@")
+    print substr($0, at_pos + 1)
+}'
+# Output: example.com
+—------------
+------------------------------------------------- 
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
