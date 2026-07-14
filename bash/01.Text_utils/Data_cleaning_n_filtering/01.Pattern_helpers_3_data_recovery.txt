@@ -1,4 +1,6 @@
 
+https://www.gnu.org/software/gawk/manual/html_node/Built_002din.html
+https://www.gnu.org/software/gawk/manual/html_node/index.html#SEC_Contents
 -------------------------------------------------
 —------------
 ##FIX recover tnx 11,41,17 fix
@@ -79,8 +81,181 @@ echo "user.name@example.com" | awk '{
 }'
 # Output: example.com
 —------------
-------------------------------------------------- 
 -------------------------------------------------
+## gsub function in awk stands for global substitution
+It searches an input string for a regular expression pattern and replaces every occurrence with a new string
+
+gsub(regexp, replacement, target)
+
+https://running-terminal-commands.com/en/awk-gsub-en/
+https://www.gnu.org/software/gawk/manual/html_node/String-Functions.html
+—------------
+1. Replace Globally on the Whole Line ($0)
+If you omit the third argument, awk updates the entire line. The trailing 1 outside the block is an awk shorthand that tells it to print the updated line.
+
+echo "apple orange apple banana" | awk '{gsub(/apple/, "APPLE")}1'
+# Output: APPLE orange APPLE banana
+—------------
+2. Target a Specific Column
+You can restrict the substitution to a single field (e.g., $2 for column 2). Other columns remain completely untouched.
+
+echo "apple apple apple" | awk '{gsub(/apple/, "orange", $2)}1'
+# Output: apple orange apple
+—------------
+3. Strip Out or Delete Characters
+To remove characters, use an empty string "" as your replacement argument.
+
+echo "ID-123, ID-456" | awk '{gsub(/ID-/, "")}1'
+# Output: 123, 456
+—------------
+##Advanced Examples & RegEx Tricks
+
+4. Clean Up Multiple SpacesYou can use regular expression quantifiers like + to catch and collapse multiple consecutive spaces down to a single space.
+
+echo "Too    many        spaces" | awk '{gsub(/ +/, " ")}1'
+# Output: Too many spaces
+—------------
+5. Strip All Punctuation
+Use regular expression character classes (like [[:punct:]]) to instantly purge punctuation marks from your text stream.
+
+echo "Hello, World! How's it going?" | awk '{gsub(/[[:punct:]]/, "")}1'
+# Output: Hello World Hows it going
+—------------
+6. Convert Windows Line Endings (CRLF) to Unix (LF)You can match the carriage return character (\r) specifically at the end of a line ($) and drop it completely.
+
+awk '{gsub(/\r$/, "")}1' windows_file.txt > unix_file.txt
+—------------
+7. Reference the Matched Text using &
+The & symbol in the replacement string acts as a placeholder for whatever text matched your regular expression pattern.
+
+echo "123 and 456" | awk '{gsub(/[0-9]+/, "[&]")}1'
+# Output: [123] and [456]
+—------------
+8. Conditional Execution Based on Replacement Count
+Because gsub returns the exact number of successful edits it performed, you can pass its output straight into a conditional loop.
+
+echo -e "apple\norange" | awk '{ count = gsub(/apple/, "banana"); if(count > 0) print "Modified: " $0 }'
+# Output: Modified: banana
+—------------
+
+sub
+Replaces only the first occurrence per line.
+a b a b -> X b a b
+
+gsub
+Replaces every occurrence per line.
+a b a b  ->  X b X b
+—------------
+-------------------------------------------------
+Various gsub examples
+
+1. Replace hyphens with spaces
+
+gsub(/-/, " ", s)
+Replace all - contained in s with a single-byte space.
+—------------
+2. Delete only the numbers at the beginning
+
+gsub(/^[0-9]+/, "", s)
+Replace one or more digits at the beginning of s with an empty string (= delete).
+—------------
+3. Replace tabs with commas
+
+gsub(/\t/, ",", s)
+Convert tab characters (\t) to commas.
+—------------
+4. Consolidate multiple spaces into one
+
+gsub(/  +/, " ", s)
+Replace sequences of two or more spaces with a single space.
+—------------
+5. Remove only the CR from Windows line endings (CRLF)
+
+gsub(/\r$/, "", s)
+Remove \r at the end of lines to convert to UNIX line endings.
+—------------
+6. When replacing multiple candidate characters at once, write them in [] without separators
+
+gsub(/[;:]/, ",", s)
+
+Replace both ; and : with commas.
+Special characters on the replacement string side
+
+    & represents the "matched part." Example: Enclose tags in brackets
+
+gsub(/[0-9]+/, "[&]", s)
+
+→ 123 becomes [123].
+
+    \n is a newline. \\ is a backslash. (Note: Backslashes require escaping)
+
+    Similarly, write \" to represent a double quote within a string.
+
+Conditional branching and regular expression matching
+
+if (s ~ /^[[:space:]]*$/) s="\"\""  # 空/空白のみ → ""
+else s="\"" s "\""
+—------------
+##POSIX character classes
+
+These can be used commonly in commands that use regular expressions such as grep / sed / awk.
+
+    [[:digit:]] One digit
+
+    [[:alpha:]] One alphabetic character
+
+    [[:alnum:]] One alphanumeric character
+
+    [[:space:]] One whitespace character (space, tab, newline, etc.)
+
+    [[:blank:]] Space or tab
+
+    [[:punct:]] Punctuation or symbols
+
+    [[:upper:]] Uppercase letter
+
+    [[:lower:]] Lowercase letter
+
+To make it a "consecutive string," add a repetition specifier like \+ (GNU grep, etc.) or [[:class:]][[:class:]]*.
+
+    The outer [ ] ...symbols indicates a regular expression "character class"
+
+    The inner [:digit:] ...POSIX named character class
+
+This is a double structure.
+—------------
+Examples of one-liners using POSIX character classes
+
+    Delete lines containing only whitespace: grep -v '^[[:space:]]*$' file
+
+    Replace tabs with commas: sed 's/[[:space:]]\+/,/g' file
+
+    Delete whitespace: tr -d '[:space:]' < file
+
+    Delete non-alphanumeric characters: sed 's/[^[:alnum:]]//g' file　
+—------------
+Test commands
+
+# 初期状態確認
+cat test_awk.txt
+cat -vET test_awk.txt      # 全部見える（タブ ^I、改行 $）Linuxは　cat -A　でも可
+
+# ハイフンをスペースに置換
+awk '{ gsub(/-/, " "); print }' test_awk.txt
+
+# 先頭の数字だけを削除
+awk '{ gsub(/^[0-9]+/, ""); print }' test_awk.txt
+
+# タブをカンマに置換
+awk '{ gsub(/\t/, ","); print }' test_awk.txt
+
+# 複数スペースを1つにまとめる
+awk '{ gsub(/  +/, " "); print }' test_awk.txt
+
+# 複数候補の文字をまとめて置換するときは[]内に区切り無しで書く
+awk '{ gsub(/[;:]/, ","); print }' test_awk.txt
+—------------
+
 -------------------------------------------------
 -------------------------------------------------
 -------------------------------------------------
