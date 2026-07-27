@@ -1,0 +1,57 @@
+
+-------------------------------------------------
+Linux Network Troubleshooting Cheat Sheet: Buffers & Retransmissions
+
+1. Identifying TCP Retransmissions & Errors
+    • nstat -az | grep -E "TcpExtTCPRetransSegs|TcpRetransSegs"
+      Displays cumulative TCP retransmissions.
+        ◦ Look for TcpExtTCPRetransSegs (fast retransmits vs. timeout retransmits).
+        ◦ Look for TcpExtTCPLossProbes (Early Retransmit probes).
+    • ss -ti
+      Displays real-time socket-level statistics, including per-connection retransmissions, RTT, congestion window (cwnd), and buffer sizes.
+        ◦ ss -ti state established → Show RTT, retrans, rcv_space, and TCP state for active connections.
+    • ss -lntmp
+      Displays listening sockets with Send/Recv queue sizes.
+        ◦ If Recv-Q is non-zero on a listening socket, the application is failing to accept() connections fast enough (listen backlog overflow).
+
+2. Inspecting Socket Buffer Sizes & Drops
+    • netstat -s or ip -s link
+      Shows global protocol and interface statistics.
+        ◦ netstat -s | grep -i "buffer" → Check for socket buffer errors (e.g., "packet receive errors", "buffer errors").
+        ◦ ip -s link show <interface> → Shows dropped packets (dropped) and overrun errors (overrun).
+    • ethtool -S <interface>
+      Retrieves low-level Network Interface Card (NIC) hardware statistics.
+        ◦ ethtool -S eth0 | grep -i -E "drop|miss|fifo|full|err" → Look for rx_nodesc_drop_cnt, rx_missed_errors, or rx_fifo_errors (indicates NIC ring buffer overflow before packets reach the kernel).
+
+3. Monitoring Kernel & Network Stack Drops
+    • dropwatch -l cass
+      Monitors kernel packet drops in real time and pinpoints the exact kernel function where the drop occurred (e.g., udp_queue_rcv_skb, tcp_v4_rcv).
+    • perf trace --event skb:kfree_skb
+      Uses Linux perf tracepoints to capture kfree_skb events, showing the exact call stack causing packet drops.
+
+4. Ring Buffers & System Tuning (Diagnostic Checks)
+    • ethtool -g <interface>
+      Displays current and maximum ring buffer sizes (Rx/Tx descriptors) for the network adapter.
+        ◦ Fix: Increase Rx ring buffer if hardware drops occur: ethtool -G eth0 rx 4096.
+    • sysctl -a | grep -E "rmem|wmem|backlog"
+      Inspects kernel TCP/IP buffer parameters:
+        ◦ net.core.rmem_max / net.core.wmem_max → Max receive/send buffer size.
+        ◦ net.ipv4.tcp_rmem / net.ipv4.tcp_wmem → Minimum, default, and max TCP auto-tuning buffer sizes.
+        ◦ net.core.netdev_max_backlog → Max packets queued in the input layer before processing by the CPU.
+
+💡 Quick Troubleshooting Flow
+    1. High Retransmissions? Run ss -ti to check RTT and per-socket retrans.
+    2. Hardware Drops? Run ethtool -S <interface> → If rx_missed_errors or rx_nodesc_drop is high, increase ring buffers (ethtool -G).
+    3. Kernel Drops? Run netstat -s or dropwatch → If socket errors occur, increase sysctl TCP buffer limits (tcp_rmem/tcp_wmem).
+
+-------------------------------------------------
+Here is a one-page reference summary mapping deprecated netstat options to their modern ss and ip replacements from the iproute2 package.
+netstat to Modern Commands (ss / ip) Cheat Sheet
+
+1. Active Connections & Sockets (ss)
+
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
