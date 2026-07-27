@@ -1,0 +1,63 @@
+
+https://landley.net/toybox/quick.html
+-------------------------------------------------
+https://busybox.net/downloads/BusyBox.html
+https://frippery.org/busybox/
+
+Getting Started with BusyBox on Windows
+
+Here’s a quick guide to set up BusyBox, allowing you to use commands like ls and grep in Windows Command Prompt just as you would in Linux.
+Step 1: Download BusyBox
+
+    Go to BusyBox for Windows and download the standalone executable.
+    Place busybox.exe in a folder (for example, C:\busybox\). I like to keep all my custom tools under "C:\Program Files\" so I’d put it in C:\Program Files\busybox\.
+    busybox --install C:\External_Programs\busybox
+
+Step 2: Add BusyBox to Your System Path
+
+To make BusyBox accessible from any Command Prompt location, add it to your system’s PATH.
+
+    Search for “Environment Variables” in the Windows Start menu and open Edit the system environment variables.
+    In the System Properties window, click on Environment Variables….
+    Under System variables, locate the Path variable, select it, and click Edit.
+    Add the directory where you saved busybox.exe (like C:\Program Files\busybox\) and click OK.
+
+Step 3: Create Symlinks for Linux Commands
+
+Right now, you’d need to prefix every command with busybox, as in busybox ls or busybox clear. But we can simplify things further by creating symbolic links (symlinks) so that typing ls or clear works as you’d expect. Here’s how:
+
+    Open Command Prompt as Administrator. Search for "cmd," right-click, and select Run as administrator.
+    Run these commands to create symlinks for frequently used commands:
+
+   mklink "C:\Windows\System32\ls.exe" "C:\path\to\busybox.exe"
+   mklink "C:\Windows\System32\pwd.exe" "C:\path\to\busybox.exe"
+   mklink "C:\Windows\System32\grep.exe" "C:\path\to\busybox.exe"
+   mklink "C:\Windows\System32\cat.exe" "C:\path\to\busybox.exe"
+   mklink "C:\Windows\System32\clear.exe" "C:\path\to\busybox.exe"
+   mklink "C:\Windows\System32\rm.exe" "C:\path\to\busybox.exe"
+
+Replace C:\path\to\busybox.exe with the actual path where you saved busybox.exe. For example, on my machine, I’d use:
+
+   mklink "C:\Windows\System32\ls.exe" "C:\Program Files\busybox\busybox.exe"
+
+Each command above creates a symlink, meaning ls, pwd, grep, etc., will point to BusyBox automatically, no prefix needed.
+
+Pro Tip: BusyBox has many commands available! To see a full list, type:
+
+   busybox --help
+
+You can repeat the mklink command for any other commands you want to use directly.
+Step 4: Test Your New Linux Commands
+
+After setting up the symlinks, open a new Command Prompt window and try a few commands. Run ls, pwd, or grep just as you would on Linux. Here are a few examples:
+
+ls
+pwd
+grep "text" file.txt
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
