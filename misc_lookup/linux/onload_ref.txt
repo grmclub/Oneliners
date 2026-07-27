@@ -1,0 +1,52 @@
+
+-------------------------------------------------
+OpenOnload Monitoring Cheat Sheet
+
+1. General Stack & Status Monitoring
+    • onload_stackdump
+      Primary tool for inspect-level metrics. Dumping information on active stacks, sockets, queues, and buffers.
+        ◦ onload_stackdump $\rightarrow$ Print summary of all active Onload stacks.
+        ◦ onload_stackdump -p <PID> $\rightarrow$ Filter stack dump for a specific process ID.
+        ◦ onload_stackdump -s <STACK_ID> $\rightarrow$ Detailed statistics for a specific stack.
+        ◦ onload_stackdump lots $\rightarrow$ Display Lots Of Tcp Stats (full breakdown of connections & metrics).
+    • onload_mon
+      Provides real-time interactive/ncurses UI monitoring of Onload stacks, packet rates, latency, and memory utilization across the host.
+        ◦ onload_mon $\rightarrow$ Run interactive live monitor.
+        ◦ onload_mon --batch $\rightarrow$ Output snapshot metrics non-interactively for scripting or logging.
+    • onload_stat
+      Displays aggregate system-level Onload statistics, driver/hardware resource allocations, memory pools, and stack counts.
+        ◦ onload_stat -a $\rightarrow$ Display all available driver and stack stats.
+        ◦ onload_stat -m $\rightarrow$ Show memory/hugepage allocation details per stack.
+
+2. Network & Traffic Capture
+    • onload_tcpdump
+      Captures network packets bypassing standard kernel hooks directly from Onload user-space buffers.
+        ◦ onload_tcpdump -i <interface> $\rightarrow$ Capture packets on an Onloaded interface.
+        ◦ onload_tcpdump -p <PID> $\rightarrow$ Capture traffic tied exclusively to a specific process's Onload stack.
+    • onload_iptables
+      Inspects or manages firewall rules and filter matching for Onload accelerated sockets.
+        ◦ onload_iptables -L $\rightarrow$ View accelerated packet filtering rules.
+
+3. Application Execution & Environment Verification
+    • onload
+      Wrapper command used to run applications with Onload user-space network acceleration.
+        ◦ onload --status $\rightarrow$ Verify if Onload drivers are loaded and show quick system summary.
+        ◦ onload -p <PID> $\rightarrow$ Check if a running process PID is currently accelerated by Onload.
+        ◦ onload --profile=latency ./app $\rightarrow$ Launch an app using pre-configured low-latency environment profiles.
+
+4. Hardware & Interface Monitoring (sfnettest / ethtool)
+    • sfstat / sfinfo
+      Solarflare/AMD NIC hardware utilities.
+        ◦ sfinfo $\rightarrow$ Display Solarflare adapter details, firmware versions, PCIe links, and MAC addresses.
+        ◦ ethtool -S <interface> $\rightarrow$ View hardware queue drops (rx_nodesc_drop_cnt, rx_bad_bytes, etc.).
+
+💡 Key Stack Metrics To Watch (onload_stackdump)
+    • drops / rx_drop: Indicates dropped frames due to full socket buffers or CPU ring exhaustion.
+    • spin: Shows active busy-waiting cycles; high spin rates improve latency at the cost of higher CPU usage.
+    • pkt_alloc vs pkt_free: Monitors packet buffer leaks in user space.
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
