@@ -1,0 +1,48 @@
+
+-------------------------------------------------
+Docker Cheat Sheet
+
+1. Container Lifecycle
+    • docker run [OPTIONS] IMAGE [COMMAND] $\rightarrow$ Create and start a new container from an image.
+        ◦ docker run -d -p 8080:80 --name my-app nginx $\rightarrow$ Run detached in background, mapping port 8080 to 80.
+        ◦ docker run -it ubuntu bash $\rightarrow$ Run interactively with a pseudo-TTY shell.
+        ◦ docker run --rm alpine ping google.com $\rightarrow$ Run container and automatically remove it upon exit.
+    • docker ps $\rightarrow$ List running containers (docker ps -a to include stopped containers).
+    • docker start / stop / restart <CONTAINER> $\rightarrow$ Manage execution state of an existing container.
+    • docker rm <CONTAINER> $\rightarrow$ Remove a stopped container (docker rm -f forces removal of running ones).
+
+2. Inspection & Debugging
+    • docker logs [OPTIONS] <CONTAINER> $\rightarrow$ Fetch logs for a container (-f to stream live logs, --tail 100 for last 100 lines).
+    • docker exec -it <CONTAINER> <COMMAND> $\rightarrow$ Run a command inside a running container.
+        ◦ docker exec -it my-app bash $\rightarrow$ Open an interactive shell inside a running container.
+    • docker inspect <CONTAINER_OR_IMAGE> $\rightarrow$ Display low-level JSON details (IP address, mounts, environment variables).
+    • docker stats $\rightarrow$ Display real-time streaming resource usage stats (CPU, memory, network I/O).
+
+3. Images & Dockerfiles
+    • docker build -t <NAME>:<TAG> <PATH> $\rightarrow$ Build an image from a Dockerfile.
+        ◦ docker build -t my-image:v1 . $\rightarrow$ Build using current directory context.
+    • docker images $\rightarrow$ List locally available images.
+    • docker rmi <IMAGE> $\rightarrow$ Remove an image from local storage.
+    • docker pull / push <IMAGE> $\rightarrow$ Download an image from or upload an image to a registry (e.g., Docker Hub).
+
+4. Networks & Volumes
+    • docker volume create <VOL_NAME> $\rightarrow$ Create a persistent storage volume.
+    • docker volume ls / inspect <VOL_NAME> $\rightarrow$ Manage and view volume mount locations.
+    • docker network create <NET_NAME> $\rightarrow$ Create a custom user-defined network.
+    • docker network connect <NET_NAME> <CONTAINER> $\rightarrow$ Attach a container to a specific network.
+
+5. System Cleanup & Pruning
+    • docker system prune $\rightarrow$ Remove all stopped containers, unused networks, and dangling images.
+    • docker system prune -a --volumes $\rightarrow$ Deep clean: remove all unused containers, images, volumes, and networks.
+
+💡 Quick Tips
+    • Detach Shortcut: Press Ctrl+P, Ctrl+Q to detach from an interactive container without stopping it.
+    • Port Mapping Syntax: -p <HOST_PORT>:<CONTAINER_PORT> (e.g., -p 3000:80 redirects host port 3000 to container port 80).
+    • Volume Mounting Syntax: -v <HOST_PATH>:<CONTAINER_PATH> or -v <VOLUME_NAME>:<CONTAINER_PATH>.
+
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
