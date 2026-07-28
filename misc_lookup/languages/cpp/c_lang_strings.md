@@ -1,4 +1,4 @@
-### 9. Standard String Functions Reference Guide (`<string.h>`)
+### Standard String Functions Reference Guide (`<string.h>`)
 
 #### 1. String Copying & Moving
 * **`strcpy()`**
