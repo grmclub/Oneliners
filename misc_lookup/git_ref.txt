@@ -1,0 +1,94 @@
+
+-------------------------------------------------
+##Git Quick Lookup Cheat Sheet
+
+### 1. Setup & Configuration
+
+# Set global identity
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+
+# Useful global defaults
+git config --global init.defaultBranch main
+git config --global core.editor "code --wait"  # Or "vim", "nano"
+
+# View current configuration
+git config --list --show-origin
+
+### 2. Starting & Cloning Projects
+
+git init                    # Initialize a new local Git repository
+git clone <url>             # Clone a remote repository
+git clone <url> <dir>       # Clone into a specific folder name
+
+### 3. Basic Workflow (Inspect, Stage, Commit)
+
+git status                  # Check status of working directory & staging area
+git add <file>              # Stage a specific file
+git add .                   # Stage all modified and new files
+git add -p                  # Interactively stage chunks of changes
+
+git commit -m "Message"     # Commit staged changes with a message
+git commit -am "Message"    # Stage tracked files & commit in one step
+git commit --amend          # Modify the last commit (message or staged files)
+
+### 4. Viewing History & Diffs
+
+git log                     # View commit history
+git log --oneline --graph   # Compact graph view of commit history
+git log -p -2               # Show last 2 commits with full diffs
+
+git diff                    # Show unstaged changes vs staging area
+git diff --staged           # Show staged changes vs last commit
+git diff <branch1>..<branch2> # Compare two branches
+
+### 5. Branching & Merging
+
+git branch                  # List local branches (* indicates current)
+git branch -a               # List all local and remote branches
+git branch <branch-name>    # Create a new branch
+
+git switch <branch-name>    # Switch to a branch (modern syntax)
+git checkout -b <new-branch># Create and switch to a new branch (classic syntax)
+
+git merge <branch-name>     # Merge specified branch into current branch
+git branch -d <branch-name> # Delete a branch (safely)
+git branch -D <branch-name> # Force delete an unmerged branch
+
+### 6. Remote Repositories & Syncing
+
+git remote -v               # List associated remote repositories
+git remote add origin <url> # Add a remote URL named 'origin'
+
+git fetch                   # Download changes from remote without merging
+git pull                    # Fetch and merge changes from remote (git fetch + git merge)
+git push origin <branch>    # Push local branch commits to remote
+git push -u origin <branch> # Push and set upstream tracking branch
+
+### 7. Stashing (Temporary Storage)
+
+git stash                   # Save uncommitted changes to stash
+git stash save "message"    # Save stash with a descriptive message
+git stash list              # List all stashed changes
+git stash pop               # Apply most recent stash and remove it from stash list
+git stash apply             # Apply most recent stash but keep it in stash list
+git stash drop              # Discard the most recent 
+
+### 8. Undoing Changes & Resetting
+
+# Discard local changes
+git restore <file>          # Unstage changes / revert file to last commit
+git restore --staged <file> # Move file from staged back to unstaged
+
+# Reverting & Resetting
+git revert <commit-hash>    # Create a new commit that undoes a previous commit
+git reset HEAD~1            # Undo last commit, keep changes unstaged
+git reset --soft HEAD~1     # Undo last commit, keep changes staged
+git reset --hard HEAD~1     # DISCARD last commit and all associated changes (Caution!)
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
