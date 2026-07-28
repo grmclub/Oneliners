@@ -1,13 +1,48 @@
 
 https://webrtc.googlesource.com/src/+/HEAD/g3doc/style-guide.md
+https://ntrs.nasa.gov/citations/20080039927
+https://github.com/CA-CST-SII/Software-Standards/blob/master/C%2B%2B_Standards.md
 -------------------------------------------------
+## core references
+https://cppreference.com/
+https://en.cppreference.com/
+https://en.cppreference.com/cpp/header
+https://cplusplus.com/reference/stl/
+
+--cpp faq
+https://isocpp.org/faq
+https://isocpp.org/wiki/faq
+https://github.com/AnthonyCalandra/modern-cpp-features
+
+--cpp standards
+https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines
+https://isocpp.org/std/the-standard
+https://isocpp.org/std/standing-documents
+https://github.com/cplusplus/draft
+https://eel.is/c++draft/
+https://www.open-std.org/jtc1/sc22/wg21/docs/standards
+
+--cpp news ref
+https://isocpp.org/
+
+
+--cheatsheets
+https://github.com/karansaxena/STL_Cheat_Sheets
+https://github.com/datawookie/cheatsheets
+https://github.com/gibsjose/cpp-cheat-sheet/blob/master/Data%20Structures%20and%20Algorithms.md
+
+--misc
+https://github.com/datawookie/awesome-public-datasets
+-------------------------------------------------
+## tech internals
+
 https://chessman7.substack.com/p/the-linkers-detective-work-how-symbol
 https://learncodethehardway.com/courses/learn-c-the-hard-way/1-learn-c-the-hard-way/exercise-2-using-makefiles-to-build/
 
 https://dwheeler.com/essays/make.html
 
 -------------------------------------------------
--------------------------------------------------
+
 -------------------------------------------------
 -------------------------------------------------
 -------------------------------------------------
