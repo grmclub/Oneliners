@@ -1,0 +1,196 @@
+# CSS Quick Lookup Cheat Sheet
+
+## 1. Selectors & Specificity
+```css
+* { }                    /* Universal */
+h1, p { }                /* Type / Element */
+.class-name { }          /* Class */
+#element-id { }          /* ID */
+[type="text"] { }        /* Attribute */
+
+/* Combinators & Pseudo-classes */
+div > p { }              /* Direct Child */
+div p { }                /* Descendant */
+h1 + p { }               /* Adjacent Sibling */
+h1 ~ p { }               /* General Sibling */
+a:hover, a:focus { }     /* State Pseudo-class */
+li:first-child, li:nth-child(2n) { } /* Structural Pseudo-class */
+p::before, p::after { }  /* Pseudo-elements */
+```
+> **Specificity Order:** `!important` > Inline (`style="..."`) > ID (`#id`) > Class/Attribute/Pseudo-class (`.class`) > Element (`div`)
+
+---
+
+## 2. Box Model & Sizing
+```css
+*, *::before, *::after {
+  box-sizing: border-box; /* Includes padding & border in total width/height */
+}
+
+.box {
+  width: 300px;
+  height: 200px;
+  padding: 10px 20px;            /* Top/Bottom, Left/Right */
+  margin: 0 auto;                 /* Centering block element */
+  border: 1px solid #cccccc;
+  outline: 2px dashed #007acc;    /* Outside border box (doesn't take space) */
+}
+```
+
+---
+
+## 3. Typography & Text Styling
+| Property | Common Values / Example |
+| :--- | :--- |
+| `font-family` | `Arial, sans-serif`, `'Roboto', Georgia, serif` |
+| `font-size` | `16px`, `1rem` (root em), `1.2em` (parent em), `2vw` |
+| `font-weight` | `normal`, `bold`, `100` – `900` |
+| `line-height` | `1.5`, `1.2`, `24px` |
+| `text-align` | `left`, `center`, `right`, `justify` |
+| `text-transform` | `uppercase`, `lowercase`, `capitalize`, `none` |
+| `text-decoration` | `underline`, `line-through`, `none` |
+| `white-space` | `nowrap`, `pre-wrap`, `normal` |
+| `overflow-wrap` / `word-break` | `break-word`, `break-all` |
+
+---
+
+## 4. Flexbox Layout
+```css
+.flex-container {
+  display: flex;
+  flex-direction: row | column | row-reverse | column-reverse;
+  flex-wrap: nowrap | wrap;
+  justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly;
+  align-items: stretch | flex-start | flex-end | center | baseline;
+  gap: 16px;
+}
+
+.flex-item {
+  flex-grow: 1;          /* Ability to grow */
+  flex-shrink: 0;        /* Ability to shrink */
+  flex-basis: 200px;     /* Initial main size */
+  flex: 1 0 200px;       /* Shorthand: grow shrink basis */
+  align-self: center;    /* Override align-items */
+}
+```
+
+---
+
+## 5. CSS Grid Layout
+```css
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);         /* 3 equal columns */
+  grid-template-columns: 200px 1fr auto;
+  grid-template-rows: auto 1fr;
+  gap: 20px 10px;                                 /* Row gap, Column gap */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive Grid without Media Queries */
+.auto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.grid-item {
+  grid-column: 1 / 3;     /* Starts line 1, ends line 3 */
+  grid-row: span 2;        /* Spans 2 rows */
+}
+```
+
+---
+
+## 6. Display, Positioning & Z-Index
+```css
+/* Display */
+.element { display: block | inline | inline-block | flex | grid | none; }
+
+/* Positioning */
+.positioned {
+  position: static | relative | absolute | fixed | sticky;
+  top: 0;
+  right: 10px;
+  bottom: 0;
+  left: 10px;
+  z-index: 100; /* Layer order (requires non-static position) */
+}
+```
+
+---
+
+## 7. Backgrounds, Colors & Effects
+```css
+.card {
+  color: #333333;                                /* Hex */
+  background-color: rgba(255, 255, 255, 0.9);   /* RGBA with alpha */
+  background-image: url('bg.jpg');
+  background-size: cover | contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  
+  /* Modern Effects */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  opacity: 0.95;
+  filter: blur(4px) brightness(0.9);
+}
+```
+
+---
+
+## 8. Transitions, Transforms & Animations
+```css
+/* Transforms & Transitions */
+.button {
+  transform: scale(1.05) rotate(2deg) translateY(-2px);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Keyframe Animation */
+@keyframes slideIn {
+  from { transform: translateX(-100%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+.animated-box {
+  animation: slideIn 0.5s ease-out forwards;
+}
+```
+
+---
+
+## 9. Media Queries & CSS Variables
+```css
+/* Root Variables */
+:root {
+  --primary-color: #007acc;
+  --font-stack: system-ui, sans-serif;
+  --spacing-md: 16px;
+}
+
+.element {
+  color: var(--primary-color);
+  padding: var(--spacing-md);
+}
+
+/* Responsive Media Query */
+@media (max-width: 768px) {
+  :root {
+    --spacing-md: 12px;
+  }
+  .container {
+    flex-direction: column;
+  }
+}
+
+/* Dark Mode Preference */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #ffffff;
+  }
+}
+```
