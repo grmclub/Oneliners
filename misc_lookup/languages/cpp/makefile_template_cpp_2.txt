@@ -1,0 +1,59 @@
+
+### 1. Debugging Flag Reference
+
+| Flag | Name | Function Description | Why You Need It |
+| :---: | :--- | :--- | :--- |
+| **`-g`** | **Debug Symbols** | Retains source mappings (filenames, line numbers) in the binary. | Prevents crash logs and tools from printing unreadable hexadecimal memory addresses. |
+| **`-fsanitize=address`** | **AddressSanitizer (ASan)** | Active memory accessor check layer instrumented at runtime. | Exposes buffer overflows, memory leaks, and use-after-free bugs by immediately aborting execution. |
+| **`-O0` / `-Og`** | **Optimization Override** | Disables standard aggressive optimizations (`-O0`) or optimizes for debug workflows (`-Og`). | Keeps line execution matching your actual code line sequence, ensuring structured, predictable stack traces. |
+
+### 2. Dynamic C++20 / C++23 Automated Makefile
+```makefile
+# ==============================================================================
+# MODERN C++ MAKEFILE WITH DYNAMIC DEBUG MODES
+# ==============================================================================
+CXX      := g++
+SRC_DIR  := src
+OBJ_DIR  := obj
+BIN_DIR  := bin
+TARGET   := \$(BIN_DIR)/my_cpp_program
+
+# Check if the user ran 'make DEBUG=1'
+ifeq (\$(DEBUG), 1)
+    # Debug Mode Flags
+    CXXFLAGS := -std=c++23 -O0 -g -fsanitize=address -Wall -Wextra
+    LDFLAGS  := -fsanitize=address
+    MSG      := "--- DEBUG BUILD INSTALLED (ASan Active) ---"
+else
+    # Production Release Flags
+    CXXFLAGS := -std=c++23 -O2 -Wall -Wextra -Werror -pedantic
+    LDFLAGS  := 
+    MSG      := "--- PRODUCTION RELEASE BUILD INSTALLED ---"
+endif
+
+DEPFLAGS = -MT \$@ -MMD -MP -MF \((OBJ_DIR)/\)*.d
+SRCS     := \((wildcard\)(SRC_DIR)/*.cpp)
+OBJS     := \$(SRCS:\((SRC_DIR)/\%.cpp=\)(OBJ_DIR)/%.o)
+DEPS     := \$(SRCS:\((SRC_DIR)/\%.cpp=\)(OBJ_DIR)/%.d)
+
+all: \$(TARGET)
+
+\$(TARGET): \((OBJS) \vert{}\)(BIN_DIR)
+	@echo \((MSG)\)(CXX) \((CXXFLAGS)\)^ \((LDFLAGS) -o\)@
+
+\$(OBJ_DIR)/%.o: \((SRC_DIR)/\%.cpp \)(OBJ_DIR)/%.d | \((OBJ_DIR)\)(CXX) \((CXXFLAGS)\)(DEPFLAGS) -c \(< -o\)@
+
+\((BIN_DIR)\)(OBJ_DIR):
+	@mkdir -p \$@
+
+clean:
+	rm -rf \((OBJ_DIR)\)(BIN_DIR)
+
+run: \$(TARGET)
+	@./\$(TARGET)
+
+\$(DEPS):
+-include \((wildcard\)(DEPS))
+
+.PHONY: all clean run
+```
