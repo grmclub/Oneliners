@@ -9,6 +9,14 @@ Text Formatting
     • Bold & Italic: ***text***
     • Strikethrough: ~~text~~
     • Inline Code: `code` 
+	
+preformatted text 
+```
+This is a standard preformatted text block.
+Spaces    and line breaks
+    are preserved.
+```
+
 -------------------------------------------------
 Headings
 Always place a space between the # symbols and your text. 
