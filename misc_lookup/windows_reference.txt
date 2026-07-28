@@ -5,6 +5,31 @@ for /R %i in (*.jfif) do ren "%i" "*.jpg"
 
 
 -------------------------------------------------
+##top 15 Windows Run commands
+
+System Core & Command Interfaces
+    • Win + R: Triggers the foundational Run dialog box interface itself.
+    • cmd: Launches the primary command line interface (Command Prompt) for lower-level script execution.
+    • control: Standard route to access the complete, legacy system Control Panel dashboard.
+    • msconfig: Opens System Configuration to control startup services and boot parameters. [1]
+
+Hardware & Drive Management
+    • services.msc: Directly manages, pauses, or stops all active background software Windows Services.
+    • devmgmt.msc: Opens Device Manager to control connected physical peripherals and update hardware drivers.
+    • diskmgmt.msc: Launches native Disk Management to format storage drives and partition volumes. [1]
+
+Networking & Security Utilities
+    • ncpa.cpl: Accesses Network Connections to view physical and virtual adapters.
+    • firewall.cpl: Opens the dedicated native Windows Defender Firewall configurations window.
+    • mrt: Executes the built-in Microsoft Malicious Software Removal Tool for an on-demand secondary virus scan. [1, 2, 3]
+
+System Administration & Diagnostics
+    • regedit: Opens the Registry Editor database for low-level configuration modifications.
+    • appwiz.cpl: Takes you straight to Programs & Features to quickly uninstall legacy software packages.
+    • sysdm.cpl: Direct path to classic System Properties to tweak environment variables, performance, or device settings.
+    • taskmgr: Opens the monitoring interface (Task Manager) to force-quit unresponsive frozen programs.
+    • temp: Instantly maps to the system's local caching root (Temporary files folder) to delete cluttered trash storage. [1, 2]
+
 -------------------------------------------------
 -------------------------------------------------
 -------------------------------------------------
