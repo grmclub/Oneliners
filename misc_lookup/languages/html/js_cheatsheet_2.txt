@@ -1,0 +1,343 @@
+================================================================================
+JavaScript (ES6+) Quick Lookup Cheat Sheet
+1. Variables & Scope
+
+
+const name = "Alice"; // Block-scoped, re-assignable: NO, re-declarable: NO
+let count = 0;        // Block-scoped, re-assignable: YES, re-declarable: NO
+var legacy = true;    // Function-scoped, avoid using in modern JS
+
+2. Data Types & Type Checking
+
+
+// Primitive Types
+typeof "Hello"      // "string"
+typeof 42           // "number"
+typeof 9007199254740991n // "bigint"
+typeof true         // "boolean"
+typeof Symbol("id") // "symbol"
+typeof undefined    // "undefined"
+typeof null         // "object" (known bug in JS)
+
+// Objects & Functions
+typeof { a: 1 }     // "object"
+typeof [1, 2, 3]    // "object" (Use Array.isArray(arr) -> true)
+typeof function(){} // "function"
+
+3. Arrow Functions & Rest / Spread
+
+
+// Arrow Functions
+const add = (a, b) => a + b;
+const square = x => x * x;
+const getObj = () => ({ id: 1 }); // Wrap object literal in parentheses
+
+// Spread (...) & Rest (...)
+const nums = [1, 2, 3];
+const newNums = [...nums, 4, 5]; // Spread into new array
+
+const user = { name: "Alex", age: 30 };
+const updatedUser = { ...user, role: "Admin" }; // Spread into new object
+
+const sumAll = (...args) => args.reduce((acc, n) => acc + n, 0); // Rest parameter
+
+4. Destructuring Assignment
+
+
+// Array Destructuring
+const [first, second, ...rest] = [10, 20, 30, 40];
+
+// Object Destructuring
+const person = { firstName: "Jane", age: 25, city: "Tokyo" };
+const { firstName, age, city: location = "Unknown" } = person;
+
+5. Array Methods (Modern & Essential)
+
+
+const numbers = [1, 2, 3, 4, 5];
+
+// Iteration & Transformation
+numbers.forEach(num => console.log(num));            // Loop without return
+const doubled = numbers.map(num => num * 2);          // [2, 4, 6, 8, 10]
+const evens = numbers.filter(num => num % 2 === 0);   // [2, 4]
+const sum = numbers.reduce((acc, curr) => acc + curr, 0); // 15
+
+// Searching & Checking
+const found = numbers.find(num => num > 3);           // 4 (first match)
+const index = numbers.findIndex(num => num === 3);    // 2
+const hasEven = numbers.some(num => num % 2 === 0);   // true
+const allPositive = numbers.every(num => num > 0);    // true
+const includesThree = numbers.includes(3);           // true
+
+6. Template Literals & String Methods
+
+
+const user = "Sam";
+const greeting = `Hello, ${user}! 2 + 2 = ${2 + 2}`;
+
+// Useful String Methods
+"hello".toUpperCase();             // "HELLO"
+"  clean  ".trim();                // "clean"
+"JavaScript".slice(0, 4);          // "Java"
+"a,b,c".split(",");                // ["a", "b", "c"]
+"foobar".includes("bar");          // true
+"code".startsWith("co");           // true
+
+7. Promises & Async / Await
+
+
+// Async / Await Syntax
+async function fetchData(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Fetch failed:", error);
+  }
+}
+
+// Parallel Execution
+const [users, posts] = await Promise.all([
+  fetchData("/api/users"),
+  fetchData("/api/posts")
+]);
+
+8. Optional Chaining & Nullish Coalescing
+
+
+const user = { profile: { name: "Sarah" } };
+
+// Optional Chaining (?.)
+const zipCode = user?.address?.zipCode; // undefined (doesn't throw Error)
+const firstItem = user?.getItems?.()?.[0];
+
+// Nullish Coalescing (??) - checks ONLY for null or undefined
+const input = 0;
+const value1 = input || 100; // 100 (because 0 is falsy)
+const value2 = input ?? 100; // 0 (0 is not nullish)
+
+9. Classes & Inheritance
+
+
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  speak() {
+    return `${this.name} makes a noise.`;
+  }
+}
+
+class Dog extends Animal {
+  constructor(name, breed) {
+    super(name); // Call parent constructor
+    this.breed = breed;
+  }
+  speak() {
+    return `${this.name} barks!`;
+  }
+}
+
+const dog = new Dog("Rex", "German Shepherd");
+
+10. ES Modules (Import / Export)
+
+
+// Exporting (mathUtils.js)
+export const add = (a, b) => a + b;
+export const multiply = (a, b) => a * b;
+export default class Calculator { /* ... */ }
+
+// Importing (app.js)
+import Calculator, { add, multiply as mult } from './mathUtils.js';
+
+================================================================================
+jQuery Quick Lookup Cheat Sheet
+
+1. Document Ready & Setup
+
+
+// Recommended shorthand
+$(function() {
+  // Code runs after the DOM is fully loaded
+});
+
+// Traditional syntax
+$(document).ready(function() {
+  // DOM ready
+});
+
+2. Selectors
+
+
+// Basic Selectors
+$("#id")            // Element by ID
+$(".class")         // Elements by Class
+$("div")            // Elements by Tag Name
+$("*")              // All elements
+$("h1, p, .box")    // Multiple selectors
+
+// Hierarchy & Combinators
+$("div > p")        // Direct child
+$("div p")          // Descendant
+$("h1 + p")         // Next adjacent sibling
+$("h1 ~ p")         // All sibling 'p' elements after 'h1'
+
+// Basic Filters
+$("li:first")       // First element
+$("li:last")        // Last element
+$("li:even")        // Even-indexed elements (0-indexed)
+$("li:odd")         // Odd-indexed elements
+$("li:eq(2)")       // Element at index 2
+$("input:not(:checked)") // Negation
+
+3. DOM Traversal
+
+
+// Moving Up & Down
+$("#item").parent();         // Direct parent
+$("#item").parents("div");   // All ancestors matching selector
+$("#item").closest(".card"); // Nearest matching ancestor (includes self)
+$("#container").children();  // Direct children
+$("#container").find("span");// All matching descendants
+
+// Moving Siblings
+$("#item").siblings();       // All siblings
+$("#item").next();           // Next sibling
+$("#item").prev();           // Previous sibling
+
+4. DOM Manipulation
+
+// Content Manipulation
+$("#text").text();                 // Get text content
+$("#text").text("New Text");       // Set text content
+$("#box").html();                  // Get inner HTML
+$("#box").html("<p>Hello</p>");    // Set inner HTML
+$("input").val();                  // Get input value
+$("input").val("New Value");       // Set input value
+
+// Adding & Removing Elements
+$("#list").append("<li>End</li>");    // Insert inside, at end
+$("#list").prepend("<li>Start</li>"); // Insert inside, at start
+$("#box").before("<p>Above</p>");     // Insert before target
+$("#box").after("<p>Below</p>");      // Insert after target
+
+$("#item").remove();   // Remove element and its event handlers
+$("#item").empty();    // Remove all child nodes inside element
+
+5. Attributes & CSS
+
+// Attributes
+$("#link").attr("href");                    // Get attribute
+$("#link").attr("href", "[https://site.com](https://site.com)"); // Set attribute
+$("#link").removeAttr("target");            // Remove attribute
+
+// Classes
+$(".box").addClass("active highlight");
+$(".box").removeClass("highlight");
+$(".box").toggleClass("active");
+$(".box").hasClass("active");               // Returns boolean
+
+// Inline CSS & Dimensions
+$(".box").css("color");                     // Get CSS value
+$(".box").css("color", "red");              // Set single CSS property
+$(".box").css({ color: "red", opacity: 0.5 }); // Set multiple properties
+
+$("#box").width();    // Content width
+$("#box").height();   // Content height
+$("#box").outerWidth();  // Includes padding + border
+
+6. Events
+
+// Common Event Shorthands
+$("#btn").click(function(e) { ... });
+$("#btn").dblclick(function() { ... });
+$("#input").focus(function() { ... });
+$("#input").blur(function() { ... });
+$("#form").submit(function(e) { e.preventDefault(); });
+$(window).resize(function() { ... });
+
+// Event Binding & Delegation (.on)
+$("#btn").on("click", function() { ... });
+
+// Event Delegation for dynamically added elements
+$("#parent").on("click", ".dynamic-child", function() {
+  console.log("Clicked dynamic child!", $(this));
+});
+
+// Unbinding
+$("#btn").off("click");
+
+7. Effects & Animations
+
+// Hide / Show / Toggle
+$(".box").hide(400);            // Hide with duration (ms)
+$(".box").show("fast");
+$(".box").toggle();
+
+// Fading
+$(".box").fadeIn();
+$(".box").fadeOut();
+$(".box").fadeToggle();
+$(".box").fadeTo("slow", 0.5);  // Fade to specific opacity
+
+// Sliding
+$(".box").slideUp();
+$(".box").slideDown();
+$(".box").slideToggle();
+
+// Custom Animation
+$(".box").animate({
+  left: "+=50px",
+  opacity: 0.8
+}, 500, function() {
+  // Callback when animation completes
+});
+
+8. AJAX Method Shortcuts
+
+
+// Shorthand GET Request
+$.get("/api/data", function(data) {
+  console.log(data);
+});
+
+// Shorthand POST Request
+$.post("/api/user", { name: "John", age: 30 }, function(response) {
+  console.log(response);
+});
+
+// Full AJAX Configuration
+$.ajax({
+  url: "[https://api.example.com/data](https://api.example.com/data)",
+  type: "GET", // or "POST", "PUT", "DELETE"
+  dataType: "json",
+  data: { key: "value" },
+  success: function(response) {
+    console.log("Success:", response);
+  },
+  error: function(xhr, status, error) {
+    console.error("Error:", error);
+  }
+});
+
+9. Utilities & Chaining
+
+
+// Method Chaining
+$("#box")
+  .addClass("active")
+  .css("color", "blue")
+  .fadeIn(200);
+
+// Iterating Collections
+$("li").each(function(index, element) {
+  console.log(index + ": " + $(element).text());
+});
+
+// Utility Functions
+$.isArray([1, 2, 3]);              // Checks if array
+$.trim("   hello world   ");       // Trims whitespace
+$.extend(obj1, obj2);              // Merge objects
