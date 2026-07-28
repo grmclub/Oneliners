@@ -1,0 +1,14 @@
+
+https://webrtc.googlesource.com/src/+/HEAD/g3doc/style-guide.md
+-------------------------------------------------
+https://chessman7.substack.com/p/the-linkers-detective-work-how-symbol
+https://learncodethehardway.com/courses/learn-c-the-hard-way/1-learn-c-the-hard-way/exercise-2-using-makefiles-to-build/
+
+https://dwheeler.com/essays/make.html
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
