@@ -1,5 +1,6 @@
-C Sample Code: High-Performance CSV Parser
+###C Sample Code: High-Performance CSV Parser
 
+```
 Below is a single-file C implementation demonstrating how awk-like stream buffering and zero-allocation field splitting work under the hood.
 
 Why awk's Internal Engine Is Efficient
@@ -133,3 +134,4 @@ Key Performance Highlights of the C Code:
     Printf Specifier (%.*s): Fields do not need null-terminators inserted into the input string, enabling fast printing using string lengths directly.
 
     Inline Branching: Quoted field logic uses simple boolean checks, enabling compiler optimization and high instruction-level parallelism.
+```
