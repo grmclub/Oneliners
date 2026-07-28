@@ -125,3 +125,11 @@ int main(int argc, char *argv[]) {
     fclose(file);
     return 0;
 }
+
+Key Performance Highlights of the C Code:
+
+    Zero Allocations in Hot Loops: No malloc calls happen per record or field. Memory for field slices is stored as a pointer offset (const char *data) and length.
+
+    Printf Specifier (%.*s): Fields do not need null-terminators inserted into the input string, enabling fast printing using string lengths directly.
+
+    Inline Branching: Quoted field logic uses simple boolean checks, enabling compiler optimization and high instruction-level parallelism.
