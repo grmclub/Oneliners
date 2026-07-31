@@ -75,11 +75,11 @@ ext (( a == b ))        // Alternative arithmetic comparison syntax
 d ! [[ cond ]]         // NOT```
 ```
 
-# 4. Control Flow
+## 4. Control Flow
 
 ## If / Else
 **Bash**
-```bash
+```
 if [[ -f "$file" ]]; then
     echo "File exists"
 elif [[ -d "$file" ]]; then
@@ -109,7 +109,7 @@ while [[ "$COUNT" -gt 0 ]]; do
 done
 
 ### Read File Line by Line
-```bash
+**Bash**
 while IFS= read -r line; do
     echo "$line"
 done < input.txt
@@ -127,7 +127,7 @@ stop)
         ;;
 esac```
 
-# 5. Functions & Arithmetic 
+## 5. Functions & Arithmetic 
 ```bash
 ### Function Declaration
 my_func() {
@@ -144,7 +144,7 @@ RESULT=$(( 5 + 3 * 2 ))  # Integer arithmetic only
 (( COUNT++ ))            # Increment
 ```
 
-# 6. Redirection & Pipes
+## 6. Redirection & Pipes
 ```bash
 command > file.txt    # Redirect stdout (overwrite)
 command >> file.txt   # Redirect stdout (append)
@@ -158,7 +158,7 @@ cmd1 | cmd2           # Pass stdout of cmd1 as stdin to cmd2
 diff <(cmd1) <(cmd2)  # Process substitution (treats cmd output as file)
 ```
 
-# 7. Command Execution & Subshell
+## 7. Command Execution & Subshell
 ```bash
 ### Command Substitution
 OUTPUT=$(date +%Y-%m-%d) # Capture output of command
