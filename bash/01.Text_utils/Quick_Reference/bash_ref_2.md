@@ -76,10 +76,9 @@ d ! [[ cond ]]         // NOT```
 ```
 
 ## 4. Control Flow
-
 ## If / Else
-**Bash**
 ```
+**Bash**
 if [[ -f "$file" ]]; then
     echo "File exists"
 elif [[ -d "$file" ]]; then
