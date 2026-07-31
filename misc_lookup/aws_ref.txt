@@ -1,0 +1,114 @@
+
+-------------------------------------------------
+AWS CLI Quick Reference
+
+1. Configuration & Profiles
+Bash
+aws configure                         # Interactively set default credentials & region
+aws configure --profile my-profile    # Configure a specific named profile
+aws configure list                    # Display active configuration & sources
+
+# Global Flags
+aws <service> <command> --profile my-profile   # Run command with specific profile
+aws <service> <command> --region us-east-1     # Override default region
+aws <service> <command> --output json|text|table # Override output format
+
+-------------------------------------------------
+2. Filtering & Output Processing (--query)
+Use JMESPath syntax inside --query to filter and shape outputs directly on the client side.
+Bash
+# Filter by value
+aws ec2 describe-instances --query "Reservations[*].Instances[?State.Name=='running']"
+
+# Extract specific fields as array or text
+aws ec2 describe-instances --query "Reservations[*].Instances[*].[InstanceId, State.Name]" --output text
+
+# Get first element or single object property
+aws s3api list-buckets --query "Buckets[0].Name" --output text
+
+-------------------------------------------------
+3. S3 (Simple Storage Service)
+Bash
+# High-Level Commands (s3)
+aws s3 ls                              # List all buckets
+aws s3 ls s3://my-bucket/              # List contents of a bucket
+aws s3 mb s3://my-new-bucket           # Make a bucket
+aws s3 rb s3://my-bucket --force       # Remove bucket and all its contents
+aws s3 cp file.txt s3://my-bucket/     # Upload file
+aws s3 cp s3://my-bucket/file.txt .    # Download file
+aws s3 sync ./local-dir s3://my-bucket/ # Sync local directory to bucket (uploads changes)
+
+# Low-Level API Commands (s3api)
+aws s3api get-bucket-location --bucket my-bucket
+aws s3api put-bucket-versioning --bucket my-bucket --versioning-configuration Status=Enabled
+
+-------------------------------------------------
+4. EC2 (Elastic Compute Cloud)
+Bash
+# Instances
+aws ec2 describe-instances                                  # List all instances
+aws ec2 start-instances --instance-ids i-1234567890abcdef0  # Start instance
+aws ec2 stop-instances --instance-ids i-1234567890abcdef0   # Stop instance
+aws ec2 run-instances --image-id ami-123456 --count 1 --instance-type t3.micro --key-name my-key # Launch instance
+
+# Security Groups & Key Pairs
+aws ec2 describe-security-groups --group-ids sg-123456
+aws ec2 create-key-pair --key-name my-key --query "KeyMaterial" --output text > my-key.pem
+
+-------------------------------------------------
+5. IAM (Identity and Access Management)
+Bash
+# Users & Groups
+aws iam list-users
+aws iam create-user --user-name john_doe
+aws iam getUser --user-name john_doe
+
+# Roles & Policies
+aws iam list-roles
+aws iam attach-user-policy --user-name john_doe --policy-arn arn:aws:iam::aws:policy/AdministratorAccess
+aws iam list-attached-user-policies --user-name john_doe
+
+-------------------------------------------------
+6. DynamoDB
+Bash
+# Tables
+aws dynamodb list-tables
+aws dynamodb describe-table --table-name MyTable
+
+# CRUD Operations
+aws dynamodb get-item --table-name MyTable --key '{"id": {"S": "123"}}'
+aws dynamodb put-item --table-name MyTable --item '{"id": {"S": "123"}, "name": {"S": "Item 1"}}'
+aws dynamodb scan --table-name MyTable --limit 10
+
+-------------------------------------------------
+7. Lambda & CloudWatch
+Bash
+# Lambda
+aws lambda list-functions
+aws lambda invoke --function-name MyFunction response.json # Execute function and save output
+
+# CloudWatch Logs
+aws logs describe-log-groups
+aws logs tail /aws/lambda/MyFunction --follow             # Stream live logs
+
+-------------------------------------------------
+8. Useful Troubleshooting Tricks
+Bash
+# Dry Run (test permissions without executing)
+aws ec2 run-instances --image-id ami-123456 --instance-type t3.micro --dry-run
+
+# Debug logging
+aws s3 ls --debug
+
+# Generate JSON skeleton for complex inputs
+aws ec2 run-instances --generate-cli-skeleton
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+
+
