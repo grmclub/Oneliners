@@ -124,7 +124,9 @@ stop)
         ;;*)
         echo "Unknown command"
         ;;
-esac```
+esac
+
+```
 
 ## 5. Functions & Arithmetic 
 ```bash
