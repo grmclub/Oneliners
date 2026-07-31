@@ -1,0 +1,80 @@
+
+
+-------------------------------------------------
+1. print a newline in Bash
+-e flag to enable the interpretation of backslash escapes
+
+#!/bin/bash
+echo -e "First Line\nSecond Line"
+
+⚠️ Best Practice: Use printf for Portability
+If you are writing a script that needs to run reliably across different operating systems (like Linux, macOS, and BSD), avoid echo entirely. The echo command behaves inconsistently across platforms and shell environments. 
+
+Instead, the industry-standard recommendation is to use printf, which honors \n by default across all systems. 
+
+printf "Hello\nWorld\n"
+
+-------------------------------------------------
+2. Using Variables
+
+#!/bin/bash
+name="Alice"
+echo "Welcome, $name!"
+
+-------------------------------------------------
+3. If-Else Condition
+
+#!/bin/bash
+read -p "Enter a number: " num
+
+if [ $num -gt 10 ]; then
+  echo "Greater than 10"
+else
+  echo "10 or less"
+fi
+
+-------------------------------------------------
+4. For Loop
+
+#!/bin/bash
+for i in 1 2 3 4 5
+do
+  echo "Number: $i"
+done
+
+-------------------------------------------------
+5. While Loop
+
+#!/bin/bash
+count=1
+while [ $count -le 5 ]
+do
+  echo "Count is $count"
+  ((count++))
+done
+
+-------------------------------------------------
+6. Function Example
+
+#!/bin/bash
+greet() {
+  echo "Hello, $1!"
+}
+
+greet "Bob"
+
+-------------------------------------------------
+7. Reading a File Line-by-Line
+
+#!/bin/bash
+while read line
+do
+  echo "$line"
+done < myfile.txt
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
