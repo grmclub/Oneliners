@@ -29,6 +29,7 @@ $#          # Number of command-line arguments
 $@          # All arguments (as separate words when quoted)
 $?          # Exit status of the last executed command
 dd$$          # PID of current shell```
+```
 
 ## 2. Parameter Expansion
 ```bash
@@ -45,6 +46,7 @@ y ${VAR%pattern}    # Remove shortest matching suffix
 y ${VAR%%pattern}   # Remove longest matching suffix
 y ${VAR/search/replace}  # Replace first match
 y ${VAR//search/replace} # Replace all matches```
+```
 
 ## 3. Conditionals & Test Operators 
 Use `[[ ... ]]` over `[ ... ]` in modern Bash for advanced pattern matching and safer handling.
@@ -71,6 +73,7 @@ ext (( a == b ))        // Alternative arithmetic comparison syntax
 [[ cond1 && cond2 ]] // AND 
 [[ cond1 || cond2 ]] // OR 
 d ! [[ cond ]]         // NOT```
+```
 
 # 4. Control Flow
 
@@ -84,38 +87,35 @@ elif [[ -d "$file" ]]; then
 else
     echo "Path does not exist"
 fi
-```
 
 ## Loops
-**Bash**
+
 ### For Loop (List)
-```bash
+**Bash**
 for ITEM in "apple" "banana" "cherry"; do
     echo "$ITEM"
 done
-```
+
 ### C-style For Loop
-```bash
+**Bash**
 for ((i=0; i<5; i++)); do
     echo "$i"
 done
-```
+
 ### While Loop
-```bash
+**Bash**
 while [[ "$COUNT" -gt 0 ]]; do
     ((COUNT--))
 done
-```
+
 ### Read File Line by Line
 ```bash
 while IFS= read -r line; do
     echo "$line"
 done < input.txt
-```
 
 ## Case Statement 
 **Bash**
-```bash
 ecase "$VAR" in
 default|boot)
         echo "Starting..."
