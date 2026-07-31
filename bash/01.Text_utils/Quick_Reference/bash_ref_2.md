@@ -115,13 +115,14 @@ done < input.txt
 
 ## Case Statement 
 **Bash**
-ecase "$VAR" in
-default|boot)
+case "$VAR" in
+    start|boot)
         echo "Starting..."
         ;;
-stop)
+    stop)
         echo "Stopping..."
-        ;;*)
+        ;;
+    *)
         echo "Unknown command"
         ;;
 esac
