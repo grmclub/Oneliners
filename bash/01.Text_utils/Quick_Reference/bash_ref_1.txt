@@ -73,8 +73,115 @@ do
 done < myfile.txt
 
 -------------------------------------------------
+8. Get user confirmation
+===========
+read -p "Continue (y/n)?" CHOICE
+if [ "$CHOICE" =~ ^[Yy]$  ]; then
+  echo "Proceed";
+else
+  echo "Abort";
+fi
+
+===========
+read -p "Continue (y/n)?" choice
+case "$choice" in 
+  y|Y ) echo "yes";;
+  n|N ) echo "no";;
+  * ) echo "invalid";;
+esac
+===========
+read -r -p "Are you sure you want to continue? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+        echo "Proceeding..."
+        # Add your code here
+        ;;
+    *)
+        echo "Action aborted."
+        exit 1
+        ;;
+esac
+===========
+while true; do
+    read -p "Do you wish to install this program? " yn
+    case $yn in
+        [Yy]* ) make install; break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+===========
+A widely available method to get user input at a shell prompt is the read command. Here is a demonstration:
+
+while true; do
+    read -p "Do you wish to install this program? " yn
+    case $yn in
+        [Yy]* ) make install; break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
+Another method, pointed out by Steven Huwig, is Bash's select command. Here is the same example using select:
+
+echo "Do you wish to install this program?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) make install; break;;
+        No ) exit;;
+    esac
+done
+===========
+With select you don't need to sanitize the input – it displays the available choices, and you type a number corresponding to your choice. It also loops automatically, so there's no need for a while true loop to retry if they give invalid input. If you want to allow more flexible input (accepting the words of the options, rather than just their number), you can alter it like this:
+
+echo "Do you wish to install this program?"
+select strictreply in "Yes" "No"; do
+    relaxedreply=${strictreply:-$REPLY}
+    case $relaxedreply in
+        Yes | yes | y ) make install; break;;
+        No  | no  | n ) exit;;
+    esac
+done
+===========
+Also, Léa Gris demonstrated a way to make the request language agnostic in her answer. Adapting my first example to better serve multiple languages might look like this:
+
+set -- $(locale LC_MESSAGES)
+yesexpr="$1"; noexpr="$2"; yesword="$3"; noword="$4"
+
+while true; do
+    read -p "Install (${yesword} / ${noword})? " yn
+    if [[ "$yn" =~ $yesexpr ]]; then make install; exit; fi
+    if [[ "$yn" =~ $noexpr ]]; then exit; fi
+    echo "Answer ${yesword} / ${noword}."
+done
+===========
+
+-------------------------------------------------
+9. The -s Flag - Silent Input for Passwords
+
+The -s flag hides the characters the user types. Combine with -p to prompt and hide in the same line:
+bash LinuxTeck.com
+
+#!/bin/bash
+read -sp "Enter password: " password
+echo -e "\nPassword stored."
+
+
+
 -------------------------------------------------
 -------------------------------------------------
 -------------------------------------------------
 -------------------------------------------------
 -------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+
+
+
+
+
+
+
+
+
