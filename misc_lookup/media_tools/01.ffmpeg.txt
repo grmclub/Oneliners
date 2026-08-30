@@ -1,0 +1,200 @@
+
+https://opensource.com/article/17/6/ffmpeg-convert-media-file-formats
+Recipes in FFmpeg: https://ottverse.com/recipes-in-ffmpeg/
+
+https://blogs.igalia.com/llepage/ffmpeg-101/
+--------------------------------------------------------------------------------------
+* Converting audio files
+    Lossless and uncompressed
+        WAV
+        PCM
+        AIFF
+    Lossless and compressed
+        FLAC
+        ALAC
+    Lossy
+        WEBM
+        OPUS
+        OGG (Vorbis)
+        AAC (some implementations of this are not open formats)
+        MP3
+        M4A
+        WMA (not an open format)
+
+Using ffmpeg is usually pretty straightforward. Here's the standard syntax. 
+The -i flag identifies the input file, and 
+the -vn flag tells ffmpeg not to invoke any video-related code that might alter the audio output:
+
+$ ffmpeg  -i  audiofile_input.ext -vn audiofile_output.new
+
+$ ffmpeg -i audio.wav -vn audio.ogg  # 38.3MB to 3.3MB
+$ ffmpeg -i audio.wav -vn audio.mp3  # 38.3MB to 3.5MB
+$ ffmpeg -i audio.wav -vn audio.m4a  # 38.3MB to 3.6MB
+$ ffmpeg -i audio.wav -vn audio.webm # 38.3MB to 2.9MB
+
+All the commands reduced the size of the lossless input files by a factor of 10
+
+## Extract audio from mp4 videos
+https://ottverse.com/extract-audio-from-video-using-ffmpeg/
+https://www.shkodenko.com/how-to-extract-mp3-audio-from-mp4-video-using-ffmpeg-a-step-by-step-guide/
+https://gist.github.com/liangfu/97f877e311210fa0ae18a31fdd92982e
+https://stackoverflow.com/questions/9913032/how-can-i-extract-audio-from-video-with-ffmpeg
+https://superuser.com/questions/332347/how-can-i-convert-mp4-video-to-mp3-audio-with-ffmpeg
+ffmpeg -i in.mp4 -b:a 320K -vn out.mp3
+
+##VBR encoding
+https://trac.ffmpeg.org/wiki/Encode/MP3
+The better way to encode MP3 is to use -q:a for variable bit rate.
+The q option can only be used with libmp3lame and corresponds to the LAME -V option.
+ffmpeg -i in.mp4 -q:a 0 -map a out.mp3
+
+ 
+
+## To encode a high quality MP3 or MP4 audio from a movie file (eg AVI, MP4, MOV, etc) or audio file (eg WAV), 
+use -q:a 0 for variable bit rate and it's good practice to specify -map a to exclude video/subtitles and only grab audio:
+
+ffmpeg -i sample.avi -q:a 0 -map a sample.mp3
+
+## To extract a portion of audio from a video use the -ss option to specify the starting timestamp, 
+and the -t option to specify the encoding duration, eg from 3 minutes and 5 seconds in for 45 seconds:
+
+ffmpeg -i sample.avi -ss 00:03:05 -t 00:00:45.0 -q:a 0 -map a sample.mp3
+
+The timestamps need to be in HH:MM:SS.xxx format or in seconds.
+If you don't specify the -t option it will go to the end.
+You can use the -to option instead of the -t option, if you want to specify the range, eg for 45 seconds: 00:03:05 + 45 = 00:03:50
+
+
+--------------------------------------------------------------------------------------
+* Converting video files
+A video format is the combination of a container file format and a codec. 
+A codec is software that encodes and decodes a data stream as it moves to and from the container file.
+
+These are some of today's most widely used open source video formats:
+
+    The MP4 format, containing H.264 video and AAC audio, is used in BluRay and Internet streaming.
+    The WEBM format, containing VP9 video and Opus audio, is remarkably flexible and is used for both archival-quality files as well as smaller files for streaming.
+    The Matroska (MKV) container format can contain nearly any combination of video, audio, and even stereoscopic (3D) imagery. It's the basis for WEBM.
+
+The main factors that determine video file size and quality are:
+
+    Resolution (dimension of the frame)
+    Bitrate
+    Encoding
+
+The ffmpeg command can change all three parameters. Here's a simple conversion example:
+
+$ ffmpeg -i input_video.mov output.webm
+
+--------------------------------------------------------------------------------------
+##Misc Audio tuning in MP4
+
+##increase audio volume 
+https://www.videolouder.com/
+ffmpeg -i in.mp4 -vcodec copy -af "volume=19dB" out.mp4
+
+
+##Basic noise reduction
+ffmpeg -i in.mp4 -af lowpass=3000,highpass=200,afftdn=nf=-50 out.mp4
+
+##combine audio and video　after noise reduction
+https://www.amirsharif.com/using-ffmpeg-to-reduce-background-noise
+
+
+1. Extract the audio file from the video
+	ffmpeg -i <path> -vn -acodec copy output-audio.aac
+
+2. Pipe it through a rnn model.
+	ffmpeg -i <audiopath> -af arnndn=<path to model>
+
+	For path to model I just downloaded the std model from https://github.com/GregorR/rnnoise-models
+
+3. Recombine the new audio with the video
+	ffmpeg -i v.mp4 -i a.wav -c:v copy -map 0:v:0 -map 1:a:0 new.mp4
+
+--------------------------------------------------------------------------------------
+https://ffmpegbyexample.com/
+https://dylanbeattie.net/2022/09/19/the-road-to-guitaraoke-part-1-vamp-chordino-imagesharp-ffmpeg.html
+https://hannahilea.com/blog/video-timelapses-with-ffmpeg/
+
+##Video clipping
+
+#ffmpeg -i input_file.mp4 -ss 00:01:30 -t 00:00:30 -c copy output.mp4
+
+    -i input_file.mp4: Specifies the input video file
+    -ss 00:01:30: Sets the start time (1 minute and 30 seconds into the video)
+    -t 00:00:30: Sets the duration of the clip (30 seconds)
+    -c copy: Copies the streams without re-encoding (faster)
+    output.mp4: Name of the output file
+
+-Using -ss and -to for precise end time
+#ffmpeg -i input_file.mp4 -ss 00:01:30 -to 00:02:00 -c copy output.mp4
+
+Here -to 00:02:00 specifies the end time of the clip (2 minutes into the original video)
+
+-cut a video, without re-encoding
+Use this to cut video from [start] for [duration]:
+
+#ffmpeg -ss [start] -i in.mp4 -t [duration] -map 0 -c copy out.mp4
+
+Use this to cut video from [start] to [end]:
+
+#ffmpeg -copyts -ss [start] -i in.mp4 -to [end] -map 0 -c copy out.mp4
+
+The options mean the following:
+
+    -ss specifies the start time, e.g. 00:01:23.000 or 83 (in seconds)
+    -t specifies the duration of the clip. The format of the time is the same.
+    Instead of -t, you can also use -to, which specifies the end time.
+    -map 0 maps all streams, audio, video and subtitles
+
+For example:
+
+#ffmpeg -ss 5 -i in.mp4 -t 30 -map 0 -c copy out.mp4
+
+This seeks forward in the input by 5 seconds and generates a 30 second long output file. In other words, you get the input video's part from 5–35 seconds.
+
+Or, same as above, but using -to:
+
+#ffmpeg -ss 5 -i in.mp4 -to 30 -map 0 -c copy out.mp4
+
+This achieves the same result as the previous command, since the internal timestamps of the video get reset to 0 after seeking 5 seconds in the input. The output will still be 30 seconds long.
+
+If we instead use -copyts, and we want the part from 5–35 seconds, we should use:
+
+#ffmpeg -copyts -ss 5 -i in.mp4 -to 35 -map 0 -c copy out.mp4
+
+--Use
+#ffmpeg -i out.mp4 -ss 00:00:15 -c copy out2.mp4
+#ffmpeg -ss 00:00:02 -to  00:00:05 -i video.mp4 -c copy trim-1.mp4
+
+ trim the video from the 2-second mark to the 5-second mark using this format 00:00:02:00 to 00:00:05:00:
+
+
+--------------------------------------------------------------------------------------
+create inputs.txt with the following content:
+
+file 'part1.mp4'
+file 'part2.mp4'
+file 'part3.mp4'
+
+Now we are finally ready to concatenate our files, and we can do that with the following syntax:
+
+ffmpeg -f concat -i inputs.txt -c copy output.mp4
+
+https://ottverse.com/recipes-in-ffmpeg/
+https://www.mux.com/articles
+
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+
+
+
+
+
+
+

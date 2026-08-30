@@ -1,0 +1,70 @@
+
+https://opensource.com/article/21/11/linux-commands-convert-files
+https://opensource.com/tags/video-editing
+https://opensource.com/tags/audio-and-music
+
+--------------------------------------------------------------------------------------
+* ImageMagick line commands help you reduce image file sizes through three techniques:
+
+- Changing the file format
+- Changing the degree of compression
+- Making the image smaller
+
+$ convert image.jpg  -resize 800x600  new_image.jpg
+$ convert image.bmp  new_image.jpg   #  7.4MB down to 1.1MB
+$ convert image.tiff new_image.jpg   #  7.4MB down to 1.1MB
+$ convert image.png  new_image.webp  #  4.8MB down to 515KB
+$ convert image.png  new_mage.webp   #  1.5MB down to 560KB
+$ convert image.jpg  new_image.webp  #  769KB down to 512KB
+$ convert image.gif  new_image.jpg   #  13.2MB down to 10.9MB
+$ convert image.gif  new_image.webp  #  13.2MB down to 4.1MB
+
+
+##Combine conversions with scripting
+#!/bin/bash
+for file_name in *.png ; do  
+  convert "$file_name"  "$file_name".webp
+done
+
+--------------------------------------------------------------------------------------
+##Listen to BBC Radio from the command line.
+This command lets you select from 10 different BBC stations. When one is chosen, it streams it with mplayer. Requires: mplayer with wma support.
+bbcradio() { local s PS3="Select a station: ";select s in 1 1x 2 3 4 5 6 7 "Asian Network an" "Nations & Local lcl";do break;done;s=($s);mplayer -playlist "http://www.bbc.co.uk/radio/listen/live/r"${s[@]: -1}".asx";}
+
+##Rip audio from a video file.
+mplayer -ao pcm -vo null -vc dummy -dumpaudio -dumpfile <output-file> <input-file>
+
+##output microphone to a remote computer's speaker
+dd if=/dev/dsp | ssh -c arcfour -C username@host dd of=/dev/dsp
+
+
+##Create a CD/DVD ISO image from disk.
+readom dev=/dev/scd0 f=/path/to/image.iso
+
+##Matrix Style
+tr -c "[:digit:]" " " < /dev/urandom | dd cbs=$COLUMNS conv=unblock | GREP_COLOR="1;32" grep –color "[^ ]"
+
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+

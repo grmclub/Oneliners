@@ -1,0 +1,36 @@
+
+
+-------------------------------------------------
+##make a clip in vlc
+
+1. How to Record a Section in VLC
+    • Open VLC Media Player and go to the top menu.
+    • Click View and select Advanced Controls to show the extra buttons above the normal play controls.
+    • Move the slider to the start point of the section you want to clip.
+    • Click the red Record button and hit Play.
+    • Let the video play until you reach the end point of your desired section.
+    • Click the red Record button again to stop recording.
+    • Find your new clip automatically saved inside your computer's default Videos folder. 
+	
+
+2. Using the Convert/Save method for precise second-by-second cutting
+
+How to Cut Videos Precisely via Convert/Save
+    1. Open VLC and press Ctrl + R (Windows) or Cmd + Shift + W (Mac) to open the Open Media window.
+    2. Click Add to import your .mp4 video file.
+    3. Check the Show more options box at the bottom left of the window.
+    4. Locate the Start Time field and enter your desired start time in seconds (e.g., enter 120 for 2 minutes).
+    5. Locate the Stop Time field right below it and enter your desired end time in seconds.
+    6. Click the arrow next to the Play button at the bottom and choose Convert (or press Alt + O).
+    7. Select your preferred output profile (like Video - H.264 + MP3 (MP4)) in the settings.
+    8. Click Browse to name your new clip and choose a saving location.
+    9. Click Start to process and save your precise video segment.
+
+
+-------------------------------------------------
+
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------	
