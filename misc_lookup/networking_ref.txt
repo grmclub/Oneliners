@@ -20,6 +20,37 @@ This cheat sheet brings together some essential networking references:
 
 A good network engineer doesn’t just know the commands — they know how to think through the problem. 🧠🔧
 -------------------------------------------------
+🚀 CISCO IOS COMMANDS — QUICK REFERENCE FOR NETWORK ENGINEERS! 🖥️🌐
+
+Every network engineer has that one moment when you know the command… but your brain decides to reboot first! 😂
+
+This cheat sheet brings together some of the most useful Cisco IOS commands for configuration, verification, and troubleshooting in one place.
+
+🔹 1️. Device Basics
+enable • configure terminal • hostname • show running-config • copy running-config startup-config
+
+🔹 2️. Interfaces
+show ip interface brief • interface g0/1 • ip address • no shutdown • show interfaces status
+
+🔹 3️. VLANs & Switching
+show vlan brief • vlan • name • switchport mode access • switchport access vlan
+
+🔹 4️. Routing
+show ip route • ip route • show ip ospf neighbor • show ip bgp summary • show ip eigrp neighbors
+
+🔹 5️. Connectivity & Troubleshooting
+ping • traceroute • show arp • show mac address-table • show cdp neighbors detail
+
+🔹 6️. Security & Access
+show access-lists • ACL configuration • enable secret • show users
+
+🔹 7️. DHCP & Redundancy
+show ip dhcp binding • show ip dhcp pool • show standby brief • show vrrp brief • show track
+
+🔹 8️. Daily Gold Commands
+show logging • show clock • show inventory • show processes cpu sorted • show memory statistics
+
+💡 The real skill isn't memorizing every command — it's knowing which command to use when troubleshooting a problem.
 -------------------------------------------------
 -------------------------------------------------
 -------------------------------------------------
