@@ -1,0 +1,29 @@
+
+-------------------------------------------------
+🧑‍💻🌐 NETWORK ENGINEER CHEAT SHEET — SAVE THIS! 📚
+
+Whether you’re preparing for CCNA/CCNP, troubleshooting a production network, or simply refreshing your networking fundamentals, having the right commands and concepts at your fingertips can save valuable time.
+
+This cheat sheet brings together some essential networking references:
+
+🔹 IP Addressing & Subnetting — CIDR, subnet masks, usable hosts, gateways
+🔹 Essential Cisco Commands — show ip int brief, show run, show ip route, show ip arp, ping, traceroute and more
+🔹 OSI Model — A quick Layer 1–7 reference
+🔹 Troubleshooting Methodology — Identify → Gather → Analyze → Fix → Verify → Document
+🔹 Common Ports & Protocols — FTP, SSH, DNS, HTTP, HTTPS, POP3, IMAP
+🔹 VLAN Basics — Create VLANs, assign access ports, configure trunks
+🔹 Network Topology — Internet → Router → Firewall → Core Switch → VLANs
+🔹 Subnetting Tips — Understand network bits, host bits and point-to-point /30 networks
+🔹 Daily Best Practices — Document configurations, maintain backups, monitor the network and keep learning.
+
+💡 Pro Tip: Don’t just memorize commands. Understand what you’re troubleshooting, why you’re running the command, and what the output tells you.
+
+A good network engineer doesn’t just know the commands — they know how to think through the problem. 🧠🔧
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
