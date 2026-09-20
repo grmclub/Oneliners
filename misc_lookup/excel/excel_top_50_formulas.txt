@@ -1,0 +1,68 @@
+
+-------------------------------------------------
+## 50 Excel formulas in total, organized across 5 distinct categories
+
+1. Basics (10 formulas)
+    =SUM(): Add numbers together 
+    =AVERAGE(): Find the mean 
+    =COUNT(): Count numeric cells 
+    =COUNTA(): Count non-empty cells 
+    =MAX(): Largest value in range 
+    =MIN(): Smallest value in range 
+    =ROUND(): Round to N decimals 
+    =ABS(): Remove negative sign 
+    =MOD(): Remainder after division 
+    =INT(): Strip decimal, keep integer 
+
+2. Text (10 formulas)
+    =TRIM(): Remove extra spaces 
+    =UPPER(): Convert to uppercase 
+    =LOWER(): Convert to lowercase 
+    =PROPER(): Capitalize each word 
+    =LEN(): Count characters in cell 
+    =LEFT(): Extract from left side 
+    =RIGHT(): Extract from right side 
+    =MID(): Extract from middle 
+    =CONCAT(): Join text cells 
+    =SUBSTITUTE(): Replace specific text 
+
+3. Logic (10 formulas)
+    =IF(): True / false condition 
+    =IFS(): Multiple IF conditions 
+    =AND(): All conditions must match 
+    =OR(): Any condition matches 
+    =NOT(): Flip true/false 
+    =IFERROR(): Hide formula errors 
+    =IFNA(): Handle #N/A errors 
+    =SWITCH(): Match value, return result 
+    =ISBLANK(): Check if cell is empty 
+    =ISNUMBER(): Check if value is numeric 
+
+4. Lookup (10 formulas)
+    =VLOOKUP(): Search column, return value 
+    =HLOOKUP(): Search row, return value 
+    =XLOOKUP(): Smarter, flexible lookup 
+    =INDEX(): Return value by position 
+    =MATCH(): Find position of value 
+    =INDEX+MATCH: Powerful lookup combo 
+    =CHOOSE(): Pick from a list 
+    =INDIRECT(): Reference cell by text 
+    =OFFSET(): Shift reference dynamically 
+    =ROW(): Get current row number
+
+5. Conditional Math (10 formulas)
+    =SUMIF(): Sum with one condition 
+    =SUMIFS(): Sum with multiple conditions 
+    =COUNTIF(): Count matching cells 
+    =COUNTIFS(): Count with multiple criteria 
+    =AVERAGEIF(): Average with one condition 
+    =AVERAGEIFS(): Average, multiple criteria 
+    =MAXIFS(): Max with conditions 
+    =MINIFS(): Min with conditions 
+    =SUBTOTAL(): Works with filtered data 
+    =SUMPRODUCT(): Multiply then sum arrays 
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
