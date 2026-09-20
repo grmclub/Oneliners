@@ -1,0 +1,143 @@
+
+-------------------------------------------------
+125 Commands Every AI Engineer Should Know organized by category:
+
+Python Essentials
+    01. print()
+    02. len()
+    03. range()
+    04. enumerate()
+    05. zip()
+    06. map()
+    07. filter()
+    08. open()
+    09. with
+    10. try
+    11. except
+    12. async
+    13. await
+    14. pip install
+    15. python -m venv
+    16. import
+    17. lambda
+    18. class
+    19. list()
+    20. dict()
+    21. set()
+    22. json.load()
+    23. os.getenv()
+    24. requests.get()
+    25. subprocess.run()
+
+SQL Commands & Functions
+    01. SELECT
+    02. FROM
+    03. WHERE
+    04. JOIN
+    05. LEFT JOIN
+    06. GROUP BY
+    07. HAVING
+    08. ORDER BY
+    09. LIMIT
+    10. DISTINCT
+    11. COUNT()
+    12. SUM()
+    13. AVG()
+    14. MIN()
+    15. MAX()
+    16. CASE
+    17. WITH
+    18. UNION
+    19. ROW_NUMBER()
+    20. RANK()
+    21. LAG()
+    22. LEAD()
+    23. INSERT
+    24. UPDATE
+    25. DELETE
+
+Git & GitHub Commands
+    01. git init
+    02. git clone
+    03. git status
+    04. git add
+    05. git commit
+    06. git push
+    07. git pull
+    08. git fetch
+    09. git branch
+    10. git switch
+    11. git checkout
+    12. git merge
+    13. git rebase
+    14. git stash
+    15. git diff
+    16. git log
+    17. git reset
+    18. git revert
+    19. git tag
+    20. git remote
+    21. git cherry-pick
+    22. gh repo clone
+    23. gh pr create
+    24. gh pr list
+    25. gh pr merge
+
+Docker Commands
+    01. docker build
+    02. docker run
+    03. docker ps
+    04. docker images
+    05. docker pull
+    06. docker push
+    07. docker stop
+    08. docker start
+    09. docker restart
+    10. docker rm
+    11. docker rmi
+    12. docker logs
+    13. docker exec
+    14. docker inspect
+    15. docker stats
+    16. docker network ls
+    17. docker volume ls
+    18. docker compose up
+    19. docker compose down
+    20. docker compose build
+    21. docker compose logs
+    22. docker tag
+    23. docker login
+    24. docker system prune
+    25. docker cp
+
+Kubernetes Commands
+    01. kubectl get pods
+    02. kubectl get deployments
+    03. kubectl get services
+    04. kubectl describe
+    05. kubectl apply -f
+    06. kubectl delete
+    07. kubectl logs
+    08. kubectl exec
+    09. kubectl port-forward
+    10. kubectl scale
+    11. kubectl rollout status
+    12. kubectl rollout restart
+    13. kubectl config
+    14. kubectl get nodes
+    15. kubectl get namespaces
+    16. kubectl create namespace
+    17. kubectl top pods
+    18. kubectl top nodes
+    19. kubectl get events
+    20. kubectl edit
+    21. kubectl patch
+    22. kubectl cp
+    23. kubectl explain
+    24. kubectl version
+    25. kubectl cluster-info
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
