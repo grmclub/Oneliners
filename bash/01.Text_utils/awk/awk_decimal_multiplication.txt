@@ -1,0 +1,73 @@
+
+
+-------------------------------------------------
+##Text substitution
+If you don't need to change the number of decimal places compared to the input then doing this should work:
+
+awk '{if($2<0){gsub(/-/,"",$2)}else if($2>0){$2="-"$2};print $1,$2}'
+
+The floating point representation of the number isn't displayed, getting rid of the precision problem.
+
+##use printf
+Whether you see (-)1.0885668550493399 or (-)1.08856685504934 has nothing to do with the operation that you're making. The numbers are the same except for the sign.
+
+$ echo 1.08856685504934 | awk '{printf "%.16f %.16f\n", $1, -$1}'      
+1.0885668550493399 -1.0885668550493399
+
+
+-------------------------------------------------
+## Using awk for CSV Decimal Multiplication
+awk -F, 'NR>1 {$2 = $2 * -1} 1' OFS=, input.csv > output.csv
+
+
+
+##If you really want to do it in bash, you can:
+
+$ while IFS="," read a b c rest; do 
+    printf "%s,%s,%s,%s\n" $a $b $((c/10)) $rest; 
+  done < file.csv 
+A,10,2,30,40,50
+B,20,4,10,30,60
+C,30,5,20,40,10
+D,40,5,20,10,30
+
+While this works for simple integer arithmetic, bash cannot deal with floating point numbers so if you were to try an arithmetic operation that produced non-integers it would fail. Horribly. Bash is really not the best tool for the job here.
+
+
+##I would do use seq and printf to solve my problem. check this:
+
+for i in $(seq .1 .2 1); do printf "%0.1f\n" "$i"; done
+
+
+-------------------------------------------------
+##How to Make Decimal Calculations In Bash Using bc
+
+--We can do a simple division problem directly in Bash:
+$ echo $[ 13 / 4 ]
+
+
+--bc can also be used for the same calculations as already possible in Bash:
+$ echo '13 / 4' | bc
+
+--It is also able to produce decimal based outcomes using the -l (-l defines the standard math library) option to bc:
+$ echo '13 / 4' | bc -l
+3.25000000000000000000
+
+--Storing outcomes as variables
+We can also store out outcome as a variable by using a subshell:
+
+$ OUTCOME=$(echo '13/4' | bc -l)
+$ echo ${OUTCOME}
+3.25000000000000000000
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+
+
+
+
