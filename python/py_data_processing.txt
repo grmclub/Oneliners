@@ -1,0 +1,123 @@
+
+https://www.kdnuggets.com/5-super-cheat-sheets-to-master-data-science
+https://www.kdnuggets.com/the-kdnuggets-2023-cheat-sheet-collection
+https://www.kdnuggets.com/5-super-helpful-sql-cheat-sheets-you-cant-miss
+https://www.kdnuggets.com/5-useful-python-scripts-to-automate-csv-processing
+https://github.com/balapriyac/data-science-tutorials/tree/main/useful-python-scripts-csv-processing
+
+https://www.kdnuggets.com/2023/01/pandas-one-liners-data-access-manipulation-management.html
+https://www.kdnuggets.com/top-10-collections-of-cheat-sheets-on-github
+
+-------------------------------------------------
+10 Useful Python One-Liners for Data Cleaning
+
+When working with any dataset, you should clean it to have data you can analyze further. Common data quality issues include duplicates, incorrect formats, out-of-range values, and missing entries.
+
+This tutorial goes over Python one-liners you can use for common data cleaning tasks. We’ll work with a sample dataset.
+
+To follow along comfortably, you should be comfortable with list and dictionary comprehensions in Python. Let’s get started.
+
+ 
+Generating Sample Data
+Here’s the Google Colab notebook for this tutorial.
+
+We’ll first generate sample data:
+
+data = [
+	{"name": "alice smith", "age": 30, "email": "alice@example.com", "salary": 50000.00, "join_date": "2022-03-15"},
+	{"name": "bob gray", "age": 17, "email": "bob@not-an-email", "salary": 60000.00, "join_date": "invalid-date"},
+	{"name": "charlie brown", "age": None, "email": "charlie@example.com", "salary": -1500.00, "join_date": "15-09-2022"},
+	{"name": "dave davis", "age": 45, "email": "dave@example.com", "salary": 70000.00, "join_date": "2021-07-01"},
+	{"name": "eve green", "age": 25, "email": "eve@example.com", "salary": None, "join_date": "2023-12-31"},
+]
+
+ 
+
+Now let’s try to write some code to fix issues in the sample data we’re working with.
+
+ 
+1. Capitalize Strings
+It’s important to maintain consistency in string formats throughout the dataset. Let’s capitalize the name strings as shown:
+# Capitalizing the names for consistency
+data = [{**d, "name": d["name"].title()} for d in data]
+
+2. Convert Data Types
+Ensuring that data types are consistent—and are correct—across the dataset is necessary for accurate analysis. In the sample data, let’s convert ages to integers where applicable:
+# Converting age to an integer type, defaulting to 25 if conversion fails
+data = [{**d, "age": int(d["age"]) if isinstance(d["age"], (int, float)) else 25} for d in data]
+
+3. Validate Numeric Ranges
+It’s also important to ensure that numeric values fall within acceptable ranges. Let us check that ages are within the range of 18 to 60, assigning a default value if they are not:
+# Ensuring age is an integer within the range of 18 to 60; otherwise, set to 25
+data = [{**d, "age": d["age"] if isinstance(d["age"], int) and 18 <= d["age"] <= 60 else 25} for d in data]
+
+4. Validate Email
+Formatting inconsistencies are quite common when working with text fields. The following line of code checks that email addresses are valid, replacing invalid ones with a default address:
+# Verifying that the email contains both an "@" and a "."; 
+#assigning 'invalid@example.com' if the format is incorrect
+data = [{**d, "email": d["email"] if "@" in d["email"] and "." in d["email"] else "invalid@example.com"} for d in data]
+
+5. Handle Missing Values
+Missing values are yet another common problem in most datasets. Here, we check for and replace any missing salary values with a default value like so:
+# Assigning a default salary of 30,000 if the salary is missing
+data = [{**d, "salary": d["salary"] if d["salary"] is not None else 30000.00} for d in data]
+
+6. Standardize Date Formats
+With dates and times, it’s important to have them all in the same format. Here’s how you can convert various date formats into a single format—defaulting to a placeholder for invalid entries:
+from datetime import datetime
+# Attempting to convert the date to a standardized format and defaulting to '2023-01-01' if invalid
+data = [{**d, "join_date": (lambda x: (datetime.strptime(x, '%Y-%m-%d').date() if '-' in x and len(x) == 10 else datetime.strptime(x, '%d-%m-%Y').date()) if x and 'invalid-date' not in x else '2023-01-01')(d['join_date'])} for d in data]
+Though this works, it may still be hard to read. It might be better to break this down into multiple steps instead. Read Why You Should Not Overuse List Comprehensions in Python to learn why you shouldn't use comprehensions at the cost of readability and maintainability.
+
+7. Remove Negative Values
+Sometimes you may need to ensure that certain numerical fields take only non-negative values—such as age, salary, and more. For example, you can replace any negative salary values with zero like so:
+# Replacing negative salary values with zero to ensure all values are non-negative
+data = [{**d, "salary": max(d["salary"], 0)} for d in data]
+
+8. Check for Duplicates
+Removing duplicate records is important before you can analyze the dataset further. Let’s ensure that only unique records remain by checking for duplicate names:
+# Keeping only unique entries based on the name field
+data = {tuple(d.items()) for d in data}  # Using a set to remove duplicates
+data = [dict(t) for t in data]  # Converting back to list of dictionaries
+
+9. Scale Numeric Values
+Scaling numeric values can sometimes help in consistent analysis. Let’s use a comprehension to scale salaries to a percentage of the maximum salary in the dataset:
+# Normalizing salary values to a percentage of the maximum salary
+max_salary = max(d["salary"] for d in data)
+data = [{**d, "salary": (d["salary"] / max_salary * 100) if max_salary > 0 else 0} for d in data]
+
+10. Trim Whitespaces
+You may sometimes need to remove unnecessary whitespaces from strings. Here’s a one-liner to trim leading and trailing spaces from the name strings:
+# Trimming whitespace from names for cleaner data
+data = [{**d, "name": d["name"].strip()} for d in data]
+After you’ve run the data cleaning steps, the data dictionary looks like so:
+[{'name': 'Bob Gray',
+  'age': 25,
+  'email': 'invalid@example.com',
+  'salary': 85.71428571428571,
+  'join_date': '2023-01-01'},
+ {'name': 'Alice Smith',
+  'age': 30,
+  'email': 'alice@example.com',
+  'salary': 71.42857142857143,
+  'join_date': datetime.date(2022, 3, 15)},
+ {'name': 'Charlie Brown',
+  'age': 25,
+  'email': 'charlie@example.com',
+  'salary': 0.0,
+  'join_date': datetime.date(2022, 9, 21)},
+ {'name': 'Dave Davis',
+  'age': 45,
+  'email': 'dave@example.com',
+  'salary': 100.0,
+  'join_date': datetime.date(2021, 7, 1)},
+ {'name': 'Eve Green',
+  'age': 25,
+  'email': 'eve@example.com',
+  'salary': 42.857142857142854,
+  'join_date': datetime.date(2023, 12, 31)}]
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
