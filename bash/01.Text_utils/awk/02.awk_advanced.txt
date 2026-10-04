@@ -17,7 +17,7 @@ $ awk '{ groups[$1] += $2 } END { for (k in groups) print groups[k], k }' # sum
 ##Set operations: union, intersection, difference
 
 ##Union
-$cat all the files and use the “uniq without sort” recipe from above
+$cat all the files and use the "uniq without sort" recipe from above
 
 ##Intersection
 For both intersection and difference, you need to accumulate from one file and process the other file.
@@ -26,8 +26,14 @@ $ awk 'NR == FNR {lut[$0] = 1; next} $0 in lut {print}' FILE1 FILE2
 ##Difference
 $ awk 'NR == FNR {lut[$0] = 1; next} !($0 in lut) {print}' FILE1 FILE2
 
-This operation isn’t symmetrical: you’re removing the entries from FILE1 from FILE2. Switch the files around to get the other set difference.
+This operation isn't symmetrical: you're removing the entries from FILE1 from FILE2. Switch the files around to get the other set difference.
 
+##Extract numeric values
+echo "R6"| awk '{ gsub(/[^0-9]+/,"",$1); print}'
+
+echo "Price: $12.50, Qty: 3, Code: ABC99" | awk '{gsub(/[^0-9.]+/, " "); print}'
+Output:
+12.50  3  99
 
 --------------------------------------------------------------------------------------
 ##Misc Ref
