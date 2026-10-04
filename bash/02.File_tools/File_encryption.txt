@@ -1,0 +1,113 @@
+
+-------------------------------------------------
+Encrypting and decrypting a text file in Bash
+
+Method 1: Using GPG (Recommended)
+GPG is the standard tool for file encryption in Linux/Unix environments.
+
+##Encrypting a file
+To encrypt secret.txt using a password (passphrase):
+Bash
+gpg -c secret.txt
+    -c / --symmetric: Uses symmetric key encryption (AES-256 by default).
+    Output: Generates an encrypted file named secret.txt.gpg.
+
+##Decrypting the file
+To decrypt secret.txt.gpg back into plaintext:
+gpg -d secret.txt.gpg > secret.txt
+    -d / --decrypt: Decrypts the input file and prints it to standard output (redirected to secret.txt).
+
+Method 2: Using OpenSSL (AES-256)
+If OpenSSL is installed and preferred:
+
+##Encrypting a file
+Bash
+openssl enc -aes-256-cbc -pbkdf2 -in secret.txt -out secret.txt.enc
+
+##Decrypting the file
+Bash
+openssl enc -d -aes-256-cbc -pbkdf2 -in secret.txt.enc -out secret.txt
+    -pbkdf2: Uses Key Derivation Function 2 to protect against brute-force attacks.
+    -in / -out: Specifies input and output file paths.
+
+Quick Test Script
+# 1. Create a secret file
+echo "Hello, this is confidential." > secret.txt
+
+# 2. Encrypt it (you will be prompted for a password)
+gpg -c secret.txt
+
+# 3. Remove original plain text file
+rm secret.txt
+
+# 4. Decrypt and view output
+gpg -d secret.txt.gpg
+-------------------------------------------------
+
+
+Method 1: Pure Bash One-Liner (No External Tools)
+
+Since XOR is symmetric (applying the same key twice restores the original text), the exact same command is used for both encryption and decryption.
+# Encrypts secret.txt using character 'K' as key -> outputs secret.enc
+perl -e 'undef $/; $key="K"; $data=<STDIN>; print $data ^ ($key x length($data))' < secret.txt > secret.enc
+
+To decrypt, simply reverse the input/output files using the same key:
+perl -e 'undef $/; $key="K"; $data=<STDIN>; print $data ^ ($key x length($data))' < secret.enc > decrypted.txt
+
+
+Method 2: Pure Python One-Liner via Bash
+
+If you want to use a multi-character secret key (e.g., mysecretkey):
+Encrypt / Decrypt Command
+Bash
+
+python3 -c '
+import sys
+key = b"mysecretkey"
+data = sys.stdin.buffer.read()
+sys.stdout.buffer.write(bytes([b ^ key[i % len(key)] for i, b in enumerate(data)]))
+' < input.txt > output.txt
+
+Test_workflow
+# 1. Create text file
+echo "Confidential Data 123" > message.txt
+
+# 2. Encrypt to binary file
+python3 -c 'import sys; k=b"secret"; sys.stdout.buffer.write(bytes([b ^ k[i%len(k)] for i,b in enumerate(sys.stdin.buffer.read())]))' < message.txt > message.enc
+
+# 3. View encrypted file (garbled binary)
+cat message.enc
+
+# 4. Decrypt back to text
+python3 -c 'import sys; k=b"secret"; sys.stdout.buffer.write(bytes([b ^ k[i%len(k)] for i,b in enumerate(sys.stdin.buffer.read())]))' < message.enc > restored.txt
+
+# 5. Read restored file
+cat restored.txt
+
+Security Warning: Simple XOR key encryption is trivially easy to crack using frequency analysis if the attacker knows key length. Do not use XOR for sensitive data—use GPG or OpenSSL instead.
+-------------------------------------------------
+## bash+encrypt+text+file+decrypt+it+rot13+method 
+
+tr 'A-Za-z' 'N-ZA-Mn-za-m' < input.txt > output.txt
+
+Method 2: Using sed
+
+If you prefer stream editing with sed:
+sed 'y/abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM/' input.txt > output.txt
+
+Quick Test Workflow
+# 1. Create a secret file
+echo "Hello World! Secrets 123" > message.txt
+
+# 2. Encrypt using ROT13
+tr 'A-Za-z' 'N-ZA-Mn-za-m' < message.txt > encrypted.txt
+cat encrypted.txt
+# Output: Uryyb Jbeyq! Frpergf 123
+
+# 3. Decrypt using the same command
+tr 'A-Za-z' 'N-ZA-Mn-za-m' < encrypted.txt > decrypted.txt
+cat decrypted.txt
+# Output: Hello World! Secrets 123
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
