@@ -1,0 +1,122 @@
+
+-------------------------------------------------
+1. Direct CSV Comparison in Terminal
+
+vimdiff file1.csv file2.csv
+vim -d file1.csv file2.csv
+
+2. Fixing Alignment Issues in vimdiff with column
+
+By default, CSV lines can be hard to read in vimdiff because field widths vary per row. You can format the CSVs into visually aligned columns using the shell column tool before feeding them to vimdiff:
+
+vimdiff <(column -s, -t file1.csv) <(column -s, -t file2.csv)
+
+    -s,: Sets the input delimiter to a comma.
+    -t: Formats into aligned tabular columns.
+	
+3. CSV-Specific Plugins & Tools for Vim
+
+If you work with CSVs frequently in Vim:
+
+    chrisbra/csv.vim (Vim Plugin):
+
+        Formats CSV files neatly in Vim with :CSVTable.
+
+        Allows navigating column-by-column with H / L or W / B.
+
+        Enables filtering or sorting by column before running diffs.
+
+    visidata / csvdiff (CLI alternatives for tabular diffing):
+
+        VisiData: Launch with vd -d file1.csv file2.csv for an interactive, cell-aware diff experience.	
+	
+4. Converting Excel (.xlsx) to CSV for vimdiff
+
+vimdiff reads plain text and cannot diff binary Excel .xlsx files natively. Convert Excel files to temporary CSVs via command line first:
+Using Python (pandas / openpyxl)
+Bash
+
+python3 -c "import pandas as pd; pd.read_excel('file1.xlsx').to_csv('file1.csv', index=False)"
+python3 -c "import pandas as pd; pd.read_excel('file2.xlsx').to_csv('file2.csv', index=False)"
+vimdiff file1.csv file2.csv
+
+Using libreoffice CLI
+Bash
+
+libreoffice --headless --convert-to csv file1.xlsx
+libreoffice --headless --convert-to csv file2.xlsx
+vimdiff file1.csv file2.csv
+
+One-Liner Pipeline (ssconvert from Gnumeric)
+Bash
+
+vimdiff <(ssconvert file1.xlsx fd://1) <(ssconvert file2.xlsx fd://1)
+
+5. Integrating Vimdiff into Git for CSV tracking
+
+Set vimdiff as your default tool for git diff:
+Bash
+
+git config --global diff.tool vimdiff
+git config --global difftool.prompt false
+
+Then run:
+Bash
+
+git difftool file1.csv
+
+-------------------------------------------------
+Here is a comprehensive .vimrc configuration tailored specifically for editing, viewing, and diffing CSV files in Vim.
+Add the following block to your ~/.vimrc:
+
+"" =============================================================================
+"" General Diff Settings
+"" =============================================================================
+set diffopt+=filler,iwhite,vertical  " Vertical splits, ignore whitespace changes
+set cursorline                       " Highlight the current line
+
+"" =============================================================================
+"" Diff Navigation & Workflow Keybindings
+"" =============================================================================
+" Fast toggle diff mode on/off for current window
+nnoremap <leader>dt :windo diffthis<CR>
+nnoremap <leader>do :windo diffoff<CR>
+
+" Quick diff updates & fold toggles
+nnoremap <leader>du :diffupdate<CR>
+nnoremap <leader>z  za
+
+" Diff navigation shortcuts (h/l behavior for hunk jumping)
+nnoremap ]c ]c
+nnoremap [c [c
+
+" Visual selection diff conflict markers resolution (put / obtain)
+vnoremap <leader>dp :diffput<CR>
+vnoremap <leader>dg :diffget<CR>
+
+"" =============================================================================
+"" CSV Filetype Settings & Alignment Utilities
+"" =============================================================================
+autocmd FileType csv setlocal nowrap noexpandtab tabstop=15 shiftwidth=15
+
+" Formats comma-separated file into tabular aligned columns using shell 'column'
+command! AlignCSV %!column -s, -t
+command! UnalignCSV %!sed 's/  *//g'
+
+" Shortcut to align CSV columns instantly
+nnoremap <leader>ca :AlignCSV<CR>
+
+"" =============================================================================
+"" Color & Highlight Customization for Diffing
+"" =============================================================================
+if &diff
+  " High-contrast diff highlight overrides
+  highlight DiffAdd    ctermfg=0 ctermbg=10 guifg=#000000 guibg=#a6e22e
+  highlight DiffDelete ctermfg=1 ctermbg=9  guifg=#f92672 guibg=#f92672
+  highlight DiffChange ctermfg=0 ctermbg=11 guifg=#000000 guibg=#e6db74
+  highlight DiffText   ctermfg=0 ctermbg=12 guifg=#000000 guibg=#66d9ef
+endif
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
