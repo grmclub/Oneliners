@@ -1,0 +1,73 @@
+
+-------------------------------------------------
+##Excel highlight alternate rows
+1.select all rows in sheet 
+2. Home > conditional formatting> new rule
+3. Select use a formula 
+4. =MOD(ROW(),2) for even rows or =MOD(ROW(),2)=1 for odd rows
+5. Click Format > pick color in Fill rab > click ok
+
+-------------------------------------------------
+1. Highlighting Duplicate Values
+
+    Use Case: Instantly spot repeating data like duplicate account numbers, email addresses, or transaction IDs.
+
+    How to apply: Select range → Home tab → Conditional Formatting → Highlight Cells Rules → Duplicate Values.
+
+2. Highlighting Outliers (Above/Below Average or Top N)
+
+    Use Case: Automatically call out exceptional performers (top 10% sales reps) or underperforming areas (revenue below average).
+
+    How to apply: Select range → Conditional Formatting → Top/Bottom Rules → Above Average (or Top 10%).
+
+3. Highlighting Rows Based on a Specific Text/Status
+
+    Use Case: Shade an entire row green when a status column says "Completed", or red when marked "Overdue".
+
+    How to apply: Select data range → Conditional Formatting → New Rule → Use a formula to determine which cells to format:
+    =$C2="Completed" (where C is the Status column).
+
+4. Highlighting Dates (Due Soon, Overdue, or Expired)
+
+    Use Case: Track upcoming deadlines, expiring contracts, or past-due invoices relative to today's date.
+
+    How to apply:
+
+        Built-in: Conditional Formatting → Highlight Cells Rules → A Date Occurring... (e.g., Next Week, Yesterday).
+
+        Custom Formula for Overdue: =$B2<TODAY() ## (Color (="ROW()=CELL(" * **Blanks**. **Color **Conditional **Highlight **How **More **Use 2-color 3-color 5. 6. 7. <ElicitationsGroup Active Automatically Blank/Missing Case:** Cell Cells Data Density) Dynamic Format Formatting** Heat Highlighting Maps Quickly Row Rules** Scales Scales** Select Uses VBA Value Visualizing a and apply:** around. as before cell cells choose click combined conditional currently darker database dataset easier entire find for formatting formula get gradient. green have higher importing in incomplete into levels like lower macro making message="If you'd like step-by-step setup guides or exact formulas for any of these, let me know:" metrics numbers numerical of only or performance, presenting progressively range read red. regional report. risk row row"))." rows selected, shade spreadsheets temperature the to variations
+-------------------------------------------------
+## excel compare two columns and find differences 
+
+Method 1: Conditional Formatting (Highlight Row Differences)
+    Select the data range in Column B (e.g., B2:B100).
+    Go to Home → Conditional Formatting → New Rule.
+    Select Use a formula to determine which cells to format.
+    Enter formula: =$A2<>$B2
+    Click Format, pick a fill color, and click OK.
+	
+Method 2: Highlighting Unique Values (Unordered Lists)
+
+Use this if the lists are not aligned row-for-row and you want to highlight values in Column A that don't exist anywhere in Column B.
+
+    Select both columns (e.g., A2:B100).
+    Go to Home → Conditional Formatting → Highlight Cells Rules → Duplicate Values.
+    Change the dropdown from Duplicate to Unique.
+    Pick a fill color and click OK. Excel will highlight all items in either column that don't exist in the other.
+
+Method 3: Formula Approaches (Best for Output Columns)
+1. Exact Row Match Check (IF / EXACT)
+
+    Case-Insensitive: =IF(A2=B2, "Match", "Difference")
+    Case-Sensitive: =IF(EXACT(A2, B2), "Match", "Difference")
+	
+2. Check if Column A Item Exists Anywhere in Column B (XLOOKUP / COUNTIF)
+
+Place this in C2 to check if A2 exists in Column B:
+
+    =IF(COUNTIF(B:B, A2)>0, "Found in B", "Missing from B")
+    Or using modern functions: =IF(ISNUMBER(XMATCH(A2, B:B)), "Match", "Missing")	
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+
