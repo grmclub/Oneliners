@@ -9,6 +9,78 @@ https://www.kdnuggets.com/2023/01/pandas-one-liners-data-access-manipulation-man
 https://www.kdnuggets.com/top-10-collections-of-cheat-sheets-on-github
 
 -------------------------------------------------
+## python+extract+numeric+values+from+string 
+
+1. Extract All Integers as Strings or Ints
+
+Finds every sequence of digits in the string.
+Python
+
+import re
+
+text = "Item A costs 12 dollars, Item B costs 45 dollars."
+
+# Returns a list of strings: ['12', '45']
+str_integers = re.findall(r"\d+", text)
+
+# Convert directly to integers: [12, 45]
+integers = [int(n) for n in str_integers]
+print(integers)
+
+2. Extract Integers and Decimals/Floats
+
+Matches both whole numbers and numbers with decimal points.
+Python
+
+import re
+
+text = "Price: $12.50, Discount: 3, Total: 9.5"
+
+# Returns strings matching integers or floats: ['12.50', '3', '9.5']
+str_floats = re.findall(r"\d+(?:\.\d+)?", text)
+
+# Convert directly to floats: [12.5, 3.0, 9.5]
+floats = [float(n) for n in str_floats]
+print(floats)
+
+3. Extract Signed and Scientific Notation Numbers
+
+Handles negative numbers, positive signs, and scientific notation (e.g., -15.2, +42, 1.2e-3).
+Python
+
+import re
+
+text = "Temperatures ranged from -5.2C to +30.5C with exponential 1.5e3"
+
+pattern = r"[-+]?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?"
+str_numbers = re.findall(pattern, text)
+
+# Output: [-5.2, 30.5, 1500.0]
+numbers = [float(n) for n in str_numbers]
+print(numbers)
+
+4. Extract Only the First Number
+
+If you only need the first numeric occurrence in a string.
+Python
+
+import re
+
+text = "Order #4589 costs $19.99 total"
+
+match = re.search(r"\d+(?:\.\d+)?", text)
+if match:
+    first_number = float(match.group())
+    print(first_number)  # Output: 4589.0
+	
+	
+Regex Pattern	    |Matches	                                   |Example Match
+\d+	                |One or more digits (integers)	               |'12' from "abc12def"
+\d+(?:\.\d+)?	    |Integers and decimals	                       |'12.50', '3'
+[-+]?\d+(?:\.\d+)?	|Optional positive or negative sign + numbers  |'-15.2', '+42'
+(?:[eE][-+]?\d+)?	|Non-capturing group for scientific notation   |'e-3', 'E+10'	
+	
+-------------------------------------------------
 10 Useful Python One-Liners for Data Cleaning
 
 When working with any dataset, you should clean it to have data you can analyze further. Common data quality issues include duplicates, incorrect formats, out-of-range values, and missing entries.
