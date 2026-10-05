@@ -1,11 +1,129 @@
 
 -------------------------------------------------
-##Excel highlight alternate rows
+##1. Excel highlight alternate rows
 1.select all rows in sheet 
 2. Home > conditional formatting> new rule
 3. Select use a formula 
 4. =MOD(ROW(),2) for even rows or =MOD(ROW(),2)=1 for odd rows
 5. Click Format > pick color in Fill rab > click ok
+
+##2. Font Shortcuts
+
+Font Style Shortcuts
+    Strikethrough: Ctrl + 5
+    Bold: Ctrl + B (or Ctrl + 2)
+    Italic: Ctrl + I (or Ctrl + 3)
+    Underline: Ctrl + U (or Ctrl + 4)
+	
+Font Customization Shortcuts
+
+    Open Font Formatting Dialog: Ctrl + Shift + F or Ctrl + Shift + P — Opens the standard Font tab in Format Cells.
+    Change Font Name: Alt + H + F + F — Activates the Font Family box on the Home tab.
+    Change Font Size: Alt + H + F + S — Activates the Font Size box on the Home tab.
+    Increase Font Size: Alt + H + F + K
+    Decrease Font Size: Alt + H + F + N
+    Change Font Color: Alt + H + F + C — Opens the Font Color palette.
+    Change Cell Fill/Background Color: Alt + H + H — Opens the Fill Color palette.
+
+Font Alignment Shortcuts
+
+    Center Align: Alt + H + A + C
+    Left Align: Alt + H + A + L
+    Right Align: Alt + H + A + R	
+	
+
+##3. Table
+add rows Ctrl + Shift ++
+
+Creating & Converting Tables
+    • Create Table from Range: Ctrl + T (or Ctrl + L) — Converts the selected range into an official Excel Table with automatic headers, zebra striping, and filters.
+    • Select Entire Table: Ctrl + A (once inside a table) — Highlights all data cells in the table. Press Ctrl + A a second time to include the headers and total row.
+    • Convert Table Back to Normal Range: Alt + J + T + G (or Right-click table $\rightarrow$ Table $\rightarrow$ Convert to Range).
+
+Rows & Columns
+    • Add Row Above: Ctrl + Shift + + (with an entire row selected).
+    • Add Row Below: Tab (while selected in the very last cell of the table) — Instantly appends a new blank row to the bottom.
+    • Delete Selected Row: Ctrl + - (with a cell or row selected).
+    • Select Entire Table Row: Shift + Space.
+    • Select Entire Table Column: Ctrl + Space (press once for data cells only, twice to include column header).
+    • Insert Column to Left: Ctrl + Shift + + (with an entire column selected).
+    • Delete Selected Column: Ctrl + - (with column selected).
+
+Table Design & Features
+    • Toggle Total Row On/Off: Ctrl + Shift + T — Adds or removes an automatic summary/total row at the bottom of the table.
+    • Toggle AutoFilter On/Off: Ctrl + Shift + L — Shows or hides the filter dropdown arrows on table headers.
+    • Open Header Filter Menu: Alt + Down Arrow (on the column header cell).
+    • Clear Table Filters: Alt + A + C.
+
+
+-------------------------------------------------
+##Common shortcuts
+
+1. Text & Cell Formatting
+    • Bold: Ctrl + B
+    • Italic: Ctrl + I
+    • Underline: Ctrl + U
+    • Currency format ($): Ctrl + Shift + $
+    • Percentage format (%): Ctrl + Shift + %
+    • General format (clear formatting): Ctrl + Shift + ~
+
+2. Rows, Columns & Selection
+    • Select entire row: Shift + Space
+    • Select entire column: Ctrl + Space
+    • Delete row/column: Ctrl + - (with row/column selected)
+    • Hide row: Ctrl + 9
+    • Hide column: Ctrl + 0
+    • Unhide row: Ctrl + Shift + (
+    • Unhide column: Ctrl + Shift + )
+
+3. Data Entry & Editing
+    • Edit active cell: F2
+    • Fill down (copy cell above): Ctrl + D
+    • Fill right (copy cell left): Ctrl + R
+    • Insert current date: Ctrl + ;
+    • Insert current time: Ctrl + Shift + ;
+    • Flash Fill (auto-extract/combine text): Ctrl + E
+
+4. Navigation & View
+    • Jump to edge of data region: Ctrl + Arrow Key
+    • Select region up to edge: Ctrl + Shift + Arrow Key
+    • Move to next sheet: Ctrl + Page Down
+    • Move to previous sheet: Ctrl + Page Up
+    • Open "Go To" dialog: Ctrl + G or F5
+
+5. Formulas & Tables
+    • AutoSum selected range: Alt + =
+    • Toggle relative/absolute references ($A$1): F4 (while editing formula)
+    • Create Excel Table: Ctrl + T
+    • Open Insert Function dialog: Shift + F3
+-------------------------------------------------
+##most common actions on data with excel 
+
+1. Summarizing & Analyzing Data
+    • Create a Pivot Table: Alt + N + V + T — Opens the PivotTable dialog box to aggregate, summarize, and cross-tabulate large datasets.
+    • AutoSum: Alt + = — Automatically inserts a =SUM() formula for the adjacent data range.
+    • Quick Analysis Tool: Ctrl + Q — Opens immediate tools for calculating totals, percentages, running totals, and simple trends.
+
+2. Sorting & Filtering
+    • Toggle AutoFilter On/Off: Ctrl + Shift + L — Adds or removes filter dropdown arrows from your table headers. 
+    • Open Filter Dropdown: Alt + Down Arrow (on header cell) — Opens the sort and filter menu for the selected column. 
+    • Clear Filter on Current Column: Alt + Down Arrow $\rightarrow$ C — Clears applied filters on the active column.
+    • Sort Ascending (A to Z / Smallest to Largest): Alt + A + S + A — Quickly sorts the dataset based on the current column.
+    • Sort Descending (Z to A / Largest to Smallest): Alt + A + S + D — Quickly sorts the dataset in reverse order based on the current column.
+    • Reapply Sort & Filter: Ctrl + Alt + L — Re-evaluates applied filters and sorts after new data is added or modified. 
+
+3. Cleaning & Transforming Data
+    • Flash Fill: Ctrl + E — Automatically extracts, combines, or formats data based on a pattern provided in adjacent cells. 
+    • Remove Duplicates: Alt + A + M — Opens the Remove Duplicates dialog box to eliminate repeated rows.
+    • Text to Columns: Alt + A + E — Launches the wizard to split single-column text (such as CSV or full names) into separate columns.
+    • Find and Replace: Ctrl + H — Finds and replaces specific text, values, or formatting across the worksheet. 
+    • Paste Special (Values Only): Alt + E + S + V (or Ctrl + Alt + V then V) — Pastes calculated formula values as static text/numbers without carrying over underlying formulas or formatting. 
+
+4. Structuring & Validating Data
+    • Create an Excel Table: Ctrl + T — Converts a standard data range into an official structured table with dynamic expansion and automatic filtering. 
+    • Data Validation: Alt + A + V + V — Opens the Data Validation settings to restrict inputs (e.g., dropdown lists, number ranges, or dates).
+    • Consolidate Data: Alt + A + N — Combines values from multiple ranges or sheets into a single combined summary range.
+
 
 -------------------------------------------------
 1. Highlighting Duplicate Values
@@ -70,4 +188,9 @@ Place this in C2 to check if A2 exists in Column B:
 -------------------------------------------------
 -------------------------------------------------
 -------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+
+
 
