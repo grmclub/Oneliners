@@ -7,8 +7,9 @@
 * Insert a space every 4 charecters
 	echo "foobarbazzz"|sed 's/.\{4\}/& /g'
 
-* Extract before and after a pattern
+* Extract charecters before and after a pattern
 	grep -oE '.{5}cde.{5}' file.txt
+	grep -oP '.{0,N}your_pattern.{0,M}' filename
 
 * Merge every 3 lines
 	paste -d' ' - - - < file
