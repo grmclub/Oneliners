@@ -1,0 +1,116 @@
+
+https://www.baeldung.com/linux/base64-encode-image
+https://www.baeldung.com/linux/cli-base64-encode-decode
+
+-------------------------------------------------
+https://www.baeldung.com/linux/bash-obfuscate-script
+
+The base64 utility performs Base64 encoding, which is a method of converting binary data into a sequence of ASCII characters. It’s often used to encode images, documents, and other types of binary data that aren’t natively supported by text-based formats.
+
+We can also use Base64 encoding as a code obfuscation technique:
+
+$ echo '#!/usr/bin/env bash' > animal_b64.sh
+$ echo "bash <(echo '$(base64 animal.sh)' | base64 -d)" >> animal_b64.sh
+
+$ cat ./animal_b64.sh 
+#!/usr/bin/env bash
+bash <(echo 'IyEvdXNyL2Jpbi9lbnYgYmFzaAoKIyBUYWtlbiBmcm9tIHRoZSBHTlUgTWFudWFsCmVjaG8gLW4g
+IkVudGVyIHRoZSBuYW1lIG9mIGFuIGFuaW1hbDogIgpyZWFkIEFOSU1BTAplY2hvIC1uICJUaGUg
+JEFOSU1BTCBoYXMgIgpjYXNlICRBTklNQUwgaW4KICAgIGhvcnNlIHwgZG9nIHwgY2F0KSBlY2hv
+IC1uICJmb3VyIjs7CiAgICBtYW4gfCBrYW5nYXJvbyApIGVjaG8gLW4gInR3byI7OwogICAgKikg
+ZWNobyAtbiAiYW4gdW5rbm93biBudW1iZXIgb2YiOzsgIyDigJgq4oCZIGRlZmluZXMgdGhlIGRl
+ZmF1bHQgY2FzZQplc2FjCmVjaG8gIiBsZWdzLiIK' | base64 -d)
+-------------------------------------------------
+2.1. Encode
+
+In general, we can use the base64 command to encode a string:
+
+$ echo -n 'Hello, World!' | base64
+SGVsbG8sIFdvcmxkIQ==
+Copy
+
+In this case, we pipe the result to the base64 command, which performs the encoding. Notably, we’ve used the -n flag with echo to prevent adding a trailing newline character to the string before performing the Base64 encoding. Alternatively, we can replace echo with printf to get the same output without extra switches.
+
+2.2. Decode
+
+To perform decoding, we use the -d flag with the base64 command:
+
+$ base64 -d <<< SGVsbG8sIFdvcmxkIQo=
+Hello, World!
+Copy
+
+Consequently, we obtain the original string from the encoded version.
+
+
+3. Using openssl
+
+Alternatively, we can use the openssl command, which offers a wide range of functions, including the base64 subcommand for encoding and decoding strings:
+
+$ openssl base64 <<< 'Hello, World!'
+SGVsbG8sIFdvcmxkIQo=
+Copy
+
+Here, we see the same result as earlier.
+
+For decoding, we append the -d flag:
+
+$ openssl base64 -d <<< SGVsbG8sIFdvcmxkIQo=
+Hello, World!
+Copy
+
+Notably, if the input string is long, the encoding ends up spanning multiple lines:
+
+$ openssl base64 <<< 'If the input string is long, the base64 encoded string will span multiple lines'
+SWYgdGhlIGlucHV0IHN0cmluZyBpcyBsb25nLCB0aGUgYmFzZTY0IGVuY29kZWQg
+c3RyaW5nIHdpbGwgc3BhbiBtdWx0aXBsZSBsaW5lcwo=
+Copy
+
+To decode a block of Base64-encoded data, we can use a here-document:
+
+$ openssl base64 -d << EOF
+> SWYgdGhlIGlucHV0IHN0cmluZyBpcyBsb25nLCB0aGUgYmFzZTY0IGVuY29kZWQg
+> c3RyaW5nIHdpbGwgc3BhbiBtdWx0aXBsZSBsaW5lcwo=
+> EOF
+If the input string is long, the base64 encoded string will span multiple lines
+Copy
+
+Thus, we’ve restored the output, which has remained intact.
+4. Using Python
+
+Python also provides the base64 module for encoding and decoding data in the Base64 format.
+
+To invoke the base64 Python module, we use the -m flag with the python interpreter:
+
+$ python3 -m base64 <<< 'Hello, World!'
+SGVsbG8sIFdvcmxkIQo=
+Copy
+
+Just like with the other commands, we use the -d flag to perform decoding instead of encoding:
+
+$ python3 -m base64 -d <<< SGVsbG8sIFdvcmxkIQo=
+Hello, World!
+
+5. Using Perl
+
+Finally, Perl has a core module, MIME::Base64, for encoding and decoding data in the Base64 format, similar to Python.
+
+Again, the module is invoked using the -M flag:
+
+$ perl -MMIME::Base64 -ne 'printf "%s",encode_base64($_)' <<< "Hello, World!"
+SGVsbG8sIFdvcmxkIQo=
+Copy
+
+The -n flag is for reading the input line by line, whereas the -e flag is for executing the provided command enclosed in quotes for each line.
+
+Specifically, the command uses printf to print the result of the encode_base64() function, formatted as a string. The encode_base64() function takes in the current line as input, denoted by $_.
+
+For decoding, we only need to replace the encode_base64() function with decode_base64():
+
+$ perl -MMIME::Base64 -ne 'printf "%s",decode_base64($_)' <<< "SGVsbG8sIFdvcmxkIQo="
+Hello, World!
+
+-------------------------------------------------
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
