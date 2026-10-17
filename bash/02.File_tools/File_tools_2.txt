@@ -1,6 +1,6 @@
 
 
---------------------------------------------------------------------------------------
+-------------------------------------------------
 * sort-large-files-efficiently 
 
 ##By specifying –parallel=4, we instruct the sort command to divide the input data into multiple chunks and sort them in parallel using four threads.
@@ -21,10 +21,32 @@ $ time LC_ALL=C sort data.txt > sorted_data_c_locale.txt
 real 0m3.178s
 user 0m4.615s
 sys 0m0.080s
+-------------------------------------------------
+##To periodically check a file size simultaneously across multiple Linux servers
+
+Option 1: Using watch and GNU Parallel via SSH
+run a parallel SSH command wrapped in a watch loop from your local machine to poll all servers at the same interval.
+
+watch -n 5 "parallel -S user@server1,user@server2,user@server3 'stat -c \"%n: %s bytes (%y)\" /path/to/file'"
 
 
---------------------------------------------------------------------------------------
+Option 2: Using a Bash Loop with Background (&) and wait inside watch
 
---------------------------------------------------------------------------------------
+If parallel is not installed, you can trigger concurrent ssh jobs in a bash script loop and collect their outputs:
+bash
+watch -n 5 '
+for host in server1 server2 server3; do
+  ssh -n user@$host "stat -c \"$host -> %n: %s bytes\" /path/to/file" &
+done
+wait
+'
 
---------------------------------------------------------------------------------------
+
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
