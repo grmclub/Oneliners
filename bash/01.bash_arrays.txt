@@ -1,0 +1,97 @@
+
+
+-------------------------------------------------
+##Declare and Assign Values to an Array
+
+$ cat array-declare.sh
+city[0]="Los Angeles"
+city[1]="San Francisco"
+city[5]="New York"
+city[12]="Beverly Hills"
+echo ${city[5]}
+
+##declare an array explicitly using declare -a arrayname.
+declare -a arr
+declare -a arrayname=(element1 element2 element3)
+
+##Access Array Elements
+${array[index]}
+
+##Print the Whole Bash Array
+$ echo ${array[@]}
+one two three four
+
+##Array Length
+A hash # in front of the array name gives the length.
+${#array[@]} or ${#array[*]} returns array length
+
+-------------------------------------------------
+## Loop through an Array
+You can loop through an array using any one of the bash for loop
+methods:
+
+$ cat array-for1.sh
+array=("one" "two" "three" "four")
+for i in "${array[@]}"
+do
+echo $i
+done
+total=${#array[@]}
+for (( i = 0 ; i < $total ; i++ ))
+do
+echo "array[$i] = ${array[$i]}"
+done
+
+$ ./array-for1.sh
+one
+two
+three
+four
+array[0] = one
+array[1] = two
+array[2] = three
+array[3] = four
+
+## Load File Content to an Array
+Create a sample file called states.txt
+$ vi states.txt
+CA
+NV
+LA
+TX
+The following example loads all the words from the states.txt as
+individual array elements.
+$ cat array-file.sh
+array=( `cat states.txt` )
+for i in "${array[@]}"
+do
+echo $i
+done
+$ ./array-file.sh
+CA
+NV
+LA
+TX
+-------------------------------------------------
+* Associative Arrays in Bash
+
+declare -A states
+states=( ["CA"]="California" ["NY"]="New York" )
+echo "You entered: ${states[${1}]}"
+
+
+To loop through the indexes (and not the values), use ${!array[@]} as
+shown:
+$ cat aarray1.sh
+declare -A states
+i=1
+states=( ["CA"]="California" ["NY"]="New York"
+["NV"]="Nevada" ["UT"]="Utah")
+for index in ${!states[@]}
+do
+echo "$((i++)): $index"
+done
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
