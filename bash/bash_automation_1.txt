@@ -1,0 +1,48 @@
+
+https://github.com/SamarMahmoud10/bash-scripting-portfolio
+https://www.howtogeek.com/these-bash-scripts-save-me-time-every-day-on-linux-heres-how-to-use-them/
+https://www.howtogeek.com/4-super-powered-linux-commands-that-even-the-experts-forget-sometimes/
+-------------------------------------------------
+##Linux concepts connecting for better system understanding
+Know where things live.
+Control who can access them.
+See what is running.
+Find what is using the resource.
+Automate what repeats
+
+🐧 Linux Toolkit – Bash Scripting Project
+The toolkit provides one interface to manage common Linux administration tasks:
+
+🔹 User Management – Create/delete users, change passwords, manage groups, and view user information.
+🔹 File Organizer – Automatically organize files into folders based on their extensions.
+🔹 Backup Manager – Create, list, restore, and delete compressed backups.
+🔹 Service Manager – Start, stop, restart, enable/disable services and detect failed services.
+🔹 Log Analyzer – Analyze authentication logs and identify successful/failed login attempts and source IPs.
+
+-------------------------------------------------
+From Bash scripting exercises to a Server Health Checker. 🐧
+
+I’ve been learning Bash scripting as part of my DevOps journey, and I wanted to actually practice what I was learning instead of just going through commands and syntax.
+
+So I built a Progressive Bash Scripting Reference Guide with 59 practical examples, starting from the basics and gradually moving into:
+
+• Conditionals & argument parsing
+• Loops & functions
+• Arrays & associative arrays
+• Text processing with "grep", "sed" & "awk"
+• Log analysis & regex
+• Linux automation patterns
+
+After that, I used what I learned to build a Server Health Checker that connects to remote servers through SSH and checks:
+
+→ System uptime
+→ Disk usage
+→ Memory usage
+→ Failed SSH login attempts
+
+It also uses Bash features like strict mode, "trap", argument parsing, arrays, and safe file handling.
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
