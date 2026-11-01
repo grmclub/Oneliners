@@ -69,7 +69,49 @@ $ python -c "print $d1 - $d2"
 ##Extract numbers from string
 xx=$(echo $file| grep -oE "[0-9]+")
 
+--1. Extract all numbers combined (Pure Bash)
+string="The price is 45 dollars and 99 cents."
+echo "${string//[^0-9]/}"
+# Output: 4599
 
+--2. Extract numbers as individual lines (grep)
+string="Room 101 has 25 chairs and 12 desks."
+echo "$string" | grep -oE '[0-9]+'
+
+Output:
+101
+25
+12
+
+------
+grep -o "[0-9]" <<<"input"
+grep -o "[0-9]" <<<"$var"
+grep -o "[0-9]" <<<"test123"
+grep -o "[0-9]" <<<"1Th5is is a test. 5"
+var="foo1bar2"
+output=$(grep -o "[0-9]" <<<"$var")
+echo "$output"
+grep -oE "[[:digit:]]{1,}" input.file
+------
+
+--3. Extract numbers separated by spaces into an array
+string="Order #789: 5 items, total $120"
+# Replace non-digits with spaces
+clean_string="${string//[^0-9]/ }"
+
+# Read into an array
+read -r -a numbers <<< "$clean_string"
+
+# Access individual numbers
+echo "${numbers[0]}" # Output: 789
+echo "${numbers[1]}" # Output: 5
+echo "${numbers[2]}" # Output: 120
+
+
+--4. Delete all non-numeric characters (tr)
+If you want a quick command-line pipeline to wipe away text and leave only digits, tr (translate) with the -dc (delete complement) flag is highly efficient
+echo "Serial_Number_987654" | tr -dc '0-9'
+# Output: 987654
 -------------------------------------------------
 -------------------------------------------------
 -------------------------------------------------
