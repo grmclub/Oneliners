@@ -1,0 +1,76 @@
+
+Remove comma from a quoted field
+-------------------------------------------------
+##1. Bash convert string to int
+hh=$(expr $hh +0)
+
+##2. In Bash / Shell Scripts (Native Arithmetic)
+	# Define a string variable
+	str_num="42"
+
+	# i. Convert via evaluation / math operation
+	int_num=$((str_num + 0)) 
+
+	# ii. Directly perform arithmetic (Bash treats it as an integer automatically)
+	(( result = str_num * 2 ))
+	echo $result  # Outputs: 84
+
+##3. Handling Decimals / Floating-Point Strings
+	str_decimal="42.5"
+
+	# Use bc for precision math
+	result=$(echo "$str_decimal * 2" | bc)
+	echo $result  # Outputs: 85.0
+	
+You should be aware that bash (as opposed to ksh93, zsh or yash) only performs integer arithmetic. If you have floating point numbers (numbers with decimals), then there are other tools to assist. For example, use bc:
+
+$ b=3.14
+$ echo "$(($b + 1))"
+bash: 3.14 + 1: syntax error: invalid arithmetic operator (error token is ".14 + 1")
+$ echo "$b + 1" | bc -l
+4.14
+
+##Other way, you can use expr
+
+Ex:
+
+$ version="0002"
+$ expr $version + 0
+2
+$ expr $version + 1
+3
+
+##In bash, you can perform the converting from anything to integer using printf -v:
+
+printf -v int '%d\n' "$1" 2>/dev/null
+
+===========
+##Conversion using external utils
+
+Any of these will work from the shell command line. bc is probably your most straight forward solution though.
+
+Using bc:
+$ echo "$d1 - $d2" | bc
+
+Using awk:
+$ echo $d1 $d2 | awk '{print $1 - $2}'
+
+Using perl:
+$ perl -E "say $d1 - $d2"
+
+Using Python:
+$ python -c "print $d1 - $d2"
+
+===========
+
+
+	
+-------------------------------------------------
+##Extract numbers from string
+xx=$(echo $file| grep -oE "[0-9]+")
+
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
